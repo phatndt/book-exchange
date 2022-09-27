@@ -1,11 +1,14 @@
+import 'package:book_exchange/presentation/views/screens/home/home.dart';
+import 'package:book_exchange/presentation/views/screens/pre_home/forgot_password.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/login.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/welcome.dart';
 import 'package:flutter/material.dart';
-
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'colors/colors.dart';
+import 'presentation/views/screens/pre_home/signup.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -21,6 +24,8 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: S.colors.black,
       ),
       //home: const LoginScreen(),
+      //home: const HomeScreen(),
+      //home: const SignUpScreen(),
       home: const WelcomeScreen(),
     );
   }
