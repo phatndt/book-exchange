@@ -3,45 +3,63 @@ import 'package:flutter/material.dart';
 class S {
   static final colors = _Colors();
   static final textStyles = _TextStyles();
+  static final size = _Sized();
 }
 
 class _Colors {
   final black = const Color.fromARGB(255, 53, 53, 53);
-  final white = const Color.fromARGB(255, 247, 246, 247);
-  final orange = const Color.fromARGB(255, 150, 27, 25);
+  final grey = const Color.fromARGB(255, 105, 105, 105);
+  final white = const Color.fromARGB(255, 217, 217, 217);
+  final orange = const Color.fromARGB(255, 254, 55, 48);
+  final orangeDesigned = const Color.fromARGB(255, 228, 49, 49);
+  final navyBlue = const Color.fromARGB(255, 46, 98, 182);
   final mainColor = const MaterialColor(
-    0xFF961B19,
+    0xFFFE3730,
     <int, Color>{
-      50: Color(0xFF961B19),
-      100: Color(0xFF961B19),
-      200: Color(0xFF961B19),
-      300: Color(0xFF961B19),
-      400: Color(0xFF961B19),
-      500: Color(0xFF961B19),
-      600: Color(0xFF961B19),
-      700: Color(0xFF961B19),
-      800: Color(0xFF961B19),
-      900: Color(0xFF961B19),
+      50: Color(0xFFFE3730),
+      100: Color(0xFFFE3730),
+      200: Color(0xFFFE3730),
+      300: Color(0xFFFE3730),
+      400: Color(0xFFFE3730),
+      500: Color(0xFFFE3730),
+      600: Color(0xFFFE3730),
+      700: Color(0xFFFE3730),
+      800: Color(0xFFFE3730),
+      900: Color(0xFFFE3730),
     },
   );
+}
+
+class _Sized {
+  final double length_10 = 10;
+  final double length_20 = 20;
+  final double length_40 = 40;
+  final double length_50 = 50;
+  final double length_100 = 100;
+  final double length_130 = 130;
+  final double length_150 = 150;
+  final double length_170 = 170;
+  final double length_200 = 200;
+  final double length_230 = 230;
+  final double length_280 = 280;
 }
 
 class _TextStyles {
   final bigTitle = const TextStyle(
     fontFamily: 'Lato',
-    color: Colors.white,
+    color: Color.fromARGB(255, 217, 217, 217),
     fontSize: 20,
   );
 
   final smallTitle = const TextStyle(
     fontFamily: 'Lato',
-    color: Colors.white,
+    color: Color.fromARGB(255, 217, 217, 217),
     fontSize: 16,
   );
 
   final buttonText = const TextStyle(
     fontFamily: 'Lato',
-    color: Colors.white,
+    color: Color.fromARGB(255, 217, 217, 217),
     fontSize: 16,
     fontWeight: FontWeight.w500,
   );
@@ -49,14 +67,14 @@ class _TextStyles {
   final textfieldText = const TextStyle(
     fontFamily: 'Lato',
     //color: Color.fromARGB(255, 150, 27, 25),
-    color: Colors.white,
+    color: Color.fromARGB(255, 217, 217, 217),
     fontSize: 20,
     fontWeight: FontWeight.w400,
   );
 
   final textfieldTitle = const TextStyle(
     fontFamily: 'Lato',
-    color: Colors.white,
+    color: Color.fromARGB(255, 217, 217, 217),
     fontSize: 18,
     fontWeight: FontWeight.w400,
   );

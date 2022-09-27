@@ -30,8 +30,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  font_awesome_flutter: ^10.2.1
 
+  fluttertoast: ^8.0.9
+  anim_search_bar: ^2.0.2
+  font_awesome_flutter: ^10.2.1
   #  # For Google and Firebase
   # firebase_core: ^1.8.0
   # firebase_auth: ^3.1.4
@@ -43,8 +45,9 @@ dependencies:
   flutter_hooks: ^0.18.0
   hooks_riverpod: '1.0.3'
 
+
   # # For Networking
-  # dio: ^4.0.1
+  dio: ^4.0.6
   # dio_firebase_performance: ^0.3.1-dev.3
   # retrofit: ^2.0.1
   # # # For User-Agent Client Hints
@@ -100,6 +103,8 @@ dev_dependencies:
 flutter_gen:
   integrations:
     flutter_svg: true
+
+
 
 flutter:
   uses-material-design: true
