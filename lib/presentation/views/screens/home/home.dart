@@ -1,4 +1,5 @@
 import 'package:book_exchange/presentation/views/screens/home/library/collection.dart';
+import 'package:book_exchange/presentation/views/screens/home/library/share.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -15,10 +16,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
   final tabs = [
-    const CollectionScreen(),
-    const Center(
-      child: Text('Adu1'),
-    ),
+    CollectionScreen(),
+    ShareScreen(),
     const Center(
       child: Text('Adu2'),
     ),
@@ -44,11 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(FontAwesomeIcons.book),
-            label: 'Library',
+            label: 'Collection',
           ),
           BottomNavigationBarItem(
             icon: Icon(FontAwesomeIcons.binoculars),
-            label: 'Explore',
+            label: 'Share',
           ),
           BottomNavigationBarItem(
             icon: Icon(FontAwesomeIcons.peopleGroup),
