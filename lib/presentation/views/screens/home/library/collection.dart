@@ -1,117 +1,80 @@
-import 'package:anim_search_bar/anim_search_bar.dart';
-import 'package:book_exchange/presentation/views/screens/home/library/recustom_elevated_button.dart';
-import 'package:book_exchange/presentation/views/widgets/filled_button.dart';
+import 'package:book_exchange/presentation/views/screens/home/library/add_book.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter/foundation.dart';
-import '../../../../../colors/colors.dart';
 
-class CollectionScreen extends StatefulWidget {
+import '../../../../../colors/colors.dart';
+import 'book_item.dart';
+
+class CollectionScreen extends StatelessWidget {
   const CollectionScreen({Key? key}) : super(key: key);
 
   @override
-  State<CollectionScreen> createState() => _CollectionScreenState();
-}
-
-bool isVisible = true;
-
-class _CollectionScreenState extends State<CollectionScreen> {
-  @override
   Widget build(BuildContext context) {
-    debugPrint('visibility: $isVisible');
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (builder) => AddBookWidget(),
+          );
+        },
+        child: const Icon(Icons.add),
+      ),
+      backgroundColor: S.colors.white,
       body: Column(
+        // physics: const NeverScrollableScrollPhysics(),
         children: [
           SizedBox(
-            height: S.size.length_40,
+            height: S.size.length_50,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                  child: Container(
-                width: 100,
-              )),
-              Visibility(
-                visible: isVisible,
-                child: ReCustomElevatedButton(
-                  height: 40,
-                  width: 120,
-                  text: 'Collection',
-                  onPress: () {},
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(S.size.length_10),
-                      bottomLeft: Radius.circular(S.size.length_10),
-                    ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: S.size.length_10,
+            ),
+            child: Row(
+              children: [
+                RichText(
+                  text: TextSpan(
+                    children: [
+                      WidgetSpan(
+                        child: Icon(
+                          FontAwesomeIcons.book,
+                          color: S.colors.grey,
+                          size: 22,
+                        ),
+                      ),
+                      const TextSpan(text: '  '),
+                      TextSpan(
+                        text: '5 Book Selected',
+                        style: S.textStyles.geryOnWhiteText,
+                      )
+                    ],
                   ),
                 ),
-              ),
-              Visibility(
-                visible: isVisible,
-                child: Container(
-                  width: 2,
-                  height: 40,
-                  color: S.colors.black,
-                ),
-              ),
-              Visibility(
-                visible: isVisible,
-                child: ReCustomElevatedButton(
-                  height: 40,
-                  width: 120,
-                  text: 'Share',
-                  onPress: () {},
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(S.size.length_10),
-                      bottomRight: Radius.circular(S.size.length_10),
-                    ),
-                  ),
-                ),
-              ),
-
-              // RawMaterialButton(
-              //   onPressed: () {
-              //     setState(() {
-              //       if (isVisible) {
-              //         isVisible = false;
-              //       } else {
-              //         isVisible = true;
-              //       }
-              //     });
-              //   },
-              //   elevation: 2.0,
-              //   fillColor: S.colors.white,
-              //   child: const Icon(
-              //     FontAwesomeIcons.magnifyingGlass,
-              //     size: 15.0,
-              //   ),
-              //   padding: EdgeInsets.all(S.size.length_10),
-              //   shape: CircleBorder(),
-              // )
-            ],
+              ],
+            ),
           ),
-          GestureDetector(
-            onTap: () {
-              setState(() {
-                if (isVisible) {
-                  isVisible = false;
-                } else {
-                  isVisible = true;
-                }
-              });
-              debugPrint('visibility: $isVisible');
-            },
-            child: AnimSearchBar(
-              width: 200,
-              textController: TextEditingController(),
-              helpText: 'Searh Books...',
-              color: S.colors.white,
-              animationDurationInMilli: 375,
-              closeSearchOnSuffixTap: true,
-              onSuffixTap: () {},
-              rtl: true,
+          Expanded(
+            child: GridView.count(
+              padding: EdgeInsets.symmetric(vertical: S.size.length_10),
+              shrinkWrap: true,
+              crossAxisCount: 3,
+              mainAxisSpacing: 7.0,
+              scrollDirection: Axis.vertical,
+              children: List.generate(
+                50,
+                (index) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: S.size.length_10,
+                    ),
+                    child: BookItem(
+                      imageURL: S.colors.urlEx,
+                      isPressed: false,
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],
