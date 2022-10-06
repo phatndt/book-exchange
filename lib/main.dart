@@ -1,3 +1,5 @@
+import 'package:book_exchange/core/app_route.dart';
+import 'package:book_exchange/core/route_paths.dart';
 import 'package:book_exchange/presentation/views/screens/home/home.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/forgot_password.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/login.dart';
@@ -18,14 +20,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: S.colors.mainColor,
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: S.colors.orange,
         ),
-        scaffoldBackgroundColor: S.colors.black,
+        scaffoldBackgroundColor: S.colors.background,
       ),
-      //home: const LoginScreen(),
-      //home: const HomeScreen(),
-      //home: const SignUpScreen(),
+      onGenerateRoute: AppRouter.generateRoute,
+      initialRoute: RoutePaths.welcome,
       home: const WelcomeScreen(),
     );
   }

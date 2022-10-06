@@ -1,7 +1,6 @@
+import 'package:book_exchange/data/repos/user_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../../domain/repos/user_repo.dart';
 
 class PreHomeSetting {
   // SIGN UP ===================
