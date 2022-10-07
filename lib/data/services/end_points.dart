@@ -15,6 +15,8 @@ class Endpoints {
 
   static const String register = '/authentication/register';
 
+  static const String username = '/authentication/username';
+
   //can define other
 
 }

@@ -79,6 +79,7 @@ dependencies:
   # flutter_svg: ^0.23.0+1
   # video_player: ^2.2.5
   top_snackbar_flutter: ^2.1.1
+  modal_progress_hud_nsn: ^0.2.0
 
 
 dev_dependencies:
