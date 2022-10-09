@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../../../../colors/colors.dart';
@@ -18,23 +20,32 @@ class BookItem extends StatelessWidget {
       onTap: () {
         isPressed = !isPressed;
       },
-      child: Container(
-        // width: 120,
-        // height: 160,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: isPressed == true ? S.colors.navyBlue : S.colors.grey,
-            width: isPressed == true ? 1.4 : 1,
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              S.size.length_10,
+      child: Material(
+        color: Colors.transparent,
+        elevation: 4,
+        child: Container(
+          // width: 120,
+          // height: 160,
+          decoration: BoxDecoration(
+            border: isPressed
+                ? Border.all(
+                    color: S.colors.navyBlue,
+                    width: 1.4,
+                  )
+                : Border.all(
+                    color: S.colors.grey,
+                    width: 1,
+                  ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                S.size.length_10,
+              ),
             ),
-          ),
-          color: Colors.transparent,
-          image: DecorationImage(
-            image: NetworkImage(imageURL),
-            fit: BoxFit.cover,
+            color: Colors.transparent,
+            image: DecorationImage(
+              image: NetworkImage(imageURL),
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),
