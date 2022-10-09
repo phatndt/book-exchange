@@ -4,4 +4,5 @@ class RoutePaths {
   static const signUp = '/welcome/register';
   static const forgot = '/welcome/forgot';
   static const home = '/home';
+  static const share = '/share';
 }

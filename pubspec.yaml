@@ -32,8 +32,8 @@ dependencies:
 
 
 
-
-    
+  cloudinary_sdk: ^4.0.2+10
+  
   image_picker: ^0.8.5+3
   flutter_rating_bar: ^4.0.1
   xen_popup_card: ^0.0.1
@@ -54,6 +54,7 @@ dependencies:
 
   # # For Networking
   dio: ^4.0.6
+  jwt_decode: ^0.3.1
   # dio_firebase_performance: ^0.3.1-dev.3
   retrofit: ^2.0.1
   # # # For User-Agent Client Hints

@@ -1,5 +1,8 @@
 import 'dart:developer';
 
+import 'package:book_exchange/presentation/views/screens/home/home.dart';
+import 'package:book_exchange/presentation/views/screens/home/library/collection.dart';
+import 'package:book_exchange/presentation/views/screens/home/library/share.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -76,7 +79,7 @@ class LoginSettingNotifier extends StateNotifier<LoginSetting> {
               _userRepo.user = value.data.user,
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
               ),
             });
       }).catchError(
