@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:book_exchange/core/extension/function_extension.dart';
 import 'package:book_exchange/data/entities/api_response.dart';
 import 'package:book_exchange/data/services/dio_exception.dart';
 import 'package:book_exchange/data/services/dio_service.dart';
@@ -68,8 +69,10 @@ class UserRepo {
       final body = {
         "username": username,
       };
-      final response =
-          await DioService().dio.post(Endpoints.username, data: body,options: Options(headers: {"Authorization":""}));
+      final response = await DioService().dio.post(
+            Endpoints.username,
+            data: body,
+          );
       return ApiResponse<bool>(
         data: response.data['data'],
         statusCode: response.data['statusCode'],

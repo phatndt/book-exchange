@@ -39,6 +39,8 @@ class _Sized {
   final double length_20 = 20;
   final double length_40 = 40;
   final double length_50 = 50;
+  final double length_64 = 64;
+  final double length_80 = 80;
   final double length_100 = 100;
   final double length_130 = 130;
   final double length_150 = 150;

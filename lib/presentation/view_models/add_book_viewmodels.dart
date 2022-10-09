@@ -9,7 +9,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../domain/repos/user_repo.dart';
+import '../../data/repos/user_repo.dart';
+
 
 class AddBookSetting {
   final TextEditingController bookName;

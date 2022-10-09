@@ -4,6 +4,7 @@ import 'package:book_exchange/presentation/views/screens/pre_home/forgot_passwor
 import 'package:book_exchange/presentation/views/screens/pre_home/login.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/signup.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/welcome.dart';
+import 'package:book_exchange/presentation/views/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -34,7 +35,11 @@ class AppRouter {
           builder: (_) => const MainScreen(),
           settings: settings,
         );
-
+      case RoutePaths.profile:
+        return MaterialPageRoute(
+          builder: (_) => const ProfileScreen(),
+          settings: settings,
+        );
       default:
         return MaterialPageRoute(
           builder: (_) => const WelcomeScreen(),
