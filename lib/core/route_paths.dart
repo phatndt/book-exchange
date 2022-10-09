@@ -5,4 +5,6 @@ class RoutePaths {
   static const forgot = '/welcome/forgot';
   static const main = '/mainscreen';
   static const profile = '/profile';
+  static const home = '/home';
+  static const share = '/share';
 }

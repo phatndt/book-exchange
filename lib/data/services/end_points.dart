@@ -18,5 +18,7 @@ class Endpoints {
   static const String username = '/authentication/username';
 
   //can define other
+  static const String uploadBook = '/book/create';
 
+  static const String getBookByUserId = '/book/read/user';
 }

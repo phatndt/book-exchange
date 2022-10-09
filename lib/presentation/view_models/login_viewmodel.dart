@@ -2,6 +2,9 @@ import 'dart:developer';
 
 import 'package:book_exchange/core/extension/function_extension.dart';
 import 'package:book_exchange/core/route_paths.dart';
+import 'package:book_exchange/presentation/views/screens/home/home.dart';
+import 'package:book_exchange/presentation/views/screens/home/library/collection.dart';
+import 'package:book_exchange/presentation/views/screens/home/library/share.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

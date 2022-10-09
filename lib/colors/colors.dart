@@ -8,7 +8,7 @@ class S {
 
 class _Colors {
   final background = const Color(0xFF41444B);
-  final orange = const Color(0xFFF1654B);
+  final orange = Color.fromARGB(255, 241, 101, 75);
   final urlEx =
       'https://img.freepik.com/free-vector/abstract-elegant-winter-book-cover_23-2148798745.jpg?w=740&t=st=1664957292~exp=1664957892~hmac=64aa003f02ff1c7147d9908a482088831324212c51d143b30f76a995964697fa';
   final black = const Color.fromARGB(255, 53, 53, 53);
@@ -57,6 +57,13 @@ class _TextStyles {
     fontSize: 20,
     decoration: TextDecoration.none,
   );
+  final boldTitle = const TextStyle(
+    fontFamily: 'Lato',
+    color: Color.fromARGB(255, 217, 217, 217),
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+    decoration: TextDecoration.none,
+  );
 
   final smallTitle = const TextStyle(
     fontFamily: 'Lato',
@@ -68,6 +75,13 @@ class _TextStyles {
   final geryOnWhiteText = const TextStyle(
     fontFamily: 'Lato',
     color: Color.fromARGB(255, 105, 105, 105),
+    fontSize: 17,
+    fontWeight: FontWeight.w500,
+    decoration: TextDecoration.none,
+  );
+  final whiteOnBlackText = const TextStyle(
+    fontFamily: 'Lato',
+    color: Color.fromARGB(255, 217, 217, 217),
     fontSize: 17,
     fontWeight: FontWeight.w500,
     decoration: TextDecoration.none,
@@ -107,7 +121,7 @@ class _TextStyles {
 
   final addBookTextfield = const TextStyle(
     fontFamily: 'Lato',
-    color: Color.fromARGB(255, 53, 53, 53),
+    color: Color.fromARGB(255, 217, 217, 217),
     fontSize: 18,
     fontWeight: FontWeight.w400,
     decoration: TextDecoration.none,
