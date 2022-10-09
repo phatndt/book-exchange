@@ -31,10 +31,9 @@ dependencies:
     sdk: flutter
 
 
-
-  cloudinary_sdk: ^4.0.2+10
   
-  image_picker: ^0.8.5+3
+  image_picker: '0.8.5'
+  cloudinary_sdk: ^4.0.2+10
   flutter_rating_bar: ^4.0.1
   xen_popup_card: ^0.0.1
   fluttertoast: ^8.0.9
@@ -48,7 +47,7 @@ dependencies:
   # firebase_performance: ^0.7.1+2
 
   # For Architecture
-  flutter_hooks: ^0.18.0
+  flutter_hooks: '0.18.0'
   hooks_riverpod: '1.0.3'
 
 
@@ -56,7 +55,7 @@ dependencies:
   dio: ^4.0.6
   jwt_decode: ^0.3.1
   # dio_firebase_performance: ^0.3.1-dev.3
-  retrofit: ^2.0.1
+  # retrofit: ^2.0.1
   # # # For User-Agent Client Hints
   # # ua_client_hints: ^1.1.0
 
@@ -79,7 +78,8 @@ dependencies:
   # google_fonts: ^2.1.0
   # flutter_svg: ^0.23.0+1
   # video_player: ^2.2.5
-  top_snackbar_flutter: ^2.1.1
+  top_snackbar_flutter: '2.0.0'
+  modal_progress_hud_nsn: ^0.1.0-nullsafety-1
 
 
 dev_dependencies:

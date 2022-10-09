@@ -1,11 +1,12 @@
 import 'dart:developer';
 
+import 'package:book_exchange/core/extension/function_extension.dart';
+import 'package:book_exchange/core/route_paths.dart';
 import 'package:book_exchange/presentation/views/screens/home/home.dart';
 import 'package:book_exchange/presentation/views/screens/home/library/collection.dart';
 import 'package:book_exchange/presentation/views/screens/home/library/share.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/welcome.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
@@ -44,6 +45,7 @@ class LoginSetting {
   }
 
   get passwordVisible => isPasswordVisible;
+  get loadingLogin => isLoadingLogin;
 }
 
 class LoginSettingNotifier extends StateNotifier<LoginSetting> {
@@ -53,6 +55,7 @@ class LoginSettingNotifier extends StateNotifier<LoginSetting> {
             emailController: TextEditingController(),
             passwordController: TextEditingController(),
             isPasswordVisible: true,
+            isLoadingLogin: false,
           ),
         ) {
     // _authRepo = ref.watch(authRepoProvider);
@@ -68,36 +71,58 @@ class LoginSettingNotifier extends StateNotifier<LoginSetting> {
     state = newState;
   }
 
+  void cleanEmail() {
+    final newState = state.copy(emailController: TextEditingController());
+    state = newState;
+  }
+
+  void setLoadingLogin() {
+    final newState = state.copy(isLoadingLogin: !state.isLoadingLogin);
+    state = newState;
+  }
+
   login(context) async {
+    setLoadingLogin();
     if (state.emailController.text.isNotEmpty ||
         state.passwordController.text.isNotEmpty) {
       await _userRepo
           .login(state.emailController.text, state.passwordController.text)
           .then((value) {
-        value.data.token.ifNotEmpty(() => {
-              _userRepo.jwtToken = value.data.token,
-              _userRepo.user = value.data.user,
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
+        value.data.token.ifNotEmpty(
+          () => {
+            setLoadingLogin(),
+            _userRepo.jwtToken = value.data.token,
+            _userRepo.user = value.data.user,
+            Navigator.pushNamed(context, RoutePaths.main),
+          },
+          () => {
+            showTopSnackBar(
+              context,
+              const CustomSnackBar.info(
+                message: "Error when register. Please try later!",
               ),
-            });
+              displayDuration: const Duration(seconds: 2),
+            )
+          },
+        );
       }).catchError(
         (onError) {
+          setLoadingLogin();
           showTopSnackBar(
             context,
-            CustomSnackBar.error(
-              message: "Lỗi: $onError",
+            CustomSnackBar.info(
+              message: "Error: $onError",
             ),
             displayDuration: const Duration(seconds: 2),
           );
         },
       );
     } else {
+      setLoadingLogin();
       showTopSnackBar(
         context,
-        const CustomSnackBar.error(
-          message: "Vui lòng điền đầy đủ thông tin",
+        const CustomSnackBar.info(
+          message: "Please enter username and password",
         ),
       );
     }
@@ -107,11 +132,3 @@ class LoginSettingNotifier extends StateNotifier<LoginSetting> {
 final loginSettingNotifierProvider =
     StateNotifierProvider<LoginSettingNotifier, LoginSetting>(
         ((ref) => LoginSettingNotifier(ref)));
-
-extension Ext on Object? {
-  void ifNotEmpty(Function() action) {
-    if (this != "") {
-      action();
-    }
-  }
-}
