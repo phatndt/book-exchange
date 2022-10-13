@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:book_exchange/core/core.dart';
 import 'package:book_exchange/core/route_paths.dart';
@@ -10,12 +8,12 @@ import 'package:book_exchange/data/repos/book_repo.dart';
 import 'package:cloudinary_sdk/cloudinary_sdk.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
+import '../../core/extension/function_extension.dart';
 import '../../data/repos/user_repo.dart';
 
 class AddBookSetting {
@@ -25,7 +23,7 @@ class AddBookSetting {
   double bookRating;
   XFile bookImage;
 
-  bool isLoadingLogin = false;
+  bool isLoadingAddBook = false;
 
   AddBookSetting({
     required this.bookName,
@@ -33,6 +31,7 @@ class AddBookSetting {
     required this.bookDescription,
     required this.bookRating,
     required this.bookImage,
+    required this.isLoadingAddBook,
   });
 
   AddBookSetting copy({
@@ -41,14 +40,15 @@ class AddBookSetting {
     TextEditingController? bookDescription,
     double? bookRating,
     XFile? bookImage,
+    bool? isLoadingAddBook,
   }) =>
       AddBookSetting(
-        bookAuthor: bookAuthor ?? this.bookAuthor,
-        bookImage: bookImage ?? this.bookImage,
-        bookName: bookName ?? this.bookName,
-        bookDescription: bookDescription ?? this.bookDescription,
-        bookRating: bookRating ?? this.bookRating,
-      );
+          bookAuthor: bookAuthor ?? this.bookAuthor,
+          bookImage: bookImage ?? this.bookImage,
+          bookName: bookName ?? this.bookName,
+          bookDescription: bookDescription ?? this.bookDescription,
+          bookRating: bookRating ?? this.bookRating,
+          isLoadingAddBook: isLoadingAddBook ?? this.isLoadingAddBook);
 
   //AddBookSetting copyWith({}) {return AddBookSetting(emailClear: emailClear, isVisible: isVisible, emailController: emailController, passwordController: passwordController)}
 }
@@ -62,6 +62,7 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
             bookImage: XFile(''),
             bookName: TextEditingController(),
             bookRating: 0.0,
+            isLoadingAddBook: false,
           ),
         ) {
     // _authRepo = ref.watch(authRepoProvider);
@@ -73,6 +74,11 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
   // late AuthRepo _authRepo;
   late UserRepo _userRepo;
   late BookRepo _bookRepo;
+
+  void setLoadingAddBook() {
+    final newState = state.copy(isLoadingAddBook: !state.isLoadingAddBook);
+    state = newState;
+  }
 
   void showImageSourceActionSheet(BuildContext context) {
     if (Platform.isIOS) {
@@ -126,12 +132,10 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
     if (state.bookName.text.isEmpty ||
         state.bookAuthor.text.isEmpty ||
         state.bookDescription.text.isEmpty ||
-
-        // state.bookRating.toString().isEmpty||
         state.bookImage.path.isEmpty) {
       showTopSnackBar(
         context,
-        CustomSnackBar.error(
+        const CustomSnackBar.error(
           message: "Fill up the blank space",
         ),
         displayDuration: const Duration(seconds: 2),
@@ -171,27 +175,33 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
               userId: getUserIdFromToken(_userRepo.jwtToken),
             ),
             _userRepo.jwtToken)
-        .then((value) {
-      Navigator.pushNamed(
-        context,
-        RoutePaths.home,
-      );
-    }).catchError((onError) {
-      showTopSnackBar(
-        context,
-        CustomSnackBar.error(
-          message: "Lỗi: $onError",
-        ),
-        displayDuration: const Duration(seconds: 2),
-      );
+        .then(
+      (value) {
+        Navigator.pushNamed(
+          context,
+          RoutePaths.home,
+        );
+        showTopSnackBar(
+          context,
+          CustomSnackBar.error(
+            message: value.message,
+          ),
+          displayDuration: const Duration(seconds: 2),
+        );
+        setLoadingAddBook();
+      },
+    ).catchError((onError) {
+      setLoadingAddBook();
+      catchOnError(context, onError);
     });
   }
 
   void updateImageToCloudinary(context) async {
+    setLoadingAddBook();
     if (!checkAddBookInput(context)) {
+      setLoadingAddBook();
       return;
     }
-    ;
     final cloudinary = Cloudinary.full(
       apiKey: '735947945251852',
       apiSecret: 'O-Rd18L74ukuNN91I8vrzBJXeGI',
@@ -206,20 +216,21 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
             folder: 'adu',
             fileName: state.bookImage.name,
             progressCallback: (count, total) {
-              print('Uploading image from file with progress: $count/$total');
+              log('Uploading image from file with progress: $count/$total');
             }))
         .catchError((onError) {
       showTopSnackBar(
         context,
         CustomSnackBar.error(
-          message: "Lỗi: $onError",
+          message: "Error: $onError",
         ),
         displayDuration: const Duration(seconds: 2),
       );
+      setLoadingAddBook();
     });
 
     if (response.isSuccessful) {
-      print('Get your image from with ${response.secureUrl}');
+      log('Get your image from with ${response.secureUrl}');
       uploadBookToDB(context, response.secureUrl!);
     } else {}
   }

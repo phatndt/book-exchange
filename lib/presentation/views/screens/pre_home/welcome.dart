@@ -39,7 +39,7 @@ class WelcomeScreen extends StatelessWidget {
                   CustomOutlineButton(
                     text: 'EXISTING USER',
                     onPress: () {
-                      Navigator.pushNamed(context, RoutePaths.logIn);
+                      Navigator.pushReplacementNamed(context, RoutePaths.logIn);
                     },
                     width: S.size.length_280,
                   ),
@@ -50,7 +50,8 @@ class WelcomeScreen extends StatelessWidget {
                     width: S.size.length_280,
                     text: 'NEW USER',
                     onPress: () {
-                      Navigator.pushNamed(context, RoutePaths.signUp);
+                      Navigator.pushReplacementNamed(
+                          context, RoutePaths.signUp);
                     },
                   ),
                 ],

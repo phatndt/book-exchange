@@ -4,6 +4,7 @@ import 'package:book_exchange/presentation/views/screens/pre_home/forgot_passwor
 import 'package:book_exchange/presentation/views/screens/pre_home/login.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/signup.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/welcome.dart';
+import 'package:book_exchange/presentation/views/screens/profile/change_password_screen.dart';
 import 'package:book_exchange/presentation/views/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -38,6 +39,11 @@ class AppRouter {
       case RoutePaths.profile:
         return MaterialPageRoute(
           builder: (_) => const ProfileScreen(),
+          settings: settings,
+        );
+      case RoutePaths.changePassword:
+        return MaterialPageRoute(
+          builder: (_) => const ChangePasswordScreen(),
           settings: settings,
         );
       default:

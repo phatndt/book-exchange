@@ -5,3 +5,10 @@ String getUserIdFromToken(String token) {
   String userId = payload['userId'];
   return userId;
 }
+
+String getUsernameFromToken(String token) {
+  Map<String, dynamic> payload = Jwt.parseJwt(token);
+  String userId = payload['sub'];
+  return userId;
+}
+

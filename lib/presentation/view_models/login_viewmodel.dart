@@ -1,11 +1,5 @@
-import 'dart:developer';
-
 import 'package:book_exchange/core/extension/function_extension.dart';
 import 'package:book_exchange/core/route_paths.dart';
-import 'package:book_exchange/presentation/views/screens/home/home.dart';
-import 'package:book_exchange/presentation/views/screens/home/library/collection.dart';
-import 'package:book_exchange/presentation/views/screens/home/library/share.dart';
-import 'package:book_exchange/presentation/views/screens/pre_home/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -93,7 +87,10 @@ class LoginSettingNotifier extends StateNotifier<LoginSetting> {
             setLoadingLogin(),
             _userRepo.jwtToken = value.data.token,
             _userRepo.user = value.data.user,
-            Navigator.pushNamed(context, RoutePaths.main),
+            Navigator.pushNamedAndRemoveUntil(
+                context, RoutePaths.main, (route) => false),
+            state.emailController.clear(),
+            state.passwordController.clear(),
           },
           () => {
             showTopSnackBar(
@@ -130,5 +127,5 @@ class LoginSettingNotifier extends StateNotifier<LoginSetting> {
 }
 
 final loginSettingNotifierProvider =
-    StateNotifierProvider<LoginSettingNotifier, LoginSetting>(
+    StateNotifierProvider.autoDispose<LoginSettingNotifier, LoginSetting>(
         ((ref) => LoginSettingNotifier(ref)));

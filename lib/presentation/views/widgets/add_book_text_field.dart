@@ -45,7 +45,7 @@ class AddBookTextField extends StatelessWidget {
             focusedBorder: OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(5.0)),
               borderSide: BorderSide(
-                color: S.colors.white,
+                color: S.colors.orange,
                 width: 1.5,
               ),
             ),

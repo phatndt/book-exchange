@@ -70,31 +70,36 @@ class CollectionScreen extends ConsumerWidget {
                       listBooksProvider(ref.watch(userRepoProvider).jwtToken))
                   .when(
                     data: (data) {
-                      return GridView.builder(
-                        padding:
-                            EdgeInsets.symmetric(vertical: S.size.length_10),
-                        shrinkWrap: true,
-                        itemCount: data.data.length,
-                        scrollDirection: Axis.vertical,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          childAspectRatio: 0.725,
+                      return RefreshIndicator(
+                        onRefresh: () async => ref.refresh(listBooksProvider(
+                            ref.watch(userRepoProvider).jwtToken)),
+                        child: GridView.builder(
+                          padding:
+                              EdgeInsets.symmetric(vertical: S.size.length_10),
+                          shrinkWrap: true,
+                          itemCount: data.data.length,
+                          scrollDirection: Axis.vertical,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                            childAspectRatio: 0.725,
+                          ),
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: S.size.length_10,
+                              ),
+                              child: BookItem(
+                                imageURL: data.data[index].imageURL,
+                                isPressed: ref
+                                    .watch(collectionSettingNotifierProvider)
+                                    .isPressed,
+                              ),
+                            );
+                          },
                         ),
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: S.size.length_10,
-                            ),
-                            child: BookItem(
-                              imageURL: data.data[index].imageURL,
-                              isPressed: ref
-                                  .watch(collectionSettingNotifierProvider)
-                                  .isPressed,
-                            ),
-                          );
-                        },
                       );
                     },
                     error: (error, stack) => Center(),

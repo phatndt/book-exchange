@@ -21,4 +21,6 @@ class Endpoints {
   static const String uploadBook = '/book/create';
 
   static const String getBookByUserId = '/book/read/user';
+
+  static const String changePassword = '/profile/changePassword';
 }

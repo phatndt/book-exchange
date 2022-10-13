@@ -82,4 +82,29 @@ class UserRepo {
       throw DioExceptions.fromDioError(e).toString();
     }
   }
+
+  Future<ApiResponse<String>> resetPassword(
+    String username,
+    String oldPassword,
+    String newPassword,
+    String token,
+  ) async {
+    try {
+      final body = {
+        "username": username,
+        "oldPassword": oldPassword,
+        "newPassword": newPassword
+      };
+      final response = await DioService().dio.post(Endpoints.changePassword,
+          data: body,
+          options: Options(headers: {"Authorization": "Bearer $token"}));
+      return ApiResponse<String>(
+        data: response.data['data'],
+        statusCode: response.data['statusCode'],
+        message: response.data['message'],
+      );
+    } on DioError catch (e) {
+      throw DioExceptions.fromDioError(e);
+    }
+  }
 }

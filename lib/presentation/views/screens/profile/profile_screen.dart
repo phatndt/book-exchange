@@ -1,6 +1,8 @@
 import 'dart:developer';
 
+import 'package:book_exchange/core/route_paths.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../colors/colors.dart';
 
@@ -49,15 +51,108 @@ class ProfileScreen extends StatelessWidget {
             SizedBox(
               height: S.size.length_40,
             ),
-            InkWell(
-              onTap: () {},
-              child: Text("Change information"),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: S.size.length_20),
+              child: Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(S.size.length_10),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    ProfileCard(
+                      icon: FontAwesomeIcons.user,
+                      name: "Information",
+                      onTap: () {},
+                    ),
+                    Divider(
+                      height: 0.5,
+                      color: S.colors.grey,
+                    ),
+                    ProfileCard(
+                      icon: FontAwesomeIcons.passport,
+                      name: "Change password",
+                      onTap: () {
+                        Navigator.pushNamed(context, RoutePaths.changePassword);
+                      },
+                    ),
+                    Divider(
+                      height: 0.5,
+                      color: S.colors.grey,
+                    ),
+                    ProfileCard(
+                      icon: FontAwesomeIcons.locationDot,
+                      name: "Location",
+                      onTap: () {},
+                    ),
+                    Divider(
+                      height: 0.5,
+                      color: S.colors.grey,
+                    ),
+                    ProfileCard(
+                      icon: FontAwesomeIcons.accessibleIcon,
+                      name: "Log out",
+                      onTap: () {
+                        Navigator.pushReplacementNamed(
+                            context, RoutePaths.logIn);
+                      },
+                    ),
+                    Divider(
+                      height: 0.5,
+                      color: S.colors.grey,
+                    ),
+                  ],
+                ),
+              ),
             ),
-            InkWell(
-              child: Text("Change information"),
-            )
           ],
         )),
+      ),
+    );
+  }
+}
+
+class ProfileCard extends StatelessWidget {
+  const ProfileCard({
+    Key? key,
+    required this.icon,
+    required this.name,
+    required this.onTap,
+  }) : super(key: key);
+
+  final IconData icon;
+  final String name;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(S.size.length_10),
+        height: S.size.length_64,
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+            ),
+            SizedBox(
+              width: S.size.length_20,
+            ),
+            Text(
+              name,
+              style: const TextStyle(
+                fontFamily: 'Lato',
+                color: Colors.black,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

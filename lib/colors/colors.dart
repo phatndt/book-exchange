@@ -31,6 +31,35 @@ class _Colors {
       900: Color(0xFFF1654B),
     },
   );
+  //Accent
+  final accent_1 = const Color(0xFFFF6263); // Bitter sweet
+  final accent_2 = const Color(0xFFFF936B); // Atomic Tangerine
+  final accent_3 = const Color(0xFFFFB3B3); // Meion
+  final accent_4 = const Color(0xFFFFDD66); // Dandelion
+  final accent_5 = const Color(0xFFF9DBD0);
+  final accent_6 = const Color(0xFF6455AB);
+  final accent_7 = const Color(0xFFB3C0FF);
+  final accent_8 = const Color(0xFFE0E4FF);
+
+  //Logo
+  final logo1 = const Color(0xFFFF6263); // red
+  final logo2 = const Color(0xFF6455AB); // blue purple
+
+  //Background
+  final background_1 = const Color(0xFFF4F5F9); // background
+  final background_2 = const Color(0xFFFFFFFF); // background text field
+
+  //Grays
+  final gray_1 = const Color(0xFF5D6178); // Dark Electric Blue
+  final gray_2 = const Color(0xFF898C9F); // Cool Grey
+  final gray_3 = const Color(0xFFBBBCC9); // Lavender Gray
+  final gray_4 = const Color(0xFFDFE0E7); // Platinum
+  final gray_5 = const Color(0xFFF5F6F8); // Cultured
+
+  //Text color
+  final textColor_1 = const Color(0xFF261F41);
+
+  final lavender = const Color(0xFFE0E4FF);
 }
 
 class _Sized {
@@ -96,7 +125,7 @@ class _TextStyles {
 
   final buttonText = const TextStyle(
     fontFamily: 'Lato',
-    color: Color.fromARGB(255, 217, 217, 217),
+    color: Colors.white,
     fontSize: 16,
     fontWeight: FontWeight.w500,
     decoration: TextDecoration.none,
@@ -127,7 +156,30 @@ class _TextStyles {
     decoration: TextDecoration.none,
   );
 
+  final textTextFieldStyle = TextStyle(
+    fontFamily: 'Lato',
+    color: S.colors.black,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+  );
+
+  final hintText = TextStyle(
+    fontFamily: 'Lato',
+    color: S.colors.gray_3,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+  );
+
+  final titleText = TextStyle(
+    fontFamily: 'Lato',
+    color: S.colors.grey,
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+  );
+
   final login = _Login();
+  final collection = _Collection();
+  final profile = _Profile();
 }
 
 class _Login {
@@ -154,5 +206,56 @@ class _Login {
     fontFamily: 'Lato',
     color: Colors.white,
     fontSize: 16,
+  );
+}
+
+class _Collection {
+  final mediumTitle = TextStyle(
+    fontFamily: 'Lato',
+    color: S.colors.grey,
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+  );
+  final bigTitle = const TextStyle(
+    fontFamily: 'Lato',
+    color: Colors.white,
+    fontSize: 24,
+    fontWeight: FontWeight.w600,
+  );
+
+  final smallTitle = const TextStyle(
+    fontFamily: 'Lato',
+    color: Colors.white,
+    fontSize: 16,
+  );
+
+  final titleAddBook = TextStyle(
+    fontFamily: 'Lato',
+    color: S.colors.grey,
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+  );
+
+  final buttonStyle = TextStyle(
+    fontFamily: 'Lato',
+    color: S.colors.white,
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+  );
+
+  final textButtonStyle = TextStyle(
+    fontFamily: 'Lato',
+    color: S.colors.black,
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
+  );
+}
+
+class _Profile {
+  final textButtonStyle = TextStyle(
+    fontFamily: 'Lato',
+    color: S.colors.black,
+    fontSize: 18,
+    fontWeight: FontWeight.w400,
   );
 }
