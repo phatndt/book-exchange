@@ -8,4 +8,5 @@ class RoutePaths {
   static const home = '/home';
   static const share = '/share';
   static const changePassword = profile + '/password';
+  static const addBook = '/add_book';
 }

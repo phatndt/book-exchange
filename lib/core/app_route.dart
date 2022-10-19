@@ -1,5 +1,6 @@
 import 'package:book_exchange/core/route_paths.dart';
 import 'package:book_exchange/presentation/main_screen.dart';
+import 'package:book_exchange/presentation/views/screens/home/library/add_book.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/forgot_password.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/login.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/signup.dart';
@@ -44,6 +45,11 @@ class AppRouter {
       case RoutePaths.changePassword:
         return MaterialPageRoute(
           builder: (_) => const ChangePasswordScreen(),
+          settings: settings,
+        );
+      case RoutePaths.addBook:
+        return MaterialPageRoute(
+          builder: (_) => const AddBookScreen(),
           settings: settings,
         );
       default:
