@@ -51,8 +51,8 @@ class AddBookScreen extends ConsumerWidget {
                   ),
                   Center(
                     child: Container(
-                      width: 140,
-                      height: 140,
+                      width: 130,
+                      height: 160,
                       decoration: BoxDecoration(
                         color: S.colors.accent_8,
                         borderRadius: BorderRadius.all(
@@ -109,7 +109,7 @@ class AddBookScreen extends ConsumerWidget {
                   CustomTextFormField(
                     controller:
                         ref.watch(addBookSettingNotifierProvider).bookName,
-                    obscureText: true,
+                    obscureText: false,
                   ),
                   Text(
                     'Author',
@@ -118,16 +118,17 @@ class AddBookScreen extends ConsumerWidget {
                   CustomTextFormField(
                     controller:
                         ref.watch(addBookSettingNotifierProvider).bookAuthor,
-                    obscureText: true,
+                    obscureText: false,
                   ),
                   Text(
                     'Description',
                     style: S.textStyles.titleText,
                   ),
                   CustomTextFormField(
-                    controller:
-                        ref.watch(addBookSettingNotifierProvider).bookDescription,
-                    obscureText: true,
+                    controller: ref
+                        .watch(addBookSettingNotifierProvider)
+                        .bookDescription,
+                    obscureText: false,
                   ),
                   Text(
                     'Rating',

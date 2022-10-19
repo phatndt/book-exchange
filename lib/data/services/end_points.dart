@@ -20,6 +20,10 @@ class Endpoints {
   //can define other
   static const String uploadBook = '/book/create';
 
+  static const String editBook = '/book/update';
+
+  static const String deleteBook = '/book/delete';
+
   static const String getBookByUserId = '/book/read/user';
 
   static const String changePassword = '/profile/changePassword';

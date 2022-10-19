@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../../../../colors/colors.dart';
+import '../../../colors/colors.dart';
 
 class ReCustomElevatedButton extends StatelessWidget {
   const ReCustomElevatedButton({
     Key? key,
     required this.width,
     required this.height,
-    required this.shape,
     required this.text,
     required this.onPress,
   }) : super(key: key);
@@ -15,7 +14,6 @@ class ReCustomElevatedButton extends StatelessWidget {
   final double height;
   final String text;
   final VoidCallback onPress;
-  final shape;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,11 @@ class ReCustomElevatedButton extends StatelessWidget {
         //   width: 0.6,
         // ),
         primary: S.colors.orange,
-        shape: shape,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(6.0),
+          ),
+        ),
         elevation: 1.2,
       ),
     );
