@@ -5,7 +5,6 @@ import 'package:book_exchange/core/core.dart';
 import 'package:book_exchange/core/route_paths.dart';
 import 'package:book_exchange/data/entities/book.dart';
 import 'package:book_exchange/data/repos/book_repo.dart';
-import 'package:book_exchange/domain/use_cases/upload_image_to_cloudinary_use_case.dart';
 import 'package:cloudinary_sdk/cloudinary_sdk.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,53 +16,59 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../../core/extension/function_extension.dart';
 import '../../data/repos/user_repo.dart';
 
-class AddBookSetting {
+class EditBookSetting {
   final TextEditingController bookName;
   final TextEditingController bookAuthor;
   final TextEditingController bookDescription;
   double bookRating;
   XFile bookImage;
+  final String bookId;
 
-  bool isLoadingAddBook = false;
+  bool isLoadingEditBook = false;
 
-  AddBookSetting({
+  EditBookSetting({
+    required this.bookId,
     required this.bookName,
     required this.bookAuthor,
     required this.bookDescription,
     required this.bookRating,
     required this.bookImage,
-    required this.isLoadingAddBook,
+    required this.isLoadingEditBook,
   });
 
-  AddBookSetting copy({
+  EditBookSetting copy({
     TextEditingController? bookName,
     TextEditingController? bookAuthor,
     TextEditingController? bookDescription,
     double? bookRating,
     XFile? bookImage,
-    bool? isLoadingAddBook,
+    bool? isLoadingEditBook,
+    String? bookId,
   }) =>
-      AddBookSetting(
-          bookAuthor: bookAuthor ?? this.bookAuthor,
-          bookImage: bookImage ?? this.bookImage,
-          bookName: bookName ?? this.bookName,
-          bookDescription: bookDescription ?? this.bookDescription,
-          bookRating: bookRating ?? this.bookRating,
-          isLoadingAddBook: isLoadingAddBook ?? this.isLoadingAddBook);
+      EditBookSetting(
+        bookId: bookId ?? this.bookId,
+        bookAuthor: bookAuthor ?? this.bookAuthor,
+        bookImage: bookImage ?? this.bookImage,
+        bookName: bookName ?? this.bookName,
+        bookDescription: bookDescription ?? this.bookDescription,
+        bookRating: bookRating ?? this.bookRating,
+        isLoadingEditBook: isLoadingEditBook ?? this.isLoadingEditBook,
+      );
 
-  //AddBookSetting copyWith({}) {return AddBookSetting(emailClear: emailClear, isVisible: isVisible, emailController: emailController, passwordController: passwordController)}
+  //EditBookSetting copyWith({}) {return EditBookSetting(emailClear: emailClear, isVisible: isVisible, emailController: emailController, passwordController: passwordController)}
 }
 
-class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
-  AddBookSettingNotifier(this.ref, this._uploadImageToCloudinaryUseCase)
+class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
+  EditBookSettingNotifier(this.ref)
       : super(
-          AddBookSetting(
+          EditBookSetting(
+            bookId: '',
             bookAuthor: TextEditingController(),
             bookDescription: TextEditingController(),
             bookImage: XFile(''),
             bookName: TextEditingController(),
             bookRating: 0.0,
-            isLoadingAddBook: false,
+            isLoadingEditBook: false,
           ),
         ) {
     // _authRepo = ref.watch(authRepoProvider);
@@ -72,12 +77,12 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
   }
 
   final Ref ref;
-  final UploadImageToCloudinaryUseCase _uploadImageToCloudinaryUseCase;
+  // late AuthRepo _authRepo;
   late UserRepo _userRepo;
   late BookRepo _bookRepo;
 
-  void setLoadingAddBook() {
-    final newState = state.copy(isLoadingAddBook: !state.isLoadingAddBook);
+  void setLoadingEditBook() {
+    final newState = state.copy(isLoadingEditBook: !state.isLoadingEditBook);
     state = newState;
   }
 
@@ -142,7 +147,7 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
     }
   }
 
-  bool checkAddBookInput(context) {
+  bool checkEditBookInput(context) {
     if (state.bookName.text.isEmpty ||
         state.bookAuthor.text.isEmpty ||
         state.bookDescription.text.isEmpty ||
@@ -176,16 +181,16 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
     updateImagePath(pickedImage);
   }
 
-  void uploadBookToDB(context, String imageURL) async {
+  void editBookById(context, String imageURL) async {
     await _bookRepo
-        .uploadBook(
+        .editBook(
             Book(
-              id: '',
-              name: state.bookName.text,
+              id: state.bookId,
               author: state.bookAuthor.text,
               description: state.bookDescription.text,
-              rate: state.bookRating,
               imageURL: imageURL,
+              name: state.bookName.text,
+              rate: state.bookRating,
               userId: getUserIdFromToken(_userRepo.jwtToken),
             ),
             _userRepo.jwtToken)
@@ -203,37 +208,81 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
           displayDuration: const Duration(seconds: 2),
         );
         clearInput();
-        setLoadingAddBook();
+        setLoadingEditBook();
       },
     ).catchError((onError) {
-      setLoadingAddBook();
+      setLoadingEditBook();
       catchOnError(context, onError);
     });
   }
 
-  void updateImageToCloudinary(context) {
-    setLoadingAddBook();
-    if (!checkAddBookInput(context)) {
-      setLoadingAddBook();
+  void updateImageToCloudinary(context) async {
+    setLoadingEditBook();
+    if (!checkEditBookInput(context)) {
+      setLoadingEditBook();
       return;
     }
-    _uploadImageToCloudinaryUseCase
-        .uploadImageToCloudinary(state.bookImage.path,
-            state.bookImage.readAsBytes(), state.bookImage.name)
-        .then((value) {
-      log('Get your image from with ${value.secureUrl}');
-      uploadBookToDB(context, value.secureUrl!);
-    }).catchError(
-      (onError) {
-        showTopSnackBar(
-          context,
-          CustomSnackBar.error(
-            message: "Error: $onError",
-          ),
-          displayDuration: const Duration(seconds: 2),
-        );
-        setLoadingAddBook();
-      },
+    final cloudinary = Cloudinary.full(
+      apiKey: '735947945251852',
+      apiSecret: 'O-Rd18L74ukuNN91I8vrzBJXeGI',
+      cloudName: 'du7lkcbqm',
     );
+
+    final response = await cloudinary
+        .uploadResource(CloudinaryUploadResource(
+            filePath: state.bookImage.path,
+            fileBytes: await state.bookImage.readAsBytes(),
+            resourceType: CloudinaryResourceType.image,
+            folder: 'adu',
+            fileName: state.bookImage.name,
+            progressCallback: (count, total) {
+              log('Uploading image from file with progress: $count/$total');
+            }))
+        .catchError((onError) {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "Error: $onError",
+        ),
+        displayDuration: const Duration(seconds: 2),
+      );
+      setLoadingEditBook();
+    });
+
+    if (response.isSuccessful) {
+      log('Get your image from with ${response.secureUrl}');
+      editBookById(context, response.secureUrl!);
+    } else {}
   }
+
+  void deleteBookByBookId(String bookId, context) async {
+    await _bookRepo.deleteBook(bookId, _userRepo.jwtToken).then((value) {
+      Navigator.pushNamed(
+        context,
+        RoutePaths.home,
+      );
+      showTopSnackBar(
+        context,
+        CustomSnackBar.error(
+          message: "Delete sucessfully",
+        ),
+        displayDuration: const Duration(seconds: 2),
+      );
+      // clearInput();
+      setLoadingEditBook();
+    }).catchError((onError) {
+      setLoadingEditBook();
+      catchOnError(context, onError);
+    });
+  }
+
+  // String base64Image = base64Encode(await pickedImage.readAsBytes());
+
+  // ref.watch(EditBookSettingNotifierProvider).bookImage = base64Image;
+  // state.bookImage = base64Image;
+  // log(base64Image);
 }
+
+final editBookSettingNotifierProvider =
+    StateNotifierProvider<EditBookSettingNotifier, EditBookSetting>(
+        ((ref) => EditBookSettingNotifier(ref)));
