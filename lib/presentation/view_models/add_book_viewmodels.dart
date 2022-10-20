@@ -5,6 +5,7 @@ import 'package:book_exchange/core/core.dart';
 import 'package:book_exchange/core/route_paths.dart';
 import 'package:book_exchange/data/entities/book.dart';
 import 'package:book_exchange/data/repos/book_repo.dart';
+import 'package:book_exchange/domain/use_cases/upload_image_to_cloudinary_use_case.dart';
 import 'package:cloudinary_sdk/cloudinary_sdk.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,7 @@ class AddBookSetting {
 }
 
 class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
-  AddBookSettingNotifier(this.ref)
+  AddBookSettingNotifier(this.ref, this._uploadImageToCloudinaryUseCase)
       : super(
           AddBookSetting(
             bookAuthor: TextEditingController(),
@@ -71,7 +72,7 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
   }
 
   final Ref ref;
-  // late AuthRepo _authRepo;
+  final UploadImageToCloudinaryUseCase _uploadImageToCloudinaryUseCase;
   late UserRepo _userRepo;
   late BookRepo _bookRepo;
 
@@ -196,52 +197,29 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
     });
   }
 
-  void updateImageToCloudinary(context) async {
+  void updateImageToCloudinary(context) {
     setLoadingAddBook();
     if (!checkAddBookInput(context)) {
       setLoadingAddBook();
       return;
     }
-    final cloudinary = Cloudinary.full(
-      apiKey: '735947945251852',
-      apiSecret: 'O-Rd18L74ukuNN91I8vrzBJXeGI',
-      cloudName: 'du7lkcbqm',
+    _uploadImageToCloudinaryUseCase
+        .uploadImageToCloudinary(state.bookImage.path,
+            state.bookImage.readAsBytes(), state.bookImage.name)
+        .then((value) {
+      log('Get your image from with ${value.secureUrl}');
+      uploadBookToDB(context, value.secureUrl!);
+    }).catchError(
+      (onError) {
+        showTopSnackBar(
+          context,
+          CustomSnackBar.error(
+            message: "Error: $onError",
+          ),
+          displayDuration: const Duration(seconds: 2),
+        );
+        setLoadingAddBook();
+      },
     );
-
-    final response = await cloudinary
-        .uploadResource(CloudinaryUploadResource(
-            filePath: state.bookImage.path,
-            fileBytes: await state.bookImage.readAsBytes(),
-            resourceType: CloudinaryResourceType.image,
-            folder: 'adu',
-            fileName: state.bookImage.name,
-            progressCallback: (count, total) {
-              log('Uploading image from file with progress: $count/$total');
-            }))
-        .catchError((onError) {
-      showTopSnackBar(
-        context,
-        CustomSnackBar.error(
-          message: "Error: $onError",
-        ),
-        displayDuration: const Duration(seconds: 2),
-      );
-      setLoadingAddBook();
-    });
-
-    if (response.isSuccessful) {
-      log('Get your image from with ${response.secureUrl}');
-      uploadBookToDB(context, response.secureUrl!);
-    } else {}
   }
-
-  // String base64Image = base64Encode(await pickedImage.readAsBytes());
-
-  // ref.watch(AddBookSettingNotifierProvider).bookImage = base64Image;
-  // state.bookImage = base64Image;
-  // log(base64Image);
 }
-
-final addBookSettingNotifierProvider =
-    StateNotifierProvider<AddBookSettingNotifier, AddBookSetting>(
-        ((ref) => AddBookSettingNotifier(ref)));

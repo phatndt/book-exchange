@@ -1,5 +1,7 @@
 import 'package:book_exchange/core/extension/function_extension.dart';
 import 'package:book_exchange/core/route_paths.dart';
+import 'package:book_exchange/data/services/profile_service.dart';
+import 'package:book_exchange/domain/use_cases/change_pasword_use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -59,7 +61,7 @@ class ProfileSetting {
 }
 
 class ProfileSettingNotifier extends StateNotifier<ProfileSetting> {
-  ProfileSettingNotifier(this.ref)
+  ProfileSettingNotifier(this.ref, this._changePasswordUseCase)
       : super(
           ProfileSetting(
             oldPassword: TextEditingController(),
@@ -71,12 +73,12 @@ class ProfileSettingNotifier extends StateNotifier<ProfileSetting> {
             isLoadingProfile: false,
           ),
         ) {
-    // _authRepo = ref.watch(authRepoProvider);
     _userRepo = ref.watch(userRepoProvider);
   }
 
   final Ref ref;
   // late AuthRepo _authRepo;
+  final ChangePasswordUseCase _changePasswordUseCase;
   late UserRepo _userRepo;
 
   void setOldPasswordVisible() {
@@ -113,8 +115,8 @@ class ProfileSettingNotifier extends StateNotifier<ProfileSetting> {
       );
       setLoadingProfile();
     } else {
-      _userRepo
-          .resetPassword(
+      _changePasswordUseCase
+          .changePassword(
               getUsernameFromToken(_userRepo.jwtToken),
               state.oldPassword.text,
               state.passwordController.text,
@@ -144,7 +146,3 @@ class ProfileSettingNotifier extends StateNotifier<ProfileSetting> {
     }
   }
 }
-
-final profileSettingNotifierProvider =
-    StateNotifierProvider<ProfileSettingNotifier, ProfileSetting>(
-        ((ref) => ProfileSettingNotifier(ref)));

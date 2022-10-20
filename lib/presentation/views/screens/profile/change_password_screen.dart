@@ -1,5 +1,4 @@
 import 'package:book_exchange/core/custom_text_form_fill.dart';
-import 'package:book_exchange/presentation/view_models/profile_view_model.dart';
 import 'package:book_exchange/presentation/views/widgets/filled_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,7 +7,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../../../colors/colors.dart';
 import '../../../../core/app_bar.dart';
-import '../../widgets/text_field.dart';
+import '../../../di/profile_component.dart';
 
 class ChangePasswordScreen extends ConsumerWidget {
   const ChangePasswordScreen({Key? key}) : super(key: key);

@@ -1,19 +1,16 @@
 import 'dart:io';
 
 import 'package:book_exchange/core/app_bar.dart';
-import 'package:book_exchange/presentation/view_models/add_book_viewmodels.dart';
-import 'package:book_exchange/presentation/views/widgets/add_book_text_field.dart';
 import 'package:book_exchange/presentation/views/widgets/filled_button.dart';
-import 'package:book_exchange/presentation/views/widgets/outline_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:xen_popup_card/xen_card.dart';
 
 import '../../../../../colors/colors.dart';
 import '../../../../../core/custom_text_form_fill.dart';
+import '../../../../di/book_component.dart';
 
 class AddBookScreen extends ConsumerWidget {
   const AddBookScreen({Key? key}) : super(key: key);
@@ -125,8 +122,9 @@ class AddBookScreen extends ConsumerWidget {
                     style: S.textStyles.titleText,
                   ),
                   CustomTextFormField(
-                    controller:
-                        ref.watch(addBookSettingNotifierProvider).bookDescription,
+                    controller: ref
+                        .watch(addBookSettingNotifierProvider)
+                        .bookDescription,
                     obscureText: true,
                   ),
                   Text(
