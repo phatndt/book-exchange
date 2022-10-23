@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../colors/colors.dart';
+import '../../../../../core/colors/colors.dart';
 
 class CustomOutlineButton extends StatelessWidget {
   const CustomOutlineButton({
@@ -25,15 +25,21 @@ class CustomOutlineButton extends StatelessWidget {
         //padding: const EdgeInsets.all(0.8),
         maximumSize: Size(width, 60),
         minimumSize: Size(width, 60),
-        side: BorderSide(
-          style: BorderStyle.solid,
-          color: S.colors.white,
-          width: 0.6,
-        ),
-        primary: S.colors.black,
+        // side: BorderSide(
+        //   style: BorderStyle.solid,
+        //   color: S.colors.white,
+        //   width: 0.6,
+        // ),
+        textStyle: S.textStyles.smallTitle,
+        primary: S.colors.background,
         onPrimary: S.colors.white,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            style: BorderStyle.solid,
+            color: S.colors.white,
+            width: 1,
+          ),
+          borderRadius: const BorderRadius.all(
             Radius.circular(6.0),
           ),
         ),

@@ -1,96 +1,127 @@
+import 'package:book_exchange/core/route_paths.dart';
 import 'package:book_exchange/presentation/views/widgets/filled_button.dart';
 import 'package:book_exchange/presentation/views/widgets/outline_button.dart';
 import 'package:book_exchange/presentation/views/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../../colors/colors.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import '../../../../../core/colors/colors.dart';
+import '../../../di/auth_component.dart';
 
-class LoginScreen extends StatelessWidget {
+
+class LoginScreen extends ConsumerWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: (MediaQuery.of(context).size.width - 280) / 2,
-          ),
-          child: ListView(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
+      child: ModalProgressHUD(
+        inAsyncCall: ref.watch(loginSettingNotifierProvider).isLoadingLogin,
+        child: Scaffold(
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: S.size.length_40),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // SizedBox(
-                  //   width: (MediaQuery.of(context).size.width - 280) / 2,
-                  // ),
-                  Image.asset(
-                    'assets/images/18.jpg',
-                    height: 230,
-                    width: 200,
+                  SizedBox(
+                    height: S.size.length_40,
                   ),
-                ],
-              ),
-              Row(
-                children: [
-                  // SizedBox(
-                  //   width: (MediaQuery.of(context).size.width - 280) / 2,
-                  // ),
+                  Image.asset(
+                    'assets/logo/logo_other.png',
+                    scale: 1,
+                  ),
+                  SizedBox(
+                    height: S.size.length_40,
+                  ),
                   Text(
                     'WELCOME BACK',
-                    style: S.textStyles.bigTitle,
+                    style: S.textStyles.login.bigTitle,
                     textAlign: TextAlign.start,
                   ),
+                  SizedBox(
+                    height: S.size.length_40,
+                  ),
+                  CustomTextField(
+                    textEditingController:
+                        ref.watch(loginSettingNotifierProvider).emailController,
+                    text: 'Username',
+                    obscure: false,
+                    icon: FontAwesomeIcons.xmark,
+                    onClickSuffixIcon: () {
+                      ref
+                          .watch(loginSettingNotifierProvider.notifier)
+                          .cleanEmail();
+                    },
+                  ),
+                  SizedBox(
+                    height: S.size.length_20,
+                  ),
+                  CustomTextField(
+                    textEditingController: ref
+                        .watch(loginSettingNotifierProvider)
+                        .passwordController,
+                    text: 'Password',
+                    icon:
+                        ref.watch(loginSettingNotifierProvider).passwordVisible
+                            ? FontAwesomeIcons.eye
+                            : FontAwesomeIcons.eyeLowVision,
+                    obscure:
+                        ref.watch(loginSettingNotifierProvider).passwordVisible,
+                    onClickSuffixIcon: () {
+                      ref
+                          .watch(loginSettingNotifierProvider.notifier)
+                          .setPasswordVisible();
+                    },
+                  ),
+                  SizedBox(
+                    height: S.size.length_50,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomOutlineButton(
+                        width: S.size.length_100,
+                        text: 'SIGN UP',
+                        onPress: () {
+                          FocusScope.of(context).unfocus();
+                          Navigator.pushNamed(context, RoutePaths.signUp);
+                        },
+                      ),
+                      CustomFilledButton(
+                        width: S.size.length_100,
+                        text: 'SIGN IN',
+                        onPress: () {
+                          FocusScope.of(context).unfocus();
+                          ref
+                              .watch(loginSettingNotifierProvider.notifier)
+                              .login(context);
+                        },
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: S.size.length_40,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      FocusScope.of(context).unfocus();
+                      Navigator.pushNamed(
+                        context,
+                        RoutePaths.forgot,
+                      );
+                    },
+                    child: Center(
+                      child: Text(
+                        'Forgot Password?',
+                        style: S.textStyles.login.smallTitle,
+                      ),
+                    ),
+                  ),
                 ],
               ),
-              const SizedBox(
-                height: 30,
-              ),
-              const CustomTextField(
-                text: 'Email',
-                icon: FontAwesomeIcons.envelope,
-                obscure: false,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const CustomTextField(
-                text: 'Password',
-                icon: FontAwesomeIcons.key,
-                obscure: true,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomOutlineButton(
-                    width: 95,
-                    text: 'SIGN UP',
-                    onPress: () {},
-                  ),
-                  CustomFilledButton(
-                    width: 95,
-                    text: 'SIGN IN',
-                    onPress: () {},
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              GestureDetector(
-                onTap: () {},
-                child: Text(
-                  'Forgot Password?',
-                  style: S.textStyles.smallTitle,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

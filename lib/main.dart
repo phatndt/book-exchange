@@ -1,11 +1,12 @@
-import 'package:book_exchange/presentation/views/screens/pre_home/login.dart';
+import 'package:book_exchange/core/app_route.dart';
+import 'package:book_exchange/core/route_paths.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/welcome.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'colors/colors.dart';
-
+import 'core/colors/colors.dart';
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,12 +16,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: S.colors.mainColor,
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: S.colors.orange,
+          secondary: S.colors.orange,
         ),
-        scaffoldBackgroundColor: S.colors.black,
+        scaffoldBackgroundColor: S.colors.background,
       ),
-      //home: const LoginScreen(),
+      onGenerateRoute: AppRouter.generateRoute,
+      initialRoute: RoutePaths.welcome,
       home: const WelcomeScreen(),
     );
   }
