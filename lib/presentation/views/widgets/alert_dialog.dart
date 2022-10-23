@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../colors/colors.dart';
+import '../../../../../core/colors/colors.dart';
 
 class CustomAlertDialog extends StatelessWidget {
   const CustomAlertDialog({

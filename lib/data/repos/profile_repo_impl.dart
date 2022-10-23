@@ -17,6 +17,6 @@ class ProfileRepoImpl extends ProfileRepo {
   ) async {
     return _profileService
         .resetPassword(username, oldPassword, newPassword, token)
-        .then((value) => ApiResponseMapper().transfer(value));
+        .then((value) => ApiStringResponseMapper().transfer(value));
   }
 }

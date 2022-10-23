@@ -3,10 +3,10 @@ import 'package:book_exchange/core/route_paths.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'colors/colors.dart';
 
+import 'core/colors/colors.dart';
 void main() {
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: S.colors.background,
       ),
       onGenerateRoute: AppRouter.generateRoute,
-      initialRoute: RoutePaths.addBook,
+      initialRoute: RoutePaths.welcome,
       home: const WelcomeScreen(),
     );
   }

@@ -1,12 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../../../../colors/colors.dart';
-
+import '../../../../../core/colors/colors.dart';
 class BookItem extends StatelessWidget {
-  BookItem({
+  const BookItem({
     Key? key,
     required this.onLongPress,
     required this.imageURL,

@@ -1,9 +1,8 @@
 import 'package:book_exchange/core/route_paths.dart';
-import 'package:book_exchange/presentation/views/screens/pre_home/login.dart';
 import 'package:book_exchange/presentation/views/widgets/filled_button.dart';
 import 'package:book_exchange/presentation/views/widgets/outline_button.dart';
 import 'package:flutter/material.dart';
-import '../../../../colors/colors.dart';
+import '../../../../../core/colors/colors.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);

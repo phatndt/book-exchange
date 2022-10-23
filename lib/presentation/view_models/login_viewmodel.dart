@@ -1,11 +1,12 @@
 import 'package:book_exchange/core/extension/function_extension.dart';
 import 'package:book_exchange/core/route_paths.dart';
+import 'package:book_exchange/domain/use_cases/login_use_case_impl.dart';
+import 'package:book_exchange/presentation/di/profile_component.dart';
+import 'package:book_exchange/presentation/models/book_app_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
-
-import '../../data/repos/user_repo.dart';
 
 class LoginSetting {
   final TextEditingController emailController;
@@ -43,7 +44,7 @@ class LoginSetting {
 }
 
 class LoginSettingNotifier extends StateNotifier<LoginSetting> {
-  LoginSettingNotifier(this.ref)
+  LoginSettingNotifier(this.ref, this._loginUseCaseImpl)
       : super(
           LoginSetting(
             emailController: TextEditingController(),
@@ -51,14 +52,10 @@ class LoginSettingNotifier extends StateNotifier<LoginSetting> {
             isPasswordVisible: true,
             isLoadingLogin: false,
           ),
-        ) {
-    // _authRepo = ref.watch(authRepoProvider);
-    _userRepo = ref.watch(userRepoProvider);
-  }
+        );
 
   final Ref ref;
-  // late AuthRepo _authRepo;
-  late UserRepo _userRepo;
+  final LoginUseCaseImpl _loginUseCaseImpl;
 
   void setPasswordVisible() {
     final newState = state.copy(isPasswordVisible: !state.isPasswordVisible);
@@ -79,18 +76,21 @@ class LoginSettingNotifier extends StateNotifier<LoginSetting> {
     setLoadingLogin();
     if (state.emailController.text.isNotEmpty ||
         state.passwordController.text.isNotEmpty) {
-      await _userRepo
+      await _loginUseCaseImpl
           .login(state.emailController.text, state.passwordController.text)
           .then((value) {
         value.data.token.ifNotEmpty(
-          () => {
-            setLoadingLogin(),
-            _userRepo.jwtToken = value.data.token,
-            _userRepo.user = value.data.user,
+          () {
+            setLoadingLogin();
+            BookAppModel.user = value.data.user;
+            BookAppModel.jwtToken = value.data.token;
             Navigator.pushNamedAndRemoveUntil(
-                context, RoutePaths.main, (route) => false),
-            state.emailController.clear(),
-            state.passwordController.clear(),
+                context, RoutePaths.main, (route) => false);
+            state.emailController.clear();
+            state.passwordController.clear();
+            ref
+                .watch(profileNotifierProvider.notifier)
+                .setAvatarPath(BookAppModel.user.image);
           },
           () => {
             showTopSnackBar(
@@ -125,7 +125,3 @@ class LoginSettingNotifier extends StateNotifier<LoginSetting> {
     }
   }
 }
-
-final loginSettingNotifierProvider =
-    StateNotifierProvider.autoDispose<LoginSettingNotifier, LoginSetting>(
-        ((ref) => LoginSettingNotifier(ref)));

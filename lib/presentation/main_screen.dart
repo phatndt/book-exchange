@@ -3,7 +3,7 @@ import 'package:book_exchange/presentation/views/screens/profile/profile_screen.
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../colors/colors.dart';
+import '../core/colors/colors.dart';
 import 'views/screens/home/library/collection.dart';
 import 'views/screens/home/library/share.dart';
 

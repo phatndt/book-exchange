@@ -1,12 +1,9 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:book_exchange/core/core.dart';
 import 'package:book_exchange/core/route_paths.dart';
-import 'package:book_exchange/data/entities/book.dart';
-import 'package:book_exchange/data/repos/book_repo.dart';
-import 'package:book_exchange/domain/use_cases/upload_image_to_cloudinary_use_case.dart';
-import 'package:cloudinary_sdk/cloudinary_sdk.dart';
+import 'package:book_exchange/domain/use_cases/book/upload_book_use_case.dart';
+import 'package:book_exchange/domain/use_cases/upload_image_use_case.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,14 +12,15 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../core/extension/function_extension.dart';
-import '../../data/repos/user_repo.dart';
+import '../../domain/entities/book.dart';
+import '../models/book_app_model.dart';
 
 class AddBookSetting {
   final TextEditingController bookName;
   final TextEditingController bookAuthor;
   final TextEditingController bookDescription;
   double bookRating;
-  XFile bookImage;
+  File bookImage;
 
   bool isLoadingAddBook = false;
 
@@ -40,7 +38,7 @@ class AddBookSetting {
     TextEditingController? bookAuthor,
     TextEditingController? bookDescription,
     double? bookRating,
-    XFile? bookImage,
+    File? bookImage,
     bool? isLoadingAddBook,
   }) =>
       AddBookSetting(
@@ -55,26 +53,22 @@ class AddBookSetting {
 }
 
 class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
-  AddBookSettingNotifier(this.ref, this._uploadImageToCloudinaryUseCase)
+  AddBookSettingNotifier(
+      this.ref, this._uploadImageToCloudinaryUseCase, this._uploadBookUseCase)
       : super(
           AddBookSetting(
             bookAuthor: TextEditingController(),
             bookDescription: TextEditingController(),
-            bookImage: XFile(''),
+            bookImage: File(''),
             bookName: TextEditingController(),
             bookRating: 0.0,
             isLoadingAddBook: false,
           ),
-        ) {
-    // _authRepo = ref.watch(authRepoProvider);
-    _bookRepo = ref.watch(bookRepoProvider);
-    _userRepo = ref.watch(userRepoProvider);
-  }
+        );
 
   final Ref ref;
   final UploadImageToCloudinaryUseCase _uploadImageToCloudinaryUseCase;
-  late UserRepo _userRepo;
-  late BookRepo _bookRepo;
+  final UploadBookUseCase _uploadBookUseCase;
 
   void setLoadingAddBook() {
     final newState = state.copy(isLoadingAddBook: !state.isLoadingAddBook);
@@ -82,7 +76,7 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
   }
 
   void clearImage() {
-    final newState = state.copy(bookImage: XFile(''));
+    final newState = state.copy(bookImage: File(''));
     state = newState;
   }
 
@@ -160,7 +154,7 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
     }
   }
 
-  void updateImagePath(XFile a) {
+  void updateImagePath(File a) {
     final newState = state.copy(bookImage: a);
     state = newState;
   }
@@ -169,15 +163,14 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
     // final _picker = ImagePicker();
     // final pickedImage = await _picker.pickImage(source: imageSource);
     final pickedImage = await ImagePicker().pickImage(source: imageSource);
-
     if (pickedImage == null) {
       return;
     }
-    updateImagePath(pickedImage);
+    updateImagePath(File(pickedImage.path));
   }
 
   void uploadBookToDB(context, String imageURL) async {
-    await _bookRepo
+    await _uploadBookUseCase
         .uploadBook(
             Book(
               id: '',
@@ -186,9 +179,9 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
               description: state.bookDescription.text,
               rate: state.bookRating,
               imageURL: imageURL,
-              userId: getUserIdFromToken(_userRepo.jwtToken),
+              userId: getUserIdFromToken(BookAppModel.jwtToken),
             ),
-            _userRepo.jwtToken)
+            BookAppModel.jwtToken)
         .then(
       (value) {
         Navigator.pushNamed(
@@ -211,18 +204,18 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
     });
   }
 
-  void updateImageToCloudinary(context) {
+  void updateImageToCloud(context) {
     setLoadingAddBook();
     if (!checkAddBookInput(context)) {
       setLoadingAddBook();
       return;
     }
     _uploadImageToCloudinaryUseCase
-        .uploadImageToCloudinary(state.bookImage.path,
-            state.bookImage.readAsBytes(), state.bookImage.name)
+        .uploadImageToSpaces(BookAppModel.user.id + "/book", state.bookImage)
         .then((value) {
-      log('Get your image from with ${value.secureUrl}');
-      uploadBookToDB(context, value.secureUrl!);
+      if (value != null) {
+        uploadBookToDB(context, value);
+      }
     }).catchError(
       (onError) {
         showTopSnackBar(

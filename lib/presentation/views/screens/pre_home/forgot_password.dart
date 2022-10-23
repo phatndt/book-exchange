@@ -2,10 +2,9 @@ import 'package:book_exchange/presentation/view_models/pre_home_viewmodel.dart';
 import 'package:book_exchange/presentation/views/widgets/filled_button.dart';
 import 'package:book_exchange/presentation/views/widgets/text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../colors/colors.dart';
+import '../../../../../core/colors/colors.dart';
 
 class ForgotPasswordScreen extends ConsumerWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);

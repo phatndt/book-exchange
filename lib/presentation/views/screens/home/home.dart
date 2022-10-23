@@ -3,7 +3,7 @@ import 'package:book_exchange/presentation/views/screens/home/library/share.dart
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../colors/colors.dart';
+import '../../../../../core/colors/colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,8 +16,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
   final tabs = [
-    CollectionScreen(),
-    ShareScreen(),
+    const CollectionScreen(),
+    const ShareScreen(),
     const Center(
       child: Text('Adu2'),
     ),

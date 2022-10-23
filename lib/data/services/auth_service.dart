@@ -1,25 +1,13 @@
-import 'dart:developer';
-
-import 'package:book_exchange/core/extension/function_extension.dart';
-import 'package:book_exchange/data/entities/api_response.dart';
-import 'package:book_exchange/data/services/dio_exception.dart';
-import 'package:book_exchange/data/services/dio_service.dart';
-import 'package:book_exchange/data/services/end_points.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:dio/dio.dart';
-import '../../presentation/models/user_model.dart';
-import '../entities/jwt_response.dart';
-import '../entities/user.dart';
 
-final userRepoProvider = Provider<UserRepo>((ref) => UserRepo());
+import '../entities/api_response_dto.dart';
+import '../entities/jwt_response_dto.dart';
+import 'dio_exception.dart';
+import 'dio_service.dart';
+import 'end_points.dart';
 
-class UserRepo {
-  String? uid;
-  UserModel? userModel;
-  late String jwtToken;
-  late User user;
-
-  Future<ApiResponse<JwtResponse>> login(
+class AuthService {
+  Future<ApiResponseDTO<JwtResponseDTO>> login(
     String username,
     String password,
   ) async {
@@ -29,8 +17,8 @@ class UserRepo {
         "password": password,
       };
       final response = await DioService().dio.post(Endpoints.login, data: body);
-      return ApiResponse<JwtResponse>(
-        data: JwtResponse.fromMap(response.data['data']),
+      return ApiResponseDTO<JwtResponseDTO>(
+        data: JwtResponseDTO.fromMap(response.data['data']),
         statusCode: response.data['statusCode'],
         message: response.data['message'],
       );
@@ -39,7 +27,8 @@ class UserRepo {
     }
   }
 
-  Future<ApiResponse<String>> register(
+  
+  Future<ApiResponseDTO<String>> register(
     String username,
     String password,
     String email,
@@ -52,7 +41,7 @@ class UserRepo {
       };
       final response =
           await DioService().dio.post(Endpoints.register, data: body);
-      return ApiResponse<String>(
+      return ApiResponseDTO<String>(
         data: response.data['data'],
         statusCode: response.data['statusCode'],
         message: response.data['message'],
@@ -62,7 +51,7 @@ class UserRepo {
     }
   }
 
-  Future<ApiResponse<bool>> checkExistUsername(
+  Future<ApiResponseDTO<bool>> checkExistUsername(
     String username,
   ) async {
     try {
@@ -73,7 +62,7 @@ class UserRepo {
             Endpoints.username,
             data: body,
           );
-      return ApiResponse<bool>(
+      return ApiResponseDTO<bool>(
         data: response.data['data'],
         statusCode: response.data['statusCode'],
         message: response.data['message'],
@@ -83,7 +72,7 @@ class UserRepo {
     }
   }
 
-  Future<ApiResponse<String>> resetPassword(
+  Future<ApiResponseDTO<String>> resetPassword(
     String username,
     String oldPassword,
     String newPassword,
@@ -98,7 +87,7 @@ class UserRepo {
       final response = await DioService().dio.post(Endpoints.changePassword,
           data: body,
           options: Options(headers: {"Authorization": "Bearer $token"}));
-      return ApiResponse<String>(
+      return ApiResponseDTO<String>(
         data: response.data['data'],
         statusCode: response.data['statusCode'],
         message: response.data['message'],

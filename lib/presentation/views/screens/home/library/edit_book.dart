@@ -1,11 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:book_exchange/core/app_bar.dart';
 import 'package:book_exchange/presentation/views/widgets/alert_dialog.dart';
 import 'package:book_exchange/presentation/views/widgets/filled_button.dart';
-import 'package:book_exchange/presentation/views/widgets/recustom_elevated_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -14,9 +11,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-import '../../../../../colors/colors.dart';
+import '../../../../../core/colors/colors.dart';
 import '../../../../../core/custom_text_form_fill.dart';
-import '../../../../view_models/edit_book_viewmodels.dart';
+import '../../../../di/book_component.dart';
 
 class EditBookScreen extends ConsumerWidget {
   const EditBookScreen({
@@ -47,7 +44,7 @@ class EditBookScreen extends ConsumerWidget {
             preferredSize: Size.fromHeight(S.size.length_50),
             child: AppBar(
               centerTitle: true,
-              title: Text("Edit Your Book"),
+              title: const Text("Edit Your Book"),
               leading: BackButton(onPressed: () {
                 ref
                     .watch(editBookSettingNotifierProvider.notifier)
@@ -56,14 +53,14 @@ class EditBookScreen extends ConsumerWidget {
               }),
               actions: [
                 IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     FontAwesomeIcons.trashCan,
                   ),
                   onPressed: () {
                     deletePress(context, () {
                       ref
                           .watch(editBookSettingNotifierProvider.notifier)
-                          .deleteBookByBookId(this.bookId, context);
+                          .deleteBookByBookId(bookId, context);
                     });
                   },
                 ),

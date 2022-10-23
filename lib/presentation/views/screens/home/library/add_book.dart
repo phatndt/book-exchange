@@ -8,7 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-import '../../../../../colors/colors.dart';
+import '../../../../../core/colors/colors.dart';
 import '../../../../../core/custom_text_form_fill.dart';
 import '../../../../di/book_component.dart';
 
@@ -166,7 +166,7 @@ class AddBookScreen extends ConsumerWidget {
                       onPress: () {
                         ref
                             .watch(addBookSettingNotifierProvider.notifier)
-                            .updateImageToCloudinary(
+                            .updateImageToCloud(
                               context,
                             );
                       },

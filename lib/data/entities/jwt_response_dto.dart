@@ -1,10 +1,10 @@
-import 'user.dart';
+import 'user_dto.dart';
 
-class JwtResponse {
+class JwtResponseDTO {
   final String token;
-  final User user;
+  final UserDTO user;
 
-  JwtResponse({
+  JwtResponseDTO({
     required this.token,
     required this.user,
   });
@@ -16,10 +16,10 @@ class JwtResponse {
     };
   }
 
-  factory JwtResponse.fromMap(Map<dynamic, dynamic> map) {
-    return JwtResponse(
+  factory JwtResponseDTO.fromMap(Map<dynamic, dynamic> map) {
+    return JwtResponseDTO(
       token: map['token'],
-      user: User.fromMap(map['user']),
+      user: UserDTO.fromMap(map['user']),
     );
   }
 }

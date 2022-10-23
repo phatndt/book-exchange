@@ -3,7 +3,7 @@ class Endpoints {
 
   // base url
   static const String baseUrl =
-      "https://book-exchange-backend-production.up.railway.app/v1";
+      "https://lionfish-app-aur8e.ondigitalocean.app/v1";
 
   // receiveTimeout
   static const int receiveTimeout = 10000;

@@ -1,4 +1,4 @@
-class User {
+class UserDTO {
   final String id;
   final String username;
   final String password;
@@ -8,7 +8,7 @@ class User {
   final String image;
   final bool isEnabled;
 
-  User({
+  UserDTO({
     required this.id,
     required this.username,
     required this.password,
@@ -32,8 +32,8 @@ class User {
     };
   }
 
-  factory User.fromMap(Map<dynamic, dynamic> map) {
-    return User(
+  factory UserDTO.fromMap(Map<dynamic, dynamic> map) {
+    return UserDTO(
       id: map['id'],
       username: map['username'],
       password: map['password'],

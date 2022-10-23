@@ -5,9 +5,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-import '../../../../colors/colors.dart';
+import '../../../../../core/colors/colors.dart';
 import '../../../../core/app_bar.dart';
-import '../../../di/profile_component.dart';
+import '../../../di/changing_password_component.dart';
 
 class ChangePasswordScreen extends ConsumerWidget {
   const ChangePasswordScreen({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class ChangePasswordScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: ModalProgressHUD(
-        inAsyncCall: ref.watch(profileSettingNotifierProvider).isLoadingProfile,
+        inAsyncCall: ref.watch(changingPasswordNotifierProvider).isLoadingProfile,
         child: Scaffold(
           backgroundColor: S.colors.white,
           appBar: PreferredSize(
@@ -44,21 +44,21 @@ class ChangePasswordScreen extends ConsumerWidget {
                       ),
                       CustomTextFormField(
                         controller: ref
-                            .watch(profileSettingNotifierProvider)
+                            .watch(changingPasswordNotifierProvider)
                             .oldPassword,
                         hintText: 'Old password',
                         obscureText: ref
-                            .watch(profileSettingNotifierProvider)
+                            .watch(changingPasswordNotifierProvider)
                             .isOldPasswordVisible,
                         suffixIconData: InkWell(
                           onTap: () {
                             ref
-                                .watch(profileSettingNotifierProvider.notifier)
+                                .watch(changingPasswordNotifierProvider.notifier)
                                 .setOldPasswordVisible();
                           },
                           child: Icon(
                             ref
-                                    .watch(profileSettingNotifierProvider)
+                                    .watch(changingPasswordNotifierProvider)
                                     .isOldPasswordVisible
                                 ? FontAwesomeIcons.eye
                                 : FontAwesomeIcons.eyeLowVision,
@@ -73,21 +73,21 @@ class ChangePasswordScreen extends ConsumerWidget {
                       ),
                       CustomTextFormField(
                         controller: ref
-                            .watch(profileSettingNotifierProvider)
+                            .watch(changingPasswordNotifierProvider)
                             .passwordController,
                         hintText: 'New password',
                         obscureText: ref
-                            .watch(profileSettingNotifierProvider)
+                            .watch(changingPasswordNotifierProvider)
                             .passwordVisible,
                         suffixIconData: InkWell(
                           onTap: () {
                             ref
-                                .watch(profileSettingNotifierProvider.notifier)
+                                .watch(changingPasswordNotifierProvider.notifier)
                                 .setPasswordVisible();
                           },
                           child: Icon(
                             ref
-                                    .watch(profileSettingNotifierProvider)
+                                    .watch(changingPasswordNotifierProvider)
                                     .passwordVisible
                                 ? FontAwesomeIcons.eye
                                 : FontAwesomeIcons.eyeLowVision,
@@ -102,21 +102,21 @@ class ChangePasswordScreen extends ConsumerWidget {
                       ),
                       CustomTextFormField(
                         controller: ref
-                            .watch(profileSettingNotifierProvider)
+                            .watch(changingPasswordNotifierProvider)
                             .confirmPassword,
                         hintText: 'Confirm password',
                         obscureText: ref
-                            .watch(profileSettingNotifierProvider)
+                            .watch(changingPasswordNotifierProvider)
                             .confirmPasswordVisible,
                         suffixIconData: InkWell(
                           onTap: () {
                             ref
-                                .watch(profileSettingNotifierProvider.notifier)
+                                .watch(changingPasswordNotifierProvider.notifier)
                                 .setConfirmPasswordVisible();
                           },
                           child: Icon(
                             ref
-                                    .watch(profileSettingNotifierProvider)
+                                    .watch(changingPasswordNotifierProvider)
                                     .confirmPasswordVisible
                                 ? FontAwesomeIcons.eye
                                 : FontAwesomeIcons.eyeLowVision,
@@ -134,7 +134,7 @@ class ChangePasswordScreen extends ConsumerWidget {
                           text: "Change password",
                           onPress: () {
                             ref
-                                .watch(profileSettingNotifierProvider.notifier)
+                                .watch(changingPasswordNotifierProvider.notifier)
                                 .changePassword(context);
                           },
                         ),

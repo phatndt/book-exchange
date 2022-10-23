@@ -1,16 +1,18 @@
 import 'dart:developer';
 
 import 'package:book_exchange/core/route_paths.dart';
+import 'package:book_exchange/presentation/di/profile_component.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../colors/colors.dart';
+import '../../../../../core/colors/colors.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: S.colors.white,
@@ -37,8 +39,7 @@ class ProfileScreen extends StatelessWidget {
                   right: S.size.length_20,
                   left: S.size.length_20,
                   child: ProfileWidget(
-                    imagePath:
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTTePuOPXGxeejH4JuEO25wUWo-2jSefa3JUOCkwZKcfzi5rw7Z0XgR6-3OON8yrCOIlg&usqp=CAU',
+                    imagePath: ref.watch(profileNotifierProvider).avatarPath,
                     onPressed: () {
                       log("1");
                     },

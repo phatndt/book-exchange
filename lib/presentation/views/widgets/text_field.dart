@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../colors/colors.dart';
+import '../../../../../core/colors/colors.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -39,7 +39,7 @@ class CustomTextField extends StatelessWidget {
               color: S.colors.white,
             ),
           ),
-          suffixIcon: InkWell(
+          suffixIcon: GestureDetector(
             onTap: onClickSuffixIcon,
             child: Icon(
               icon,

@@ -5,7 +5,8 @@ import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
-import '../../colors/colors.dart';
+import '../colors/colors.dart';
+
 
 extension Ext on Object? {
   void ifNotEmpty(Function() action, Function() empty) {

@@ -1,4 +1,4 @@
-class Book {
+class BookDTO {
   final String id;
   final String name;
   final String author;
@@ -7,7 +7,7 @@ class Book {
   final String imageURL;
   final String userId;
 
-  Book({
+  BookDTO({
     required this.id,
     required this.name,
     required this.author,
@@ -29,8 +29,8 @@ class Book {
     };
   }
 
-  factory Book.fromMap(Map<dynamic, dynamic> map) {
-    return Book(
+  factory BookDTO.fromMap(Map<dynamic, dynamic> map) {
+    return BookDTO(
       id: map['id'],
       name: map['name'],
       author: map['author'],

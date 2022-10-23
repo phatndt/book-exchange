@@ -1,11 +1,10 @@
-import 'package:book_exchange/core/extension/function_extension.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/login.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
-
-import '../../data/repos/user_repo.dart';
+import '../../domain/use_cases/check_exist_username_use_case.dart';
+import '../../domain/use_cases/register_use_case.dart';
 
 class RegisterSetting {
   final TextEditingController emailController;
@@ -58,7 +57,7 @@ class RegisterSetting {
 }
 
 class RegisterSettingNotifier extends StateNotifier<RegisterSetting> {
-  RegisterSettingNotifier(this.ref)
+  RegisterSettingNotifier(this.ref, this._checkExistUsernameUseCaseImpl, this._registerUseCaseImpl)
       : super(
           RegisterSetting(
             emailController: TextEditingController(),
@@ -68,14 +67,11 @@ class RegisterSettingNotifier extends StateNotifier<RegisterSetting> {
             isPasswordVisible: true,
             isLoadingRegister: false,
           ),
-        ) {
-    // _authRepo = ref.watch(authRepoProvider);
-    _userRepo = ref.watch(userRepoProvider);
-  }
+        );
 
   final Ref ref;
-  // late AuthRepo _authRepo;
-  late UserRepo _userRepo;
+  final CheckExistUsernameUseCase _checkExistUsernameUseCaseImpl;
+  final RegisterUseCase _registerUseCaseImpl;
 
   void setPasswordVisible() {
     final newState = state.copy(isPasswordVisible: !state.isPasswordVisible);
@@ -106,7 +102,7 @@ class RegisterSettingNotifier extends StateNotifier<RegisterSetting> {
   register(context) async {
     if (state.emailController.text.isNotEmpty ||
         state.passwordController.text.isNotEmpty) {
-      await _userRepo
+      await _registerUseCaseImpl
           .register(
         state.usernameController.text,
         state.passwordController.text,
@@ -165,7 +161,7 @@ class RegisterSettingNotifier extends StateNotifier<RegisterSetting> {
         state.passwordController.text.isNotEmpty ||
         state.usernameController.text.isNotEmpty ||
         state.confirmPasswordController.text.isNotEmpty) {
-      await _userRepo
+      await _checkExistUsernameUseCaseImpl
           .checkExistUsername(state.usernameController.text)
           .then((value) {
         if (value.data) {
@@ -203,7 +199,3 @@ class RegisterSettingNotifier extends StateNotifier<RegisterSetting> {
     }
   }
 }
-
-final registerSettingNotifierProvider =
-    StateNotifierProvider<RegisterSettingNotifier, RegisterSetting>(
-        ((ref) => RegisterSettingNotifier(ref)));

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../colors/colors.dart';
+import '../../../../../core/colors/colors.dart';
 
 class ReCustomElevatedButton extends StatelessWidget {
   const ReCustomElevatedButton({

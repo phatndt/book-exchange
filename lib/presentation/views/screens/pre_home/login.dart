@@ -1,8 +1,4 @@
-import 'dart:developer';
-
 import 'package:book_exchange/core/route_paths.dart';
-import 'package:flutter/foundation.dart';
-import 'package:book_exchange/presentation/views/screens/pre_home/signup.dart';
 import 'package:book_exchange/presentation/views/widgets/filled_button.dart';
 import 'package:book_exchange/presentation/views/widgets/outline_button.dart';
 import 'package:book_exchange/presentation/views/widgets/text_field.dart';
@@ -10,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import '../../../../colors/colors.dart';
+import '../../../../../core/colors/colors.dart';
+import '../../../di/auth_component.dart';
 
-import '../../../view_models/login_viewmodel.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({Key? key}) : super(key: key);

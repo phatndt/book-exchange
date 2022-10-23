@@ -1,4 +1,3 @@
-import 'package:book_exchange/data/mapper/api_response_mapper.dart';
 import 'package:book_exchange/domain/entities/api_response.dart';
 import 'package:book_exchange/domain/repository/profile_repo.dart';
 import 'package:book_exchange/domain/use_cases/change_pasword_use_case.dart';
@@ -13,8 +12,8 @@ class ChangePasswordUseCaseImpl extends ChangePasswordUseCase {
     String oldPassword,
     String newPassword,
     String token,
-  ) {
-    return profileRepo.changePassword(
+  ) async {
+    return await profileRepo.changePassword(
         username, oldPassword, newPassword, token);
   }
 }

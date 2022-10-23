@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:book_exchange/core/core.dart';
 import 'package:book_exchange/core/route_paths.dart';
-import 'package:book_exchange/data/entities/book.dart';
-import 'package:book_exchange/data/repos/book_repo.dart';
+import 'package:book_exchange/domain/use_cases/book/delete_book_use_case.dart';
+import 'package:book_exchange/domain/use_cases/book/edit_book_use_case.dart';
 import 'package:cloudinary_sdk/cloudinary_sdk.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,8 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../core/extension/function_extension.dart';
-import '../../data/repos/user_repo.dart';
+import '../../domain/entities/book.dart';
+import '../models/book_app_model.dart';
 
 class EditBookSetting {
   final TextEditingController bookName;
@@ -59,7 +60,7 @@ class EditBookSetting {
 }
 
 class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
-  EditBookSettingNotifier(this.ref)
+  EditBookSettingNotifier(this.ref, this._editBookUseCase, this._deleteBookUseCase)
       : super(
           EditBookSetting(
             bookId: '',
@@ -70,16 +71,11 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
             bookRating: 0.0,
             isLoadingEditBook: false,
           ),
-        ) {
-    // _authRepo = ref.watch(authRepoProvider);
-    _bookRepo = ref.watch(bookRepoProvider);
-    _userRepo = ref.watch(userRepoProvider);
-  }
+        );
 
   final Ref ref;
-  // late AuthRepo _authRepo;
-  late UserRepo _userRepo;
-  late BookRepo _bookRepo;
+  final EditBookUseCase _editBookUseCase;
+  final DeleteBookUseCase _deleteBookUseCase;
 
   void setLoadingEditBook() {
     final newState = state.copy(isLoadingEditBook: !state.isLoadingEditBook);
@@ -182,7 +178,7 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
   }
 
   void editBookById(context, String imageURL) async {
-    await _bookRepo
+    await _editBookUseCase
         .editBook(
             Book(
               id: state.bookId,
@@ -191,9 +187,9 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
               imageURL: imageURL,
               name: state.bookName.text,
               rate: state.bookRating,
-              userId: getUserIdFromToken(_userRepo.jwtToken),
+              userId: getUserIdFromToken(BookAppModel.jwtToken),
             ),
-            _userRepo.jwtToken)
+            BookAppModel.jwtToken)
         .then(
       (value) {
         Navigator.pushNamed(
@@ -256,14 +252,14 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
   }
 
   void deleteBookByBookId(String bookId, context) async {
-    await _bookRepo.deleteBook(bookId, _userRepo.jwtToken).then((value) {
+    await _deleteBookUseCase.deleteBook(bookId, BookAppModel.jwtToken).then((value) {
       Navigator.pushNamed(
         context,
         RoutePaths.home,
       );
       showTopSnackBar(
         context,
-        CustomSnackBar.error(
+        const CustomSnackBar.error(
           message: "Delete sucessfully",
         ),
         displayDuration: const Duration(seconds: 2),
@@ -275,14 +271,5 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
       catchOnError(context, onError);
     });
   }
-
-  // String base64Image = base64Encode(await pickedImage.readAsBytes());
-
-  // ref.watch(EditBookSettingNotifierProvider).bookImage = base64Image;
-  // state.bookImage = base64Image;
-  // log(base64Image);
 }
 
-final editBookSettingNotifierProvider =
-    StateNotifierProvider<EditBookSettingNotifier, EditBookSetting>(
-        ((ref) => EditBookSettingNotifier(ref)));
