@@ -63,6 +63,7 @@ class _Colors {
 }
 
 class _Sized {
+  final double length_4 = 4;
   final double length_8 = 8;
   final double length_10 = 10;
   final double length_20 = 20;

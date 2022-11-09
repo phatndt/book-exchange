@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../data/services/book_service.dart';
 import '../../domain/use_cases/upload_image_use_case_impl.dart';
 import '../view_models/add_book_viewmodels.dart';
+import '../view_models/book_detail_viewmodel.dart';
 import '../view_models/collection_viewmodels.dart';
 import '../view_models/edit_book_viewmodels.dart';
 
@@ -34,13 +35,18 @@ final getListBookUseCaseProvider = Provider<GetListBookByIdUseCaseImpl>(
 final addBookSettingNotifierProvider =
     StateNotifierProvider<AddBookSettingNotifier, AddBookSetting>(((ref) =>
         AddBookSettingNotifier(
-            ref, ref.watch(uploadImageToCloudinaryUseCaseProvider), ref.watch(uploadBookUseCaseProvider))));
-
+            ref,
+            ref.watch(uploadImageToCloudinaryUseCaseProvider),
+            ref.watch(uploadBookUseCaseProvider))));
 
 final collectionSettingNotifierProvider =
     StateNotifierProvider<CollectionSettingNotifier, CollectionSetting>(
         ((ref) => CollectionSettingNotifier(ref)));
 
 final editBookSettingNotifierProvider =
-    StateNotifierProvider<EditBookSettingNotifier, EditBookSetting>(
-        ((ref) => EditBookSettingNotifier(ref, ref.watch(editBookUseCaseProvider), ref.watch(deleteBookUseCaseProvider))));
+    StateNotifierProvider<EditBookSettingNotifier, EditBookSetting>(((ref) =>
+        EditBookSettingNotifier(ref, ref.watch(editBookUseCaseProvider),
+            ref.watch(deleteBookUseCaseProvider))));
+final bookDetailSettingNotifierProvider =
+    StateNotifierProvider<BookDetailSettingNotifier, BookDetailSetting>(
+        ((ref) => BookDetailSettingNotifier(ref)));

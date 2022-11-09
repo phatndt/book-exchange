@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:book_exchange/core/app_bar.dart';
 import 'package:book_exchange/presentation/views/widgets/filled_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -125,7 +127,26 @@ class AddBookScreen extends ConsumerWidget {
                     controller: ref
                         .watch(addBookSettingNotifierProvider)
                         .bookDescription,
-                    obscureText: true,
+                    obscureText: false,
+                  ),
+                  // Text(
+                  //   'Barcode',
+                  //   style: S.textStyles.titleText,
+                  // ),
+                  // CustomTextFormField(
+                  //   controller:
+                  //       ref.watch(addBookSettingNotifierProvider).bookBarcode,
+                  //   obscureText: false,
+                  // ),
+                  // CustomFilledButton(
+                  //   width: MediaQuery.of(context).size.width,
+                  //   text: 'SCAN BARCODE',
+                  //   onPress: () {
+                  //     scanBarcodeNormal();
+                  //   },
+                  // ),
+                  SizedBox(
+                    height: S.size.length_20,
                   ),
                   Text(
                     'Rating',
@@ -174,7 +195,7 @@ class AddBookScreen extends ConsumerWidget {
                   ),
                   SizedBox(
                     height: S.size.length_40,
-                  )
+                  ),
                 ],
               ),
             ),
@@ -182,5 +203,17 @@ class AddBookScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+}
+
+Future<String> scanBarcodeNormal() async {
+  String barcodeScanRes;
+  // Platform messages may fail, so we use a try/catch PlatformException.
+  try {
+    barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+        '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+    return (barcodeScanRes);
+  } on PlatformException {
+    return barcodeScanRes = 'Failed to get platform version.';
   }
 }
