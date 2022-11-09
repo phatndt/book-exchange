@@ -1,14 +1,16 @@
+import 'dart:developer';
+
 import 'package:book_exchange/core/route_paths.dart';
 import 'package:book_exchange/presentation/views/widgets/filled_button.dart';
 import 'package:book_exchange/presentation/views/widgets/outline_button.dart';
 import 'package:book_exchange/presentation/views/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../../../core/colors/colors.dart';
 import '../../../di/auth_component.dart';
-
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -106,11 +108,13 @@ class LoginScreen extends ConsumerWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      FocusScope.of(context).unfocus();
-                      Navigator.pushNamed(
-                        context,
-                        RoutePaths.forgot,
-                      );
+                      // FocusScope.of(context).unfocus();
+                      // Navigator.pushNamed(
+                      //   context,
+                      //   RoutePaths.forgot,
+                      // );
+                      log(ScreenUtil().scaleHeight.toString());
+                      log(ScreenUtil().scaleWidth.toString());
                     },
                     child: Center(
                       child: Text(

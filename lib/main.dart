@@ -1,74 +1,51 @@
 import 'package:book_exchange/core/app_route.dart';
 import 'package:book_exchange/core/route_paths.dart';
+import 'package:book_exchange/presentation/di/app_provider.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/welcome.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/colors/colors.dart';
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: S.colors.orange,
-          secondary: S.colors.orange,
-        ),
-        scaffoldBackgroundColor: S.colors.background,
-      ),
-      onGenerateRoute: AppRouter.generateRoute,
-      initialRoute: RoutePaths.welcome,
-      home: const WelcomeScreen(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ScreenUtilInit(
+        designSize: const Size(392.72727272727275, 781.0909090909091),
+        builder: (context, child) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSwatch().copyWith(
+                primary: S.colors.orange,
+                secondary: S.colors.orange,
+              ),
+              scaffoldBackgroundColor: S.colors.background,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+            onGenerateRoute: AppRouter.generateRoute,
+            initialRoute: RoutePaths.splash,
+          );
+        }
+        // child: MaterialApp(
+        //   debugShowCheckedModeBanner: false,
+        //   theme: ThemeData(
+        //     colorScheme: ColorScheme.fromSwatch().copyWith(
+        //       primary: S.colors.orange,
+        //       secondary: S.colors.orange,
+        //     ),
+        //     scaffoldBackgroundColor: S.colors.background,
+        //   ),
+        //   onGenerateRoute: AppRouter.generateRoute,
+        //   initialRoute: RoutePaths.main,
+        // ),
+        );
   }
 }

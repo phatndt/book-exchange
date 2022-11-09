@@ -4,3 +4,5 @@ class BookAppModel {
   static late String jwtToken;
   static late User user;
 }
+
+
