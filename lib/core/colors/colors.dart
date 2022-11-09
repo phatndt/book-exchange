@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class S {
   static final colors = _Colors();
@@ -63,20 +64,35 @@ class _Colors {
 }
 
 class _Sized {
-  final double length_8 = 8;
-  final double length_10 = 10;
-  final double length_20 = 20;
-  final double length_40 = 40;
-  final double length_50 = 50;
-  final double length_64 = 64;
-  final double length_80 = 80;
-  final double length_100 = 100;
-  final double length_130 = 130;
-  final double length_150 = 150;
-  final double length_170 = 170;
-  final double length_200 = 200;
-  final double length_230 = 230;
-  final double length_280 = 280;
+  final double length_8 = ScreenUtil().scaleWidth * 8;
+  final double length_10 = ScreenUtil().scaleWidth * 10;
+  final double length_20 = ScreenUtil().scaleWidth * 20;
+  final double length_40 = ScreenUtil().scaleWidth * 40;
+  final double length_50 = ScreenUtil().scaleWidth * 50;
+  final double length_64 = ScreenUtil().scaleWidth * 64;
+  final double length_80 = ScreenUtil().scaleWidth * 80;
+  final double length_100 = ScreenUtil().scaleWidth * 100;
+  final double length_130 = ScreenUtil().scaleWidth * 130;
+  final double length_150 = ScreenUtil().scaleWidth * 150;
+  final double length_170 = ScreenUtil().scaleWidth * 170;
+  final double length_200 = ScreenUtil().scaleWidth * 200;
+  final double length_230 = ScreenUtil().scaleWidth * 230;
+  final double length_280 = ScreenUtil().scaleWidth * 280;
+
+  final double length_8Vertical = ScreenUtil().scaleHeight * 8;
+  final double length_10Vertical = ScreenUtil().scaleHeight * 10;
+  final double length_20Vertical = ScreenUtil().scaleHeight * 20;
+  final double length_40Vertical = ScreenUtil().scaleHeight * 40;
+  final double length_50Vertical = ScreenUtil().scaleHeight * 50;
+  final double length_64Vertical = ScreenUtil().scaleHeight * 64;
+  final double length_80Vertical = ScreenUtil().scaleHeight * 80;
+  final double length_100Vertical = ScreenUtil().scaleHeight * 100;
+  final double length_130Vertical = ScreenUtil().scaleHeight * 130;
+  final double length_150Vertical = ScreenUtil().scaleHeight * 150;
+  final double length_170Vertical = ScreenUtil().scaleHeight * 170;
+  final double length_200Vertical = ScreenUtil().scaleHeight * 200;
+  final double length_230Vertical = ScreenUtil().scaleHeight * 230;
+  final double length_280Vertical = ScreenUtil().scaleHeight * 280;
 }
 
 class _TextStyles {

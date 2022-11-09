@@ -1,9 +1,13 @@
 import 'package:book_exchange/core/route_paths.dart';
 import 'package:book_exchange/presentation/main_screen.dart';
 import 'package:book_exchange/presentation/views/screens/home/library/add_book.dart';
+import 'package:book_exchange/presentation/views/screens/home/library/collection.dart';
+import 'package:book_exchange/presentation/views/screens/home/library/share.dart';
+import 'package:book_exchange/presentation/views/screens/post/main_post_screen.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/forgot_password.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/login.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/signup.dart';
+import 'package:book_exchange/presentation/views/screens/pre_home/splash_screen.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/welcome.dart';
 import 'package:book_exchange/presentation/views/screens/profile/change_password_screen.dart';
 import 'package:book_exchange/presentation/views/screens/profile/profile_screen.dart';
@@ -12,6 +16,11 @@ import 'package:flutter/material.dart';
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case RoutePaths.splash:
+        return MaterialPageRoute(
+          builder: (_) => const SplashScreen(),
+          settings: settings,
+        );
       case RoutePaths.welcome:
         return MaterialPageRoute(
           builder: (_) => const WelcomeScreen(),
@@ -37,11 +46,6 @@ class AppRouter {
           builder: (_) => const MainScreen(),
           settings: settings,
         );
-      case RoutePaths.profile:
-        return MaterialPageRoute(
-          builder: (_) => const ProfileScreen(),
-          settings: settings,
-        );
       case RoutePaths.changePassword:
         return MaterialPageRoute(
           builder: (_) => const ChangePasswordScreen(),
@@ -52,9 +56,29 @@ class AppRouter {
           builder: (_) => const AddBookScreen(),
           settings: settings,
         );
+      case RoutePaths.profile:
+        return MaterialPageRoute(
+          builder: (_) => const ProfileScreen(),
+          settings: settings,
+        );
+      case RoutePaths.home:
+        return MaterialPageRoute(
+          builder: (_) => const CollectionScreen(),
+          settings: settings,
+        );
+      case RoutePaths.share:
+        return MaterialPageRoute(
+          builder: (_) => const ShareScreen(),
+          settings: settings,
+        );
+      case RoutePaths.post:
+        return MaterialPageRoute(
+          builder: (_) => const MainPostScreen(),
+          settings: settings,
+        );
       default:
         return MaterialPageRoute(
-          builder: (_) => const WelcomeScreen(),
+          builder: (_) => const SplashScreen(),
           settings: settings,
         );
     }

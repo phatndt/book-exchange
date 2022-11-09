@@ -1,12 +1,18 @@
 class RoutePaths {
+  static const splash = '/';
   static const welcome = '/welcome';
-  static const logIn = '/welcome/login';
-  static const signUp = '/welcome/register';
-  static const forgot = '/welcome/forgot';
+  static const logIn = '/login';
+  static const signUp = '/login/register';
+  static const forgot = '/login/forgot';
   static const main = '/mainscreen';
+
   static const profile = '/profile';
-  static const home = '/home';
-  static const share = '/share';
   static const changePassword = profile + '/password';
-  static const addBook = '/add_book';
+
+  static const home = '/home';
+  static const addBook = home +'/add_book';
+
+  static const share = '/share';
+
+  static const post = '/post';
 }

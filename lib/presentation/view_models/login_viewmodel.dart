@@ -1,12 +1,16 @@
+import 'dart:developer';
+
 import 'package:book_exchange/core/extension/function_extension.dart';
 import 'package:book_exchange/core/route_paths.dart';
 import 'package:book_exchange/domain/use_cases/login_use_case_impl.dart';
 import 'package:book_exchange/presentation/di/profile_component.dart';
 import 'package:book_exchange/presentation/models/book_app_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 class LoginSetting {
   final TextEditingController emailController;
@@ -123,5 +127,28 @@ class LoginSettingNotifier extends StateNotifier<LoginSetting> {
         ),
       );
     }
+  }
+
+  Future<void> startBarcodeScanStream() async {
+    FlutterBarcodeScanner.getBarcodeStreamReceiver(
+            '#ff6666', 'Cancel', true, ScanMode.BARCODE)!
+        .listen((barcode) => log(barcode));
+  }
+
+  Future<void> scanBarcodeNormal() async {
+    String barcodeScanRes;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+      log(barcodeScanRes);
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
   }
 }
