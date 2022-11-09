@@ -22,7 +22,7 @@ class EditBookScreen extends ConsumerWidget {
     required this.bookAuthor,
     required this.bookDescription,
     required this.bookRating,
-    required this.imagePath,
+    required this.imageUrl,
     Key? key,
   }) : super(key: key);
 
@@ -31,7 +31,7 @@ class EditBookScreen extends ConsumerWidget {
   final String bookAuthor;
   final String bookDescription;
   final double bookRating;
-  final String imagePath;
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -49,22 +49,25 @@ class EditBookScreen extends ConsumerWidget {
                 ref
                     .watch(editBookSettingNotifierProvider.notifier)
                     .updateImagePath(XFile(''));
+                ref
+                    .watch(editBookSettingNotifierProvider.notifier)
+                    .clearInput();
                 Navigator.pop(context);
               }),
-              actions: [
-                IconButton(
-                  icon: const Icon(
-                    FontAwesomeIcons.trashCan,
-                  ),
-                  onPressed: () {
-                    deletePress(context, () {
-                      ref
-                          .watch(editBookSettingNotifierProvider.notifier)
-                          .deleteBookByBookId(bookId, context);
-                    });
-                  },
-                ),
-              ],
+              // actions: [
+              //   IconButton(
+              //     icon: const Icon(
+              //       FontAwesomeIcons.trashCan,
+              //     ),
+              //     onPressed: () {
+              //       deletePress(context, () {
+              //         ref
+              //             .watch(editBookSettingNotifierProvider.notifier)
+              //             .deleteBookByBookId(bookId, context);
+              //       });
+              //     },
+              //   ),
+              // ],
             ),
           ),
           backgroundColor: S.colors.white,
@@ -130,7 +133,7 @@ class EditBookScreen extends ConsumerWidget {
                                     .path ==
                                 ''
                             ? DecorationImage(
-                                image: NetworkImage(imagePath),
+                                image: NetworkImage(imageUrl),
                                 fit: BoxFit.fill,
                               )
                             : DecorationImage(
@@ -150,10 +153,6 @@ class EditBookScreen extends ConsumerWidget {
                           ref
                               .watch(editBookSettingNotifierProvider.notifier)
                               .showImageSourceActionSheet(context);
-                          log(ref
-                              .watch(editBookSettingNotifierProvider)
-                              .bookImage
-                              .path);
                         },
                         child:
                             // ? Icon(
@@ -240,6 +239,15 @@ class EditBookScreen extends ConsumerWidget {
                       width: MediaQuery.of(context).size.width,
                       text: 'EDIT BOOK',
                       onPress: () {
+                        if (ref
+                            .watch(editBookSettingNotifierProvider.notifier)
+                            .checkEditBookInput(context, bookName, bookAuthor,
+                                bookDescription, bookRating)) {
+                          ref
+                              .watch(editBookSettingNotifierProvider.notifier)
+                              .editBook(context, imageUrl, bookId);
+                        }
+
                         // ref
                         //     .watch(editBookSettingNotifierProvider.notifier)
                         //     .updateImageToCloudinary(
@@ -256,24 +264,6 @@ class EditBookScreen extends ConsumerWidget {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  void deletePress(context, VoidCallback onPress) {
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (builder) => CustomAlertDialog(
-        action: () {
-          //deletethisbook
-          onPress;
-          Fluttertoast.showToast(msg: "adu toi day!");
-        },
-        action1Title: 'Yes',
-        action2Title: 'No',
-        content: 'You want to delete this book?',
-        title: 'DELETE',
       ),
     );
   }

@@ -60,7 +60,8 @@ class EditBookSetting {
 }
 
 class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
-  EditBookSettingNotifier(this.ref, this._editBookUseCase, this._deleteBookUseCase)
+  EditBookSettingNotifier(
+      this.ref, this._editBookUseCase, this._deleteBookUseCase)
       : super(
           EditBookSetting(
             bookId: '',
@@ -143,20 +144,35 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
     }
   }
 
-  bool checkEditBookInput(context) {
-    if (state.bookName.text.isEmpty ||
-        state.bookAuthor.text.isEmpty ||
-        state.bookDescription.text.isEmpty ||
-        state.bookImage.path.isEmpty) {
+  bool checkEditBookInput(context, String bookName, String bookAuthor,
+      String bookDescription, double rating) {
+    if ((state.bookName.text.isEmpty &&
+            state.bookAuthor.text.isEmpty &&
+            state.bookDescription.text.isEmpty &&
+            state.bookImage.path.isEmpty
+        // && state.bookRating == null
+        )) {
       showTopSnackBar(
         context,
-        const CustomSnackBar.error(
-          message: "Fill up the blank space",
+        const CustomSnackBar.info(
+          message: "You didn't change anything!",
         ),
         displayDuration: const Duration(seconds: 2),
       );
       return false;
     } else {
+      if (state.bookName.text.isEmpty) {
+        state.bookName.text = bookName;
+      }
+      if (state.bookAuthor.text.isEmpty) {
+        state.bookAuthor.text = bookAuthor;
+      }
+      if (state.bookDescription.text.isEmpty) {
+        state.bookDescription.text = bookDescription;
+      }
+      if (state.bookRating == 0.0) {
+        state.bookRating = rating;
+      }
       return true;
     }
   }
@@ -177,17 +193,28 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
     updateImagePath(pickedImage);
   }
 
-  void editBookById(context, String imageURL) async {
+  void editBook(context, String imageUrl, String id) {
+    if (state.bookImage.path.isEmpty) {
+      setLoadingEditBook();
+      editBookById(context, imageUrl, id);
+    } else {
+      setLoadingEditBook();
+      updateImageToCloudinary(context, id);
+    }
+  }
+
+  void editBookById(context, String imageURL, String id) async {
     await _editBookUseCase
         .editBook(
             Book(
-              id: state.bookId,
+              id: id,
               author: state.bookAuthor.text,
               description: state.bookDescription.text,
               imageURL: imageURL,
               name: state.bookName.text,
               rate: state.bookRating,
-              userId: getUserIdFromToken(BookAppModel.jwtToken),
+              userId: BookAppModel.user.id,
+              isDelete: false,
             ),
             BookAppModel.jwtToken)
         .then(
@@ -212,12 +239,12 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
     });
   }
 
-  void updateImageToCloudinary(context) async {
+  void updateImageToCloudinary(context, id) async {
     setLoadingEditBook();
-    if (!checkEditBookInput(context)) {
-      setLoadingEditBook();
-      return;
-    }
+    // if (!checkEditBookInput(context)) {
+    //   setLoadingEditBook();
+    //   return;
+    // }
     final cloudinary = Cloudinary.full(
       apiKey: '735947945251852',
       apiSecret: 'O-Rd18L74ukuNN91I8vrzBJXeGI',
@@ -246,13 +273,19 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
     });
 
     if (response.isSuccessful) {
+      setLoadingEditBook();
       log('Get your image from with ${response.secureUrl}');
-      editBookById(context, response.secureUrl!);
+      editBookById(context, response.secureUrl!, id);
     } else {}
   }
 
   void deleteBookByBookId(String bookId, context) async {
-    await _deleteBookUseCase.deleteBook(bookId, BookAppModel.jwtToken).then((value) {
+    await _deleteBookUseCase
+        .deleteBook(
+      bookId,
+      BookAppModel.jwtToken,
+    )
+        .then((value) {
       Navigator.pushNamed(
         context,
         RoutePaths.home,
@@ -272,4 +305,3 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
     });
   }
 }
-

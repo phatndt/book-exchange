@@ -109,10 +109,11 @@ class BookService {
         "description": book.description,
         "rate": book.rate,
         "imageUrl": book.imageURL,
-        "userId": book.userId
+        "userId": book.userId,
+        "isDelete": book.isDelete
       };
 
-      final response = await DioService().dio.put(
+      final response = await DioService().dio.post(
             Endpoints.editBook,
             data: body,
             options: Options(
@@ -133,13 +134,14 @@ class BookService {
       String bookId, String token) async {
     try {
       final body = {"bookId": bookId};
-      final response = await DioService().dio.delete(
+      final response = await DioService().dio.post(
             Endpoints.deleteBook,
             data: body,
             options: Options(
               headers: {"Authorization": "Bearer $token"},
             ),
           );
+      log(body.toString());
       return ApiResponseDTO<BookDTO>(
         data: BookDTO.fromMap(response.data['data']),
         statusCode: response.data['statusCode'],

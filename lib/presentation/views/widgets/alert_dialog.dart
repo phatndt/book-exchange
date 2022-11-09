@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -35,10 +37,7 @@ class CustomAlertDialog extends StatelessWidget {
           child: Text(
             action1Title,
           ),
-          onPressed: () {
-            action;
-            Navigator.of(context).pop();
-          },
+          onPressed: action,
           isDefaultAction: true,
         ),
         CupertinoDialogAction(

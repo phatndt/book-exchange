@@ -19,6 +19,7 @@ class AddBookSetting {
   final TextEditingController bookName;
   final TextEditingController bookAuthor;
   final TextEditingController bookDescription;
+  final TextEditingController bookBarcode;
   double bookRating;
   File bookImage;
 
@@ -30,6 +31,7 @@ class AddBookSetting {
     required this.bookDescription,
     required this.bookRating,
     required this.bookImage,
+    required this.bookBarcode,
     required this.isLoadingAddBook,
   });
 
@@ -37,6 +39,7 @@ class AddBookSetting {
     TextEditingController? bookName,
     TextEditingController? bookAuthor,
     TextEditingController? bookDescription,
+    TextEditingController? bookBarcode,
     double? bookRating,
     File? bookImage,
     bool? isLoadingAddBook,
@@ -46,6 +49,7 @@ class AddBookSetting {
           bookImage: bookImage ?? this.bookImage,
           bookName: bookName ?? this.bookName,
           bookDescription: bookDescription ?? this.bookDescription,
+          bookBarcode: bookBarcode ?? this.bookBarcode,
           bookRating: bookRating ?? this.bookRating,
           isLoadingAddBook: isLoadingAddBook ?? this.isLoadingAddBook);
 
@@ -59,6 +63,7 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
           AddBookSetting(
             bookAuthor: TextEditingController(),
             bookDescription: TextEditingController(),
+            bookBarcode: TextEditingController(),
             bookImage: File(''),
             bookName: TextEditingController(),
             bookRating: 0.0,
@@ -180,6 +185,7 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
               rate: state.bookRating,
               imageURL: imageURL,
               userId: getUserIdFromToken(BookAppModel.jwtToken),
+              isDelete: false,
             ),
             BookAppModel.jwtToken)
         .then(

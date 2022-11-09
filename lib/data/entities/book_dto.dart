@@ -6,6 +6,7 @@ class BookDTO {
   final double rate;
   final String imageURL;
   final String userId;
+  final bool isDelete;
 
   BookDTO({
     required this.id,
@@ -15,6 +16,7 @@ class BookDTO {
     required this.rate,
     required this.imageURL,
     required this.userId,
+    required this.isDelete,
   });
 
   Map<dynamic, dynamic> toMap() {
@@ -26,6 +28,7 @@ class BookDTO {
       'rate': rate,
       'imageUrl': imageURL,
       'userId': userId,
+      'isDelete': isDelete,
     };
   }
 
@@ -38,6 +41,7 @@ class BookDTO {
       rate: map['rate'],
       imageURL: map['imageUrl'],
       userId: map['userId'],
+      isDelete: map['delete'],
     );
   }
 }

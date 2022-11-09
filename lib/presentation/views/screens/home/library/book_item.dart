@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/colors/colors.dart';
+
 class BookItem extends StatelessWidget {
   const BookItem({
     Key? key,
-    required this.onLongPress,
+    required this.onTap,
     required this.imageURL,
     required this.name,
   }) : super(key: key);
-  final VoidCallback onLongPress;
+  final VoidCallback onTap;
   final String name;
   final String imageURL;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onLongPress: onLongPress,
+      onTap: onTap,
       child: Container(
         color: Colors.transparent,
         child: Column(
@@ -30,8 +31,8 @@ class BookItem extends StatelessWidget {
               ),
               elevation: 3,
               child: Container(
-                width: 100,
-                height: 140,
+                width: 120,
+                height: 170,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: S.colors.grey,
@@ -50,14 +51,14 @@ class BookItem extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: S.size.length_8),
-              child: Text(
-                name,
-                style: S.textStyles.collection.smallTitle,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(vertical: S.size.length_8),
+            //   child: Text(
+            //     name,
+            //     style: S.textStyles.collection.smallTitle,
+            //     overflow: TextOverflow.ellipsis,
+            //   ),
+            // ),
           ],
         ),
       ),

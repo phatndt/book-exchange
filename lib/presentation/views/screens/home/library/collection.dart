@@ -1,4 +1,5 @@
 import 'package:book_exchange/presentation/views/screens/home/library/add_book.dart';
+import 'package:book_exchange/presentation/views/screens/home/library/book_detail.dart';
 import 'package:book_exchange/presentation/views/screens/home/library/edit_book.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -72,16 +73,15 @@ class CollectionScreen extends ConsumerWidget {
             //     ],
             //   ),
             // ),
-            RefreshIndicator(
-              onRefresh: () async => ref.refresh(
-                  getListBookProvider(ref.watch(getListBookUseCaseProvider))),
-              child: Expanded(
+            Expanded(
+              child: RefreshIndicator(
+                onRefresh: () async => ref.refresh(
+                    getListBookProvider(ref.watch(getListBookUseCaseProvider))),
                 child: ref
                     .watch(getListBookProvider(
                         ref.watch(getListBookUseCaseProvider)))
                     .when(
                       data: (data) {
-                        
                         return GridView.builder(
                           padding:
                               EdgeInsets.symmetric(vertical: S.size.length_10),
@@ -103,20 +103,18 @@ class CollectionScreen extends ConsumerWidget {
                               child: BookItem(
                                 imageURL: data[index].imageURL,
                                 name: data[index].name,
-                                onLongPress: () {
+                                onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => EditBookScreen(
+                                        builder: (context) => BookDetailScreen(
                                               bookId: data[index].id,
-                                              bookAuthor:
-                                                  data[index].author,
+                                              bookAuthor: data[index].author,
                                               bookDescription:
                                                   data[index].description,
                                               bookName: data[index].name,
                                               bookRating: data[index].rate,
-                                              imagePath:
-                                                  data[index].imageURL,
+                                              imageUrl: data[index].imageURL,
                                             )),
                                   );
                                 },
@@ -135,29 +133,6 @@ class CollectionScreen extends ConsumerWidget {
                         child: CircularProgressIndicator(),
                       ),
                     ),
-                // child: GridView.count(
-                //   padding: EdgeInsets.symmetric(vertical: S.size.length_10),
-                //   shrinkWrap: true,
-                //   crossAxisCount: 3,
-                //   mainAxisSpacing: 14,
-                //   scrollDirection: Axis.vertical,
-                //   children: List.generate(
-                //     50,
-                //     (index) {
-                //       return Padding(
-                //         padding: EdgeInsets.symmetric(
-                //           horizontal: S.size.length_10,
-                //         ),
-                //         child: BookItem(
-                //           imageURL: S.colors.urlEx,
-                //           isPressed: ref
-                //               .watch(collectionSettingNotifierProvider)
-                //               .isPressed,
-                //         ),
-                //       );
-                //     },
-                //   ),
-                // ),
               ),
             ),
           ],
