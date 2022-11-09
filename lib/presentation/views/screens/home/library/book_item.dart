@@ -31,8 +31,8 @@ class BookItem extends StatelessWidget {
               ),
               elevation: 3,
               child: Container(
-                width: 120,
-                height: 170,
+                width: S.size.length_120,
+                height: S.size.length_170Vertical,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: S.colors.grey,

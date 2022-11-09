@@ -30,8 +30,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-
-  flutter_barcode_scanner: ^2.0.0
   image_picker: '0.8.5'
   cloudinary_sdk: ^4.0.2+10
   flutter_rating_bar: ^4.0.1

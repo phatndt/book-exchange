@@ -1,11 +1,10 @@
+import 'dart:developer';
+
 import 'package:book_exchange/core/app_route.dart';
 import 'package:book_exchange/core/route_paths.dart';
-import 'package:book_exchange/presentation/di/app_provider.dart';
-import 'package:book_exchange/presentation/views/screens/pre_home/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/colors/colors.dart';
 
@@ -18,6 +17,7 @@ class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    log("message");
     return ScreenUtilInit(
         designSize: const Size(392.72727272727275, 781.0909090909091),
         builder: (context, child) {

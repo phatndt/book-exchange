@@ -10,7 +10,6 @@ class SplashScreen extends ConsumerWidget {
     ref.watch(splashProvider).init(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.amberAccent,
         body: Center(
           child: Image.asset('assets/logo/logo.png'),
         ),

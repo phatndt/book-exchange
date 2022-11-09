@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:book_exchange/core/route_paths.dart';
+import 'package:book_exchange/presentation/di/app_provider.dart';
 import 'package:book_exchange/presentation/di/profile_component.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -96,8 +97,12 @@ class ProfileScreen extends ConsumerWidget {
                       icon: FontAwesomeIcons.accessibleIcon,
                       name: "Log out",
                       onTap: () {
-                        Navigator.pushReplacementNamed(
-                            context, RoutePaths.logIn);
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          RoutePaths.logIn,
+                          (route) => false,
+                        );
+                        ref.watch(mainAppNotifierProvider.notifier).dispose();
                       },
                     ),
                     Divider(

@@ -1,21 +1,7 @@
-import 'dart:developer';
-import 'dart:io';
-
-import 'package:book_exchange/core/core.dart';
-import 'package:book_exchange/core/route_paths.dart';
-import 'package:book_exchange/domain/use_cases/book/delete_book_use_case.dart';
-import 'package:book_exchange/domain/use_cases/book/edit_book_use_case.dart';
-import 'package:cloudinary_sdk/cloudinary_sdk.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
-
-import '../../core/extension/function_extension.dart';
-import '../../domain/entities/book.dart';
-import '../models/book_app_model.dart';
 
 class BookDetailSetting {
   final TextEditingController bookName;

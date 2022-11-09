@@ -23,7 +23,6 @@ class CustomOutlineButton extends StatelessWidget {
       onPressed: onPress,
       style: ElevatedButton.styleFrom(
         //padding: const EdgeInsets.all(0.8),
-        maximumSize: Size(width, 60),
         minimumSize: Size(width, 60),
         // side: BorderSide(
         //   style: BorderStyle.solid,

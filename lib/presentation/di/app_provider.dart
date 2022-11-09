@@ -33,5 +33,5 @@ final splashProvider = Provider<SplashProvider>((ref) => SplashProvider(
     ));
 
 final mainAppNotifierProvider =
-    StateNotifierProvider<MainAppNotifier, MainApp>(
+    StateNotifierProvider.autoDispose<MainAppNotifier, MainApp>(
         ((ref) => MainAppNotifier(ref)));

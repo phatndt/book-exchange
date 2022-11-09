@@ -1,6 +1,5 @@
 import 'package:book_exchange/presentation/views/screens/home/library/add_book.dart';
 import 'package:book_exchange/presentation/views/screens/home/library/book_detail.dart';
-import 'package:book_exchange/presentation/views/screens/home/library/edit_book.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -34,7 +33,7 @@ class CollectionScreen extends ConsumerWidget {
           // physics: const NeverScrollableScrollPhysics(),
           children: [
             SizedBox(
-              height: S.size.length_20,
+              height: S.size.length_20Vertical,
             ),
             Center(
               child: Text(
@@ -43,36 +42,8 @@ class CollectionScreen extends ConsumerWidget {
               ),
             ),
             SizedBox(
-              height: S.size.length_20,
+              height: S.size.length_20Vertical,
             ),
-
-            // Padding(
-            //   padding: EdgeInsets.symmetric(
-            //     horizontal: S.size.length_10,
-            //   ),
-            //   child: Row(
-            //     children: [
-            //       RichText(
-            //         text: TextSpan(
-            //           children: [
-            //             WidgetSpan(
-            //               child: Icon(
-            //                 FontAwesomeIcons.book,
-            //                 color: S.colors.grey,
-            //                 size: 22,
-            //               ),
-            //             ),
-            //             const TextSpan(text: '  '),
-            //             TextSpan(
-            //               text: '5 Book Selected',
-            //               style: S.textStyles.geryOnWhiteText,
-            //             )
-            //           ],
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
             Expanded(
               child: RefreshIndicator(
                 onRefresh: () async => ref.refresh(
@@ -83,8 +54,8 @@ class CollectionScreen extends ConsumerWidget {
                     .when(
                       data: (data) {
                         return GridView.builder(
-                          padding:
-                              EdgeInsets.symmetric(vertical: S.size.length_10),
+                          padding: EdgeInsets.symmetric(
+                              vertical: S.size.length_10Vertical),
                           shrinkWrap: true,
                           itemCount: data.length,
                           scrollDirection: Axis.vertical,

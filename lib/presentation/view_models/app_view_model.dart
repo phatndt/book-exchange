@@ -49,30 +49,10 @@ class MainAppNotifier extends StateNotifier<MainApp> {
   ];
 
   setCurrentIndext(int index) {
-    final newState =
-        state.copy(navigation: navigationList[index], currentIndex: index);
+    final newState = state.copy(
+      navigation: navigationList[index],
+      currentIndex: index,
+    );
     state = newState;
-    // switch (index) {
-    //   case 0:
-    //     final newState = state.copy(
-    //         navigation: navigationList[index], currentIndex: index);
-    //     state = newState;
-    //     break;
-    //   case 1:
-    //     final newState =
-    //         state.copy(route: RoutePaths.share, currentIndex: index);
-    //     state = newState;
-    //     break;
-    //   case 2:
-    //     final newState =
-    //         state.copy(route: RoutePaths.post, currentIndex: index);
-    //     state = newState;
-    //     break;
-    //   case 3:
-    //     final newState =
-    //         state.copy(route: RoutePaths.profile, currentIndex: index);
-    //     state = newState;
-    //     break;
-    // }
   }
 }

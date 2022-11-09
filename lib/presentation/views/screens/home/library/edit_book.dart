@@ -1,11 +1,8 @@
-import 'dart:developer';
 import 'dart:io';
 
-import 'package:book_exchange/presentation/views/widgets/alert_dialog.dart';
 import 'package:book_exchange/presentation/views/widgets/filled_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';

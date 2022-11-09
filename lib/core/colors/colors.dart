@@ -73,6 +73,7 @@ class _Sized {
   final double length_64 = ScreenUtil().scaleWidth * 64;
   final double length_80 = ScreenUtil().scaleWidth * 80;
   final double length_100 = ScreenUtil().scaleWidth * 100;
+  final double length_120 = ScreenUtil().scaleWidth * 120;
   final double length_130 = ScreenUtil().scaleWidth * 130;
   final double length_150 = ScreenUtil().scaleWidth * 150;
   final double length_170 = ScreenUtil().scaleWidth * 170;
@@ -201,29 +202,29 @@ class _TextStyles {
 }
 
 class _Login {
-  final mediumTitle = const TextStyle(
+  final mediumTitle = TextStyle(
     fontFamily: 'Lato',
     color: Colors.white,
-    fontSize: 20,
+    fontSize: 20.sp,
     fontWeight: FontWeight.w400,
   );
-  final bigTitle = const TextStyle(
+  final bigTitle = TextStyle(
     fontFamily: 'Lato',
     color: Colors.white,
-    fontSize: 24,
+    fontSize: 24.sp,
     fontWeight: FontWeight.w600,
   );
 
-  final smallTitle = const TextStyle(
+  final smallTitle = TextStyle(
     fontFamily: 'Lato',
     color: Colors.white,
-    fontSize: 16,
+    fontSize: 16.sp,
   );
 
-  final buttonStyle = const TextStyle(
+  final buttonStyle = TextStyle(
     fontFamily: 'Lato',
     color: Colors.white,
-    fontSize: 16,
+    fontSize: 16.sp,
   );
 }
 
