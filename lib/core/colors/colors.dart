@@ -64,6 +64,7 @@ class _Colors {
 }
 
 class _Sized {
+  final double length_4 = ScreenUtil().scaleHeight * 4;
   final double length_8 = ScreenUtil().scaleWidth * 8;
   final double length_10 = ScreenUtil().scaleWidth * 10;
   final double length_20 = ScreenUtil().scaleWidth * 20;
@@ -79,6 +80,7 @@ class _Sized {
   final double length_230 = ScreenUtil().scaleWidth * 230;
   final double length_280 = ScreenUtil().scaleWidth * 280;
 
+  final double length_4Vertical = ScreenUtil().scaleHeight * 4;
   final double length_8Vertical = ScreenUtil().scaleHeight * 8;
   final double length_10Vertical = ScreenUtil().scaleHeight * 10;
   final double length_20Vertical = ScreenUtil().scaleHeight * 20;
