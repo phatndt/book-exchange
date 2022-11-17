@@ -110,7 +110,7 @@ class BookService {
         "rate": book.rate,
         "imageUrl": book.imageURL,
         "userId": book.userId,
-        "isDelete": book.isDelete
+        "delete": book.delete
       };
 
       final response = await DioService().dio.post(

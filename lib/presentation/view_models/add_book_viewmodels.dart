@@ -6,6 +6,8 @@ import 'package:book_exchange/domain/use_cases/book/upload_book_use_case.dart';
 import 'package:book_exchange/domain/use_cases/upload_image_use_case.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
@@ -19,7 +21,8 @@ class AddBookSetting {
   final TextEditingController bookName;
   final TextEditingController bookAuthor;
   final TextEditingController bookDescription;
-  final TextEditingController bookBarcode;
+
+  String bookBarcode;
   double bookRating;
   File bookImage;
 
@@ -39,19 +42,20 @@ class AddBookSetting {
     TextEditingController? bookName,
     TextEditingController? bookAuthor,
     TextEditingController? bookDescription,
-    TextEditingController? bookBarcode,
+    String? bookBarcode,
     double? bookRating,
     File? bookImage,
     bool? isLoadingAddBook,
   }) =>
       AddBookSetting(
-          bookAuthor: bookAuthor ?? this.bookAuthor,
-          bookImage: bookImage ?? this.bookImage,
-          bookName: bookName ?? this.bookName,
-          bookDescription: bookDescription ?? this.bookDescription,
-          bookBarcode: bookBarcode ?? this.bookBarcode,
-          bookRating: bookRating ?? this.bookRating,
-          isLoadingAddBook: isLoadingAddBook ?? this.isLoadingAddBook);
+        bookAuthor: bookAuthor ?? this.bookAuthor,
+        bookImage: bookImage ?? this.bookImage,
+        bookName: bookName ?? this.bookName,
+        bookDescription: bookDescription ?? this.bookDescription,
+        bookBarcode: bookBarcode ?? this.bookBarcode,
+        bookRating: bookRating ?? this.bookRating,
+        isLoadingAddBook: isLoadingAddBook ?? this.isLoadingAddBook,
+      );
 
   //AddBookSetting copyWith({}) {return AddBookSetting(emailClear: emailClear, isVisible: isVisible, emailController: emailController, passwordController: passwordController)}
 }
@@ -63,7 +67,7 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
           AddBookSetting(
             bookAuthor: TextEditingController(),
             bookDescription: TextEditingController(),
-            bookBarcode: TextEditingController(),
+            bookBarcode: '',
             bookImage: File(''),
             bookName: TextEditingController(),
             bookRating: 0.0,
@@ -90,7 +94,19 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
     state.bookAuthor.text = "";
     state.bookDescription.text = "";
     state.bookRating = 0.0;
+    state.bookBarcode = "";
     clearImage();
+  }
+
+  Future<String> scanBarcodeNormal(String barcodeScanRes) async {
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+      return (barcodeScanRes);
+    } on PlatformException {
+      return barcodeScanRes = 'Failed to get platform version.';
+    }
   }
 
   void showImageSourceActionSheet(BuildContext context) {
@@ -185,7 +201,7 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
               rate: state.bookRating,
               imageURL: imageURL,
               userId: getUserIdFromToken(BookAppModel.jwtToken),
-              isDelete: false,
+              delete: false,
             ),
             BookAppModel.jwtToken)
         .then(

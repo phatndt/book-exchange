@@ -32,6 +32,7 @@ class EditBookScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(editBookSettingNotifierProvider).bookRating = bookRating;
     return SafeArea(
       child: ModalProgressHUD(
         inAsyncCall:
@@ -77,7 +78,7 @@ class EditBookScreen extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: S.size.length_20,
+                    height: S.size.length_20Vertical,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,12 +114,12 @@ class EditBookScreen extends ConsumerWidget {
                     ],
                   ),
                   SizedBox(
-                    height: S.size.length_20,
+                    height: S.size.length_20Vertical,
                   ),
                   Center(
                     child: Container(
-                      width: 130,
-                      height: 160,
+                      width: S.size.length_130,
+                      height: S.size.length_170Vertical,
                       decoration: BoxDecoration(
                         color: S.colors.accent_8,
                         borderRadius: BorderRadius.all(
@@ -166,7 +167,7 @@ class EditBookScreen extends ConsumerWidget {
                     ),
                   ),
                   SizedBox(
-                    height: S.size.length_20,
+                    height: S.size.length_20Vertical,
                   ),
                   Text(
                     'Name',
@@ -204,7 +205,7 @@ class EditBookScreen extends ConsumerWidget {
                     style: S.textStyles.titleText,
                   ),
                   SizedBox(
-                    height: S.size.length_10,
+                    height: S.size.length_10Vertical,
                   ),
                   Center(
                     child: RatingBar(
@@ -229,7 +230,7 @@ class EditBookScreen extends ConsumerWidget {
                     ),
                   ),
                   SizedBox(
-                    height: S.size.length_40,
+                    height: S.size.length_40Vertical,
                   ),
                   Center(
                     child: CustomFilledButton(
@@ -254,7 +255,7 @@ class EditBookScreen extends ConsumerWidget {
                     ),
                   ),
                   SizedBox(
-                    height: S.size.length_40,
+                    height: S.size.length_40Vertical,
                   )
                 ],
               ),

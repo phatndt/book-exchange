@@ -6,7 +6,7 @@ class Book {
   final double rate;
   final String imageURL;
   final String userId;
-  final bool isDelete;
+  final bool delete;
 
   Book({
     required this.id,
@@ -16,6 +16,6 @@ class Book {
     required this.rate,
     required this.imageURL,
     required this.userId,
-    required this.isDelete,
+    required this.delete,
   });
 }

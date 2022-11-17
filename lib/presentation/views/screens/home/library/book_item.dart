@@ -36,7 +36,7 @@ class BookItem extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: S.colors.grey,
-                    width: 1.9,
+                    width: 0.2,
                   ),
                   borderRadius: BorderRadius.all(
                     Radius.circular(

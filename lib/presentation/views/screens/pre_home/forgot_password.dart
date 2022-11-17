@@ -20,14 +20,14 @@ class ForgotPasswordScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: S.size.length_40,
+                  height: S.size.length_40Vertical,
                 ),
                 Image.asset(
                   'assets/logo/logo_other.png',
                   scale: 1,
                 ),
                 SizedBox(
-                  height: S.size.length_40,
+                  height: S.size.length_40Vertical,
                 ),
                 Text(
                   'RESET YOUR PASSWORD',
@@ -35,7 +35,7 @@ class ForgotPasswordScreen extends ConsumerWidget {
                   textAlign: TextAlign.start,
                 ),
                 SizedBox(
-                  height: S.size.length_40,
+                  height: S.size.length_40Vertical,
                 ),
                 Text(
                   'Let we send you a email to \nreset password',
@@ -43,7 +43,7 @@ class ForgotPasswordScreen extends ConsumerWidget {
                   textAlign: TextAlign.start,
                 ),
                 SizedBox(
-                  height: S.size.length_40,
+                  height: S.size.length_40Vertical,
                 ),
                 CustomTextField(
                   textEditingController: ref
@@ -53,7 +53,7 @@ class ForgotPasswordScreen extends ConsumerWidget {
                   obscure: false,
                 ),
                 SizedBox(
-                  height: S.size.length_50,
+                  height: S.size.length_50Vertical,
                 ),
                 CustomFilledButton(
                   width: S.size.length_130,

@@ -16,7 +16,8 @@ class ChangePasswordScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: ModalProgressHUD(
-        inAsyncCall: ref.watch(changingPasswordNotifierProvider).isLoadingProfile,
+        inAsyncCall:
+            ref.watch(changingPasswordNotifierProvider).isLoadingProfile,
         child: Scaffold(
           backgroundColor: S.colors.white,
           appBar: PreferredSize(
@@ -53,7 +54,8 @@ class ChangePasswordScreen extends ConsumerWidget {
                         suffixIconData: InkWell(
                           onTap: () {
                             ref
-                                .watch(changingPasswordNotifierProvider.notifier)
+                                .watch(
+                                    changingPasswordNotifierProvider.notifier)
                                 .setOldPasswordVisible();
                           },
                           child: Icon(
@@ -82,7 +84,8 @@ class ChangePasswordScreen extends ConsumerWidget {
                         suffixIconData: InkWell(
                           onTap: () {
                             ref
-                                .watch(changingPasswordNotifierProvider.notifier)
+                                .watch(
+                                    changingPasswordNotifierProvider.notifier)
                                 .setPasswordVisible();
                           },
                           child: Icon(
@@ -111,7 +114,8 @@ class ChangePasswordScreen extends ConsumerWidget {
                         suffixIconData: InkWell(
                           onTap: () {
                             ref
-                                .watch(changingPasswordNotifierProvider.notifier)
+                                .watch(
+                                    changingPasswordNotifierProvider.notifier)
                                 .setConfirmPasswordVisible();
                           },
                           child: Icon(
@@ -126,7 +130,7 @@ class ChangePasswordScreen extends ConsumerWidget {
                         ),
                       ),
                       SizedBox(
-                        height: S.size.length_40,
+                        height: S.size.length_40Vertical,
                       ),
                       Center(
                         child: CustomFilledButton(
@@ -134,7 +138,8 @@ class ChangePasswordScreen extends ConsumerWidget {
                           text: "Change password",
                           onPress: () {
                             ref
-                                .watch(changingPasswordNotifierProvider.notifier)
+                                .watch(
+                                    changingPasswordNotifierProvider.notifier)
                                 .changePassword(context);
                           },
                         ),

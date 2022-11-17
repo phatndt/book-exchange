@@ -64,7 +64,7 @@ class _Colors {
 }
 
 class _Sized {
-  final double length_4 = ScreenUtil().scaleHeight * 4;
+  final double length_4 = ScreenUtil().scaleWidth * 4;
   final double length_8 = ScreenUtil().scaleWidth * 8;
   final double length_10 = ScreenUtil().scaleWidth * 10;
   final double length_20 = ScreenUtil().scaleWidth * 20;
@@ -232,7 +232,7 @@ class _Collection {
   final mediumTitle = TextStyle(
     fontFamily: 'Lato',
     color: S.colors.grey,
-    fontSize: 20,
+    fontSize: 21,
     fontWeight: FontWeight.w400,
   );
   final bigTitle = const TextStyle(
@@ -250,8 +250,14 @@ class _Collection {
 
   final smallTitle = const TextStyle(
     fontFamily: 'Lato',
+    color: Color.fromARGB(255, 37, 37, 37),
+    fontSize: 18,
+  );
+
+  final biggerSmallTitle = const TextStyle(
+    fontFamily: 'Lato',
     color: Colors.black,
-    fontSize: 16,
+    fontSize: 20,
   );
 
   final titleAddBook = TextStyle(

@@ -1,10 +1,8 @@
 import 'dart:io';
 
-import 'package:book_exchange/core/app_bar.dart';
+import 'package:book_exchange/presentation/views/screens/home/library/book_preview.dart';
 import 'package:book_exchange/presentation/views/widgets/filled_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -24,9 +22,36 @@ class AddBookScreen extends ConsumerWidget {
         inAsyncCall: ref.watch(addBookSettingNotifierProvider).isLoadingAddBook,
         child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(S.size.length_50),
-            child: const AppBarImpl(
-              title: 'Create a new book',
+            preferredSize: Size.fromHeight(S.size.length_50Vertical),
+            child: AppBar(
+              centerTitle: true,
+              title: const Text("Create a new book"),
+              leading: BackButton(onPressed: () {
+                ref
+                    .watch(addBookSettingNotifierProvider.notifier)
+                    .updateImagePath(File(''));
+                ref.watch(addBookSettingNotifierProvider.notifier).clearInput();
+                Navigator.pop(context);
+              }),
+              actions: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: S.size.length_8,
+                  ),
+                  child: IconButton(
+                    icon: const Icon(
+                      FontAwesomeIcons.barcode,
+                    ),
+                    onPressed: () {
+                      ref
+                          .watch(addBookSettingNotifierProvider.notifier)
+                          .scanBarcodeNormal(ref
+                              .watch(addBookSettingNotifierProvider)
+                              .bookBarcode);
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
           backgroundColor: S.colors.white,
@@ -39,19 +64,19 @@ class AddBookScreen extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: S.size.length_20,
+                    height: S.size.length_20Vertical,
                   ),
                   Text(
                     'Book Cover',
                     style: S.textStyles.titleText,
                   ),
                   SizedBox(
-                    height: S.size.length_20,
+                    height: S.size.length_20Vertical,
                   ),
                   Center(
                     child: Container(
-                      width: 130,
-                      height: 160,
+                      width: S.size.length_130,
+                      height: S.size.length_170Vertical,
                       decoration: BoxDecoration(
                         color: S.colors.accent_8,
                         borderRadius: BorderRadius.all(
@@ -99,7 +124,7 @@ class AddBookScreen extends ConsumerWidget {
                     ),
                   ),
                   SizedBox(
-                    height: S.size.length_20,
+                    height: S.size.length_20Vertical,
                   ),
                   Text(
                     'Name',
@@ -129,10 +154,7 @@ class AddBookScreen extends ConsumerWidget {
                         .bookDescription,
                     obscureText: false,
                   ),
-                  // Text(
-                  //   'Barcode',
-                  //   style: S.textStyles.titleText,
-                  // ),
+
                   // CustomTextFormField(
                   //   controller:
                   //       ref.watch(addBookSettingNotifierProvider).bookBarcode,
@@ -145,15 +167,15 @@ class AddBookScreen extends ConsumerWidget {
                   //     scanBarcodeNormal();
                   //   },
                   // ),
-                  SizedBox(
-                    height: S.size.length_20,
-                  ),
+                  // SizedBox(
+                  //   height: S.size.length_20Vertical,
+                  // ),
                   Text(
                     'Rating',
                     style: S.textStyles.titleText,
                   ),
                   SizedBox(
-                    height: S.size.length_10,
+                    height: S.size.length_10Vertical,
                   ),
                   Center(
                     child: RatingBar(
@@ -178,23 +200,84 @@ class AddBookScreen extends ConsumerWidget {
                     ),
                   ),
                   SizedBox(
-                    height: S.size.length_40,
+                    height: S.size.length_10Vertical,
+                  ),
+                  Text(
+                    'Barcode',
+                    style: S.textStyles.titleText,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: S.size.length_8Vertical,
+                    ),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      color: S.colors.accent_7,
+                      child: Center(
+                        child: Text(
+                          // ref
+                          //             .watch(addBookSettingNotifierProvider)
+                          //             .bookBarcode ==
+                          //         null
+                          //     ? ref
+                          //         .watch(addBookSettingNotifierProvider)
+                          //         .bookBarcode
+                          //     :
+                          'Book\'s barcode show here',
+                          style: S.textStyles.boldTitle,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: S.size.length_20Vertical,
                   ),
                   Center(
                     child: CustomFilledButton(
                       width: MediaQuery.of(context).size.width,
                       text: 'ADD BOOK',
                       onPress: () {
-                        ref
+                        if (ref
                             .watch(addBookSettingNotifierProvider.notifier)
-                            .updateImageToCloud(
-                              context,
-                            );
+                            .checkAddBookInput(context)) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BookPreviewScreen(
+                                bookAuthor: ref
+                                    .watch(addBookSettingNotifierProvider)
+                                    .bookAuthor
+                                    .text,
+                                bookName: ref
+                                    .watch(addBookSettingNotifierProvider)
+                                    .bookName
+                                    .text,
+                                bookDescription: ref
+                                    .watch(addBookSettingNotifierProvider)
+                                    .bookDescription
+                                    .text,
+                                bookRating: ref
+                                    .watch(addBookSettingNotifierProvider)
+                                    .bookRating,
+                                imagePath: ref
+                                    .watch(addBookSettingNotifierProvider)
+                                    .bookImage
+                                    .path,
+                              ),
+                            ),
+                          );
+                        }
+
+                        // ref
+                        //     .watch(addBookSettingNotifierProvider.notifier)
+                        //     .updateImageToCloud(
+                        //       context,
+                        //     );
                       },
                     ),
                   ),
                   SizedBox(
-                    height: S.size.length_40,
+                    height: S.size.length_40Vertical,
                   ),
                 ],
               ),
@@ -206,14 +289,14 @@ class AddBookScreen extends ConsumerWidget {
   }
 }
 
-Future<String> scanBarcodeNormal() async {
-  String barcodeScanRes;
-  // Platform messages may fail, so we use a try/catch PlatformException.
-  try {
-    barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-        '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-    return (barcodeScanRes);
-  } on PlatformException {
-    return barcodeScanRes = 'Failed to get platform version.';
-  }
-}
+// Future<String> scanBarcodeNormal() async {
+//   String barcodeScanRes;
+//   // Platform messages may fail, so we use a try/catch PlatformException.
+//   try {
+//     barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+//         '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+//     return (barcodeScanRes);
+//   } on PlatformException {
+//     return barcodeScanRes = 'Failed to get platform version.';
+//   }
+// }
