@@ -16,14 +16,14 @@ class WelcomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                height: S.size.length_50,
+                height: S.size.length_50Vertical,
               ),
               Image.asset(
                 'assets/logo/logo.png',
                 scale: 1,
               ),
               SizedBox(
-                height: S.size.length_50,
+                height: S.size.length_50Vertical,
               ),
               Text(
                 'Experience reading and sharing \nbooks like never before',
@@ -31,7 +31,7 @@ class WelcomeScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               SizedBox(
-                height: S.size.length_50,
+                height: S.size.length_50Vertical,
               ),
               Column(
                 children: [
@@ -43,7 +43,7 @@ class WelcomeScreen extends StatelessWidget {
                     width: S.size.length_280,
                   ),
                   SizedBox(
-                    height: S.size.length_20,
+                    height: S.size.length_20Vertical,
                   ),
                   CustomFilledButton(
                     width: S.size.length_280,
@@ -56,7 +56,7 @@ class WelcomeScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: S.size.length_50,
+                height: S.size.length_50Vertical,
               ),
             ],
           ),

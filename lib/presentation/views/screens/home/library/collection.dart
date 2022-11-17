@@ -54,22 +54,22 @@ class CollectionScreen extends ConsumerWidget {
                     .when(
                       data: (data) {
                         return GridView.builder(
-                          padding: EdgeInsets.symmetric(
-                              vertical: S.size.length_10Vertical),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: S.size.length_8),
                           shrinkWrap: true,
                           itemCount: data.length,
                           scrollDirection: Axis.vertical,
                           gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
+                              SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
-                            crossAxisSpacing: 5,
-                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 0,
+                            mainAxisSpacing: S.size.length_4,
                             childAspectRatio: 0.725,
                           ),
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: EdgeInsets.symmetric(
-                                horizontal: S.size.length_10,
+                                horizontal: S.size.length_4,
                               ),
                               child: BookItem(
                                 imageURL: data[index].imageURL,

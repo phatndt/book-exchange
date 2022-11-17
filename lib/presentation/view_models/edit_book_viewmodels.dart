@@ -80,6 +80,7 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
   void setLoadingEditBook() {
     final newState = state.copy(isLoadingEditBook: !state.isLoadingEditBook);
     state = newState;
+    log(state.isLoadingEditBook.toString());
   }
 
   void clearImage() {
@@ -146,11 +147,10 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
   bool checkEditBookInput(context, String bookName, String bookAuthor,
       String bookDescription, double rating) {
     if ((state.bookName.text.isEmpty &&
-            state.bookAuthor.text.isEmpty &&
-            state.bookDescription.text.isEmpty &&
-            state.bookImage.path.isEmpty
-        // && state.bookRating == null
-        )) {
+        state.bookAuthor.text.isEmpty &&
+        state.bookDescription.text.isEmpty &&
+        state.bookImage.path.isEmpty &&
+        state.bookRating == rating)) {
       showTopSnackBar(
         context,
         const CustomSnackBar.info(
@@ -169,7 +169,7 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
       if (state.bookDescription.text.isEmpty) {
         state.bookDescription.text = bookDescription;
       }
-      if (state.bookRating == 0.0) {
+      if (state.bookRating == rating) {
         state.bookRating = rating;
       }
       return true;
@@ -213,7 +213,7 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
               name: state.bookName.text,
               rate: state.bookRating,
               userId: BookAppModel.user.id,
-              isDelete: false,
+              delete: false,
             ),
             BookAppModel.jwtToken)
         .then(
@@ -222,6 +222,7 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
           context,
           RoutePaths.home,
         );
+
         showTopSnackBar(
           context,
           CustomSnackBar.error(
@@ -279,6 +280,7 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
   }
 
   void deleteBookByBookId(String bookId, context) async {
+    setLoadingEditBook();
     await _deleteBookUseCase
         .deleteBook(
       bookId,

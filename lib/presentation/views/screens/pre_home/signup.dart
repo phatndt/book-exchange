@@ -34,7 +34,7 @@ class SignUpScreen extends ConsumerWidget {
                     height: S.size.length_100Vertical,
                   ),
                   SizedBox(
-                    height: S.size.length_40,
+                    height: S.size.length_40Vertical,
                   ),
                   Text(
                     'SIGN UP YOUR ACCOUNT',

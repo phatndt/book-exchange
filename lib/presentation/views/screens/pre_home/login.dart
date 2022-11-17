@@ -33,14 +33,14 @@ class LoginScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: S.size.length_40,
+                      height: S.size.length_40Vertical,
                     ),
                     Image.asset(
                       'assets/logo/logo_other.png',
                       scale: 1,
                     ),
                     SizedBox(
-                      height: S.size.length_40,
+                      height: S.size.length_40Vertical,
                     ),
                     Text(
                       'WELCOME BACK',
@@ -48,7 +48,7 @@ class LoginScreen extends ConsumerWidget {
                       textAlign: TextAlign.start,
                     ),
                     SizedBox(
-                      height: S.size.length_40,
+                      height: S.size.length_40Vertical,
                     ),
                     CustomTextField(
                       textEditingController: ref
@@ -64,7 +64,7 @@ class LoginScreen extends ConsumerWidget {
                       },
                     ),
                     SizedBox(
-                      height: S.size.length_20,
+                      height: S.size.length_20Vertical,
                     ),
                     CustomTextField(
                       textEditingController: ref
@@ -86,7 +86,7 @@ class LoginScreen extends ConsumerWidget {
                       },
                     ),
                     SizedBox(
-                      height: S.size.length_50,
+                      height: S.size.length_50Vertical,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,7 +112,7 @@ class LoginScreen extends ConsumerWidget {
                       ],
                     ),
                     SizedBox(
-                      height: S.size.length_40,
+                      height: S.size.length_40Vertical,
                     ),
                     GestureDetector(
                       onTap: () {

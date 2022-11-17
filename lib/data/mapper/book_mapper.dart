@@ -40,7 +40,7 @@ class BookMapper extends BaseMapper<BookDTO, Book> {
       rate: d.rate,
       imageURL: d.imageURL,
       userId: d.userId,
-      isDelete: d.isDelete,
+      delete: d.delete,
     );
   }
 }

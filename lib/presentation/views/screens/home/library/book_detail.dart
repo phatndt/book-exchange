@@ -62,7 +62,7 @@ class BookDetailScreen extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: S.size.length_10,
+                    height: S.size.length_10Vertical,
                   ),
                   Row(
                     children: [
@@ -70,7 +70,7 @@ class BookDetailScreen extends ConsumerWidget {
                         children: [
                           Padding(
                             padding: EdgeInsets.all(
-                              S.size.length_8,
+                              S.size.length_10,
                             ),
                             child: Material(
                               borderRadius: BorderRadius.all(
@@ -80,8 +80,8 @@ class BookDetailScreen extends ConsumerWidget {
                               ),
                               elevation: 10,
                               child: Container(
-                                width: 140,
-                                height: 190,
+                                width: S.size.length_150,
+                                height: S.size.length_200Vertical,
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                     color: S.colors.black,
@@ -107,7 +107,7 @@ class BookDetailScreen extends ConsumerWidget {
                               color: Colors.amber,
                             ),
                             itemCount: 5,
-                            itemSize: 20.0,
+                            itemSize: 25.0,
                             direction: Axis.horizontal,
                           ),
                         ],
@@ -122,31 +122,31 @@ class BookDetailScreen extends ConsumerWidget {
                           children: [
                             Text(
                               "Owner",
-                              style: S.textStyles.collection.bigTitle,
+                              style: S.textStyles.collection.mediumTitle,
                             ),
                             Text(
                               BookAppModel.user.username,
-                              style: S.textStyles.collection.mediumTitle,
+                              style: S.textStyles.collection.smallTitle,
                               overflow: TextOverflow.ellipsis,
                             ),
                             SizedBox(
-                              height: S.size.length_10,
+                              height: S.size.length_10Vertical,
                             ),
                             Text(
                               "Author",
-                              style: S.textStyles.collection.bigTitle,
+                              style: S.textStyles.collection.mediumTitle,
                             ),
                             Text(
                               bookAuthor,
-                              style: S.textStyles.collection.mediumTitle,
+                              style: S.textStyles.collection.smallTitle,
                               overflow: TextOverflow.ellipsis,
                             ),
                             SizedBox(
-                              height: S.size.length_10,
+                              height: S.size.length_10Vertical,
                             ),
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
-                              physics: const AlwaysScrollableScrollPhysics(),
+                              physics: const BouncingScrollPhysics(),
                               child: Row(
                                 children: [
                                   Padding(
@@ -160,10 +160,10 @@ class BookDetailScreen extends ConsumerWidget {
                                           splashColor:
                                               S.colors.navyBlue, // Splash color
                                           onTap: () {},
-                                          child: const SizedBox(
-                                            width: 45,
-                                            height: 45,
-                                            child: Icon(
+                                          child: SizedBox(
+                                            width: S.size.length_40,
+                                            height: S.size.length_40Vertical,
+                                            child: const Icon(
                                               FontAwesomeIcons.cloudArrowUp,
                                             ),
                                           ),
@@ -197,10 +197,10 @@ class BookDetailScreen extends ConsumerWidget {
                                                       )),
                                             );
                                           },
-                                          child: const SizedBox(
-                                            width: 45,
-                                            height: 45,
-                                            child: Icon(
+                                          child: SizedBox(
+                                            width: S.size.length_40,
+                                            height: S.size.length_40Vertical,
+                                            child: const Icon(
                                               FontAwesomeIcons.pencil,
                                             ),
                                           ),
@@ -241,10 +241,10 @@ class BookDetailScreen extends ConsumerWidget {
                                               ),
                                             );
                                           },
-                                          child: const SizedBox(
-                                            width: 45,
-                                            height: 45,
-                                            child: Icon(
+                                          child: SizedBox(
+                                            width: S.size.length_40,
+                                            height: S.size.length_40Vertical,
+                                            child: const Icon(
                                               FontAwesomeIcons.trash,
                                             ),
                                           ),
@@ -262,7 +262,7 @@ class BookDetailScreen extends ConsumerWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: S.size.length_20,
+                      horizontal: S.size.length_10,
                       vertical: S.size.length_10,
                     ),
                     child: Text(
@@ -272,7 +272,7 @@ class BookDetailScreen extends ConsumerWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: S.size.length_20,
+                      horizontal: S.size.length_10,
                       // vertical: S.size.length_20,
                     ),
                     child: RichText(
