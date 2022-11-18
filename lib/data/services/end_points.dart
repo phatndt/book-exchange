@@ -2,8 +2,9 @@ class Endpoints {
   Endpoints._();
 
   // base url
-  static const String baseUrl =
-      "https://lionfish-app-aur8e.ondigitalocean.app/v1";
+  // static const String baseUrl =
+  //     "https://lionfish-app-aur8e.ondigitalocean.app/v1";
+  static const String baseUrl = "http://172.25.224.1:8080/v1";
 
   // receiveTimeout
   static const int receiveTimeout = 10000;
@@ -16,6 +17,8 @@ class Endpoints {
   static const String register = '/authentication/register';
 
   static const String username = '/authentication/username';
+  
+  static const String getUserByUserId = '/authentication/getUserByUserId';
 
   //can define other
   static const String uploadBook = '/book/create';
@@ -27,4 +30,9 @@ class Endpoints {
   static const String getBookByUserId = '/book/read/user';
 
   static const String changePassword = '/profile/changePassword';
+
+  //post
+  static const String addPost = '/post/create';
+  
+  static const String getAllPost = '/post/read/list';
 }

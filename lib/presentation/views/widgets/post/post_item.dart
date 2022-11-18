@@ -3,11 +3,18 @@ import 'package:book_exchange/presentation/views/widgets/post/post_reaction.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../core/colors/colors.dart';
+import '../../../../domain/entities/combination_post.dart';
 
 class PostItemWidget extends StatelessWidget {
-  const PostItemWidget({Key? key}) : super(key: key);
+  const PostItemWidget({
+    Key? key,
+    required this.combinationPost,
+  }) : super(key: key);
+
+  final CombinationPost combinationPost;
 
   @override
   Widget build(BuildContext context) {
@@ -27,17 +34,18 @@ class PostItemWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             PostTitleWidget(
-              imagePath:
-                  "https://lumiere-a.akamaihd.net/v1/images/p_avatar_de27b20f.jpeg",
-              username: "thanhphat219",
-              createDate: "at 21/09/2001",
+              imagePath: combinationPost.user.imageUrl,
+              username: combinationPost.user.username,
+              createDate: DateFormat('dd/MM/yyyy, hh:mm').format(
+                  DateTime.fromMillisecondsSinceEpoch(
+                      int.parse(combinationPost.createDate))),
               onPressed: () {},
             ),
             SizedBox(
               height: S.size.length_20Vertical,
             ),
             Text(
-              "Day la mot quyen sach rat la hay toi muon chia se voi moi nguoi",
+              combinationPost.content,
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w400,
@@ -53,29 +61,13 @@ class PostItemWidget extends StatelessWidget {
                 borderRadius: BorderRadius.all(
                   Radius.circular(S.size.length_10),
                 ),
-                image: const DecorationImage(
+                image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: NetworkImage(
-                      "https://www.cgv.vn/media/catalog/product/cache/1/image/1800x/71252117777b696995f01934522c402d/a/v/avatar-1615695904-2089-1615696022.jpg"),
+                  image: NetworkImage(combinationPost.imageUrl),
                 ),
               ),
             ),
             const PostSpacing(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                PostReaction(
-                  icon: FontAwesomeIcons.thumbsUp,
-                  count: "10",
-                  onPressed: () {},
-                ),
-                PostComment(
-                  icon: FontAwesomeIcons.comment,
-                  count: "10",
-                  onPressed: () {},
-                ),
-              ],
-            )
           ],
         ),
       ),

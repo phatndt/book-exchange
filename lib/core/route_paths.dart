@@ -16,4 +16,5 @@ class RoutePaths {
   static const share = '/share';
 
   static const post = '/post';
+  static const addPost = post + '/add';
 }

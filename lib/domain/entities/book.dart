@@ -18,4 +18,13 @@ class Book {
     required this.userId,
     required this.delete,
   });
+
+  @override
+  String toString() => "$name - $author";
+
+  @override
+  operator ==(o) => o is Book && o.id == id;
+
+  @override
+  int get hashCode => id.hashCode ^ name.hashCode ^ author.hashCode;
 }

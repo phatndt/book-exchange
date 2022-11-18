@@ -5,11 +5,13 @@ class CustomFilledButton extends StatelessWidget {
   const CustomFilledButton({
     Key? key,
     required this.width,
+    this.height = 60,
     required this.text,
     required this.onPress,
   }) : super(key: key);
 
   final double width;
+  final double height;
   final String text;
   final VoidCallback onPress;
 
@@ -22,7 +24,7 @@ class CustomFilledButton extends StatelessWidget {
       ),
       onPressed: onPress,
       style: ElevatedButton.styleFrom(
-        fixedSize: Size(width, 60),
+        fixedSize: Size(width, height),
         // side: BorderSide(
         //   color: S.colors.white,
         //   width: 0.6,

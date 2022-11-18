@@ -1,9 +1,16 @@
+import 'dart:core';
+
 import 'package:book_exchange/data/base/base_mapper.dart';
 import 'package:book_exchange/data/entities/api_response_dto.dart';
 import 'package:book_exchange/data/entities/jwt_response_dto.dart';
+import 'package:book_exchange/data/entities/post_dto.dart';
 import 'package:book_exchange/data/mapper/jwt_response_mapper.dart';
 import 'package:book_exchange/domain/entities/api_response.dart';
 import 'package:book_exchange/domain/entities/jwt_response.dart';
+
+import '../../domain/entities/post.dart';
+import '../../domain/entities/user_post.dart';
+import '../entities/user_post_dto.dart';
 
 class ApiJwtResponseMapper extends BaseMapper<ApiResponseDTO<JwtResponseDTO>,
     ApiResponse<JwtResponse>> {
@@ -17,9 +24,8 @@ class ApiJwtResponseMapper extends BaseMapper<ApiResponseDTO<JwtResponseDTO>,
   }
 }
 
-
-class ApiStringResponseMapper extends BaseMapper<ApiResponseDTO<String>,
-    ApiResponse<String>> {
+class ApiStringResponseMapper
+    extends BaseMapper<ApiResponseDTO<String>, ApiResponse<String>> {
   @override
   ApiResponse<String> transfer(ApiResponseDTO<String> d) {
     return ApiResponse(
@@ -30,9 +36,8 @@ class ApiStringResponseMapper extends BaseMapper<ApiResponseDTO<String>,
   }
 }
 
-
-class ApiBoolResponseMapper extends BaseMapper<ApiResponseDTO<bool>,
-    ApiResponse<bool>> {
+class ApiBoolResponseMapper
+    extends BaseMapper<ApiResponseDTO<bool>, ApiResponse<bool>> {
   @override
   ApiResponse<bool> transfer(ApiResponseDTO<bool> d) {
     return ApiResponse(
@@ -43,4 +48,57 @@ class ApiBoolResponseMapper extends BaseMapper<ApiResponseDTO<bool>,
   }
 }
 
+extension Ext on ApiResponseDTO<String> {
+  ApiResponse<String> mapper() {
+    return ApiResponse(
+      data: data,
+      statusCode: statusCode,
+      message: message,
+    );
+  }
+}
 
+extension PostMapper on PostDTO {
+  Post mapper() {
+    return Post(
+      id: id,
+      content: content,
+      createDate: createDate,
+      nLikes: nLikes,
+      nComments: nComments,
+      userId: userId,
+      imageUrl: imageUrl,
+      isDeleted: isDeleted,
+    );
+  }
+}
+
+extension ListPost on ApiResponseDTO<List<PostDTO>> {
+  ApiResponse<List<Post>> mapper() {
+    return ApiResponse(
+      data: data.map((e) => e.mapper()).toList(),
+      statusCode: statusCode,
+      message: message,
+    );
+  }
+}
+
+extension ExtUserPost on UserPostDTO {
+  UserPost mapperUserPost() {
+    return UserPost(
+      imageUrl: imageUrl,
+      username: username,
+      userId: userId,
+    );
+  }
+}
+
+extension MapPostByUser on ApiResponseDTO<List<UserPostDTO>> {
+  ApiResponse<List<UserPost>> mapperPostByUser() {
+    return ApiResponse(
+      data: data.map((e) => e.mapperUserPost()).toList(),
+      statusCode: statusCode,
+      message: message,
+    );
+  }
+}

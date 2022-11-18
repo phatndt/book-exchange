@@ -5,6 +5,12 @@ import 'package:book_exchange/domain/use_cases/book/get_list_book_by_id_use_case
 import 'package:book_exchange/domain/use_cases/book/upload_book_use_case_impl.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../data/services/book_service.dart';
+import '../../domain/repository/book_repo.dart';
+import '../../domain/use_cases/book/delete_book_use_case.dart';
+import '../../domain/use_cases/book/edit_book_use_case.dart';
+import '../../domain/use_cases/book/get_list_book_by_id_use_case.dart';
+import '../../domain/use_cases/book/upload_book_use_case.dart';
+import '../../domain/use_cases/upload_image_use_case.dart';
 import '../../domain/use_cases/upload_image_use_case_impl.dart';
 import '../view_models/add_book_viewmodels.dart';
 import '../view_models/book_detail_viewmodel.dart';
@@ -13,23 +19,23 @@ import '../view_models/edit_book_viewmodels.dart';
 
 final bookServiceProvider = Provider<BookService>((ref) => BookService());
 
-final booksRepoProvider = Provider<BookRepoImpl>(
+final booksRepoProvider = Provider<BookRepo>(
     (ref) => BookRepoImpl(ref.watch(bookServiceProvider)));
 
 final uploadImageToCloudinaryUseCaseProvider =
-    Provider<UploadImageToCloudinaryUseCaseImpl>((ref) =>
+    Provider<UploadImageToCloudinaryUseCase>((ref) =>
         UploadImageToCloudinaryUseCaseImpl(ref.watch(booksRepoProvider)));
 
-final editBookUseCaseProvider = Provider<EditBookUseCaseImpl>(
+final editBookUseCaseProvider = Provider<EditBookUseCase>(
     (ref) => EditBookUseCaseImpl(ref.watch(booksRepoProvider)));
 
-final uploadBookUseCaseProvider = Provider<UploadBookUseCaseImpl>(
+final uploadBookUseCaseProvider = Provider<UploadBookUseCase>(
     (ref) => UploadBookUseCaseImpl(ref.watch(booksRepoProvider)));
 
-final deleteBookUseCaseProvider = Provider<DeleteBookUseCaseImpl>(
+final deleteBookUseCaseProvider = Provider<DeleteBookUseCase>(
     (ref) => DeleteBookUseCaseImpl(ref.watch(booksRepoProvider)));
 
-final getListBookUseCaseProvider = Provider<GetListBookByIdUseCaseImpl>(
+final getListBookUseCaseProvider = Provider<GetListBookUseCase>(
     (ref) => GetListBookByIdUseCaseImpl(ref.watch(booksRepoProvider)));
 
 final addBookSettingNotifierProvider =

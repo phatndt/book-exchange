@@ -3,6 +3,7 @@ import 'package:book_exchange/presentation/main_screen.dart';
 import 'package:book_exchange/presentation/views/screens/home/library/add_book.dart';
 import 'package:book_exchange/presentation/views/screens/home/library/collection.dart';
 import 'package:book_exchange/presentation/views/screens/home/library/share.dart';
+import 'package:book_exchange/presentation/views/screens/post/add_post_screen.dart';
 import 'package:book_exchange/presentation/views/screens/post/main_post_screen.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/forgot_password.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/login.dart';
@@ -85,6 +86,11 @@ class AppRouter {
       case RoutePaths.post:
         return MaterialPageRoute(
           builder: (_) => const MainPostScreen(),
+          settings: settings,
+        );
+      case RoutePaths.addPost:
+        return MaterialPageRoute(
+          builder: (_) => const AddPostScreen(),
           settings: settings,
         );
       default:

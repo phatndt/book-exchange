@@ -1,0 +1,30 @@
+
+import 'package:book_exchange/data/mapper/api_response_mapper.dart';
+import 'package:book_exchange/data/services/post_service.dart';
+import 'package:book_exchange/domain/entities/post.dart';
+import 'package:book_exchange/domain/repository/post_repo.dart';
+
+import '../../domain/entities/api_response.dart';
+import '../../domain/entities/user_post.dart';
+
+class PostRepoImpl extends PostRepo {
+  final PostService _postService;
+
+  PostRepoImpl(this._postService);
+
+  @override
+  Future<ApiResponse<String>> createPost(Post post, String token) {
+    return _postService.createPost(post, token).then((value) => value.mapper());
+  }
+
+  @override
+  Future<ApiResponse<List<Post>>> getAllPost(String token) {
+    return _postService.getAllPost(token).then((value) => value.mapper());
+  }
+
+  @override
+  Future<ApiResponse<List<UserPost>>> getUserByUserId(
+      List<String> userId, String token) {
+    return _postService.getUserByUserId(userId, token).then((value) => value.mapperPostByUser());
+  }
+}
