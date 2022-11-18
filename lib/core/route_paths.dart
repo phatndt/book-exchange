@@ -10,9 +10,10 @@ class RoutePaths {
   static const changePassword = profile + '/password';
 
   static const home = '/home';
-  static const addBook = home +'/add_book';
+  static const addBook = home + '/add_book';
 
   static const share = '/share';
 
   static const post = '/post';
+  static const addPost = post + '/add';
 }

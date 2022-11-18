@@ -2,7 +2,7 @@ import 'package:jwt_decode/jwt_decode.dart';
 
 String getUserIdFromToken(String token) {
   Map<String, dynamic> payload = Jwt.parseJwt(token);
-  String userId = payload['userId'];
+  String userId = payload['accountId'];
   return userId;
 }
 

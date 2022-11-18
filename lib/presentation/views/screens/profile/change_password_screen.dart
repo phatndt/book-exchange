@@ -20,7 +20,7 @@ class ChangePasswordScreen extends ConsumerWidget {
         child: Scaffold(
           backgroundColor: S.colors.white,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(S.size.length_50),
+            preferredSize: Size.fromHeight(S.size.length_50Vertical),
             child: const AppBarImpl(
               title: 'Change password',
             ),
