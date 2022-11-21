@@ -155,7 +155,6 @@ class BookService {
   Future<ApiResponseDTO<List<BookDTO>>> getBooksByUserId(String token) async {
     try {
       final body = {"userId": getUserIdFromToken(token)};
-
       final response = await DioService().dio.post(
             Endpoints.getBookByUserId,
             data: body,

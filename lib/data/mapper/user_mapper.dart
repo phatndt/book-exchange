@@ -7,13 +7,13 @@ class UserMapper extends BaseMapper<UserDTO, User> {
   User transfer(UserDTO d) {
     return User(
       d.id,
-      d.username,
+      d.name,
       d.password,
       d.email,
       d.address,
-      d.verifiedCode,
       d.image,
-      d.isEnabled,
+      d.isVerified,
+      d.isDeleted,
     );
   }
 }

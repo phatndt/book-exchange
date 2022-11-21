@@ -1,4 +1,4 @@
-import '../entities/api_response.dart';
+import '../../entities/api_response.dart';
 
 abstract class RegisterUseCase {
   Future<ApiResponse<String>> register(

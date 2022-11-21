@@ -4,9 +4,9 @@ class User {
   String _password;
   String _email;
   String _address;
-  String _verifiedCode;
   String _image;
-  bool _isEnabled;
+  bool _isVerified;
+  bool _isDeleted;
 
   User(
     this._id,
@@ -14,9 +14,9 @@ class User {
     this._password,
     this._email,
     this._address,
-    this._verifiedCode,
     this._image,
-    this._isEnabled,
+    this._isVerified,
+    this._isDeleted,
   );
 
   String get id => _id;
@@ -24,18 +24,18 @@ class User {
   String get password => _password;
   String get email => _email;
   String get address => _address;
-  String get verifiedCode => _verifiedCode;
   String get image => _image;
-  bool get enable => _isEnabled;
+  bool get verified => _isVerified;
+  bool get deleted => _isDeleted;
 
   set id(id) => _id = id;
   set username(username) => _username = username;
   set password(password) => _password = password;
   set email(id) => _email = email;
   set address(id) => _address = address;
-  set verifiedCode(id) => _verifiedCode = verifiedCode;
   set image(id) => _image = image;
-  set enable(id) => _isEnabled = enable;
+  set verified(id) => _isVerified = id;
+  set deleted(id) => _isDeleted = id;
 
   @override
   String toString() {
@@ -44,8 +44,7 @@ class User {
         _password +
         _email +
         _address +
-        _verifiedCode +
         _image +
-        _isEnabled.toString();
+        _isVerified.toString();
   }
 }

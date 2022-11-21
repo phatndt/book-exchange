@@ -8,8 +8,14 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../colors/colors.dart';
 
 extension Ext on Object? {
-  void ifNotEmpty(Function() action, Function() empty) {
-    if (this != "") {
+  void ifNotEmpty(
+    Function() action,
+    Function() empty,
+    Function() notVerify,
+  ) {
+    if (this == "notVerify") {
+      notVerify();
+    } else if (this != "") {
       action();
     } else {
       empty();

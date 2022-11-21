@@ -58,6 +58,16 @@ extension Ext on ApiResponseDTO<String> {
   }
 }
 
+extension MapperBool on ApiResponseDTO<bool> {
+  ApiResponse<bool> mapper() {
+    return ApiResponse(
+      data: data,
+      statusCode: statusCode,
+      message: message,
+    );
+  }
+}
+
 extension PostMapper on PostDTO {
   Post mapper() {
     return Post(

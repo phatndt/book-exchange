@@ -21,8 +21,8 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<ApiResponse<bool>> checkExistUsername(String username) async {
-    return await _authService.checkExistUsername(username).then(
+  Future<ApiResponse<bool>> checkExistEmail(String email) async {
+    return await _authService.checkExistEmail(email).then(
           (value) => ApiBoolResponseMapper().transfer(value),
         );
   }
@@ -43,5 +43,24 @@ class AuthRepoImpl extends AuthRepo {
         .then(
           (value) => ApiStringResponseMapper().transfer(value),
         );
+  }
+
+  @override
+  Future<ApiResponse<String>> sendEmail(String userId) {
+    return _authService.sendEmail(userId).then((value) => value.mapper());
+  }
+
+  @override
+  Future<ApiResponse<bool>> verifyRegistrationUser(String userId, String code) {
+    return _authService
+        .verifyUser(userId, code)
+        .then((value) => value.mapper());
+  }
+
+  @override
+  Future<ApiResponse<String>> setVerificationUser(String userId) {
+    return _authService
+        .setVerificationUser(userId)
+        .then((value) => value.mapper());
   }
 }

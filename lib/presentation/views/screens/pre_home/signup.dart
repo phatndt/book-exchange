@@ -139,7 +139,7 @@ class SignUpScreen extends ConsumerWidget {
                         onPress: () {
                           ref
                               .watch(registerSettingNotifierProvider.notifier)
-                              .checkExistUsername(context);
+                              .checkExistEmail(context);
                         },
                       ),
                     ],

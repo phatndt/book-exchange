@@ -2,7 +2,8 @@ class RoutePaths {
   static const splash = '/';
   static const welcome = '/welcome';
   static const logIn = '/login';
-  static const signUp = '/login/register';
+  static const signUp = '/register';
+  static const verifyEmail = '/verified';
   static const forgot = '/login/forgot';
   static const main = '/mainscreen';
 

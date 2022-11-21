@@ -102,7 +102,9 @@ class ProfileScreen extends ConsumerWidget {
                           RoutePaths.logIn,
                           (route) => false,
                         );
-                        ref.watch(mainAppNotifierProvider.notifier).dispose();
+                        ref
+                            .watch(mainAppNotifierProvider.notifier)
+                            .resetState();
                       },
                     ),
                     Divider(
@@ -179,7 +181,10 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final image = NetworkImage(imagePath);
+    final image = imagePath.isNotEmpty
+        ? NetworkImage(imagePath)
+        : const NetworkImage(
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSegCgK5aWTTuv_K5TPd10DcJxphcBTBct6R170EamgcCOcYs7LGKVy7ybRc-MCwOcHljg&usqp=CAU");
 
     return Card(
       elevation: 4,

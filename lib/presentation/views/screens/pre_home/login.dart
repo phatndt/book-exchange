@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:book_exchange/core/route_paths.dart';
@@ -6,7 +5,6 @@ import 'package:book_exchange/presentation/views/widgets/filled_button.dart';
 import 'package:book_exchange/presentation/views/widgets/outline_button.dart';
 import 'package:book_exchange/presentation/views/widgets/text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -54,7 +52,7 @@ class LoginScreen extends ConsumerWidget {
                       textEditingController: ref
                           .watch(loginSettingNotifierProvider)
                           .emailController,
-                      text: 'Username',
+                      text: 'Email',
                       obscure: false,
                       icon: FontAwesomeIcons.xmark,
                       onClickSuffixIcon: () {
@@ -101,7 +99,7 @@ class LoginScreen extends ConsumerWidget {
                         ),
                         CustomFilledButton(
                           width: S.size.length_100,
-                          text: 'SIGN IN',
+                          text: 'LOG IN',
                           onPress: () {
                             FocusScope.of(context).unfocus();
                             ref
@@ -121,8 +119,7 @@ class LoginScreen extends ConsumerWidget {
                         //   context,
                         //   RoutePaths.forgot,
                         // );
-                        log(ScreenUtil().scaleHeight.toString());
-                        log(ScreenUtil().scaleWidth.toString());
+                        Navigator.pushNamed(context, RoutePaths.verifyEmail);
                       },
                       child: Center(
                         child: Text(

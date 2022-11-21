@@ -8,9 +8,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../views/screens/home/library/collection.dart';
 
 class MainApp {
-  final String route;
-  final int currentIndex;
-  final Widget navigation;
+  String route;
+  int currentIndex;
+  Widget navigation;
 
   MainApp({
     required this.route,
@@ -54,5 +54,11 @@ class MainAppNotifier extends StateNotifier<MainApp> {
       currentIndex: index,
     );
     state = newState;
+  }
+
+  void resetState() {
+    state.currentIndex = 0;
+    state.navigation = const CollectionScreen();
+    state.route = RoutePaths.home;
   }
 }

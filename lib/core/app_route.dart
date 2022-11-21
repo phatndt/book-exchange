@@ -9,6 +9,7 @@ import 'package:book_exchange/presentation/views/screens/pre_home/forgot_passwor
 import 'package:book_exchange/presentation/views/screens/pre_home/login.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/signup.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/splash_screen.dart';
+import 'package:book_exchange/presentation/views/screens/pre_home/verification_screen.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/welcome.dart';
 import 'package:book_exchange/presentation/views/screens/profile/change_password_screen.dart';
 import 'package:book_exchange/presentation/views/screens/profile/profile_screen.dart';
@@ -35,6 +36,11 @@ class AppRouter {
       case RoutePaths.signUp:
         return MaterialPageRoute(
           builder: (_) => const SignUpScreen(),
+          settings: settings,
+        );
+      case RoutePaths.verifyEmail:
+        return MaterialPageRoute(
+          builder: (_) => const VerificationScreen(),
           settings: settings,
         );
       case RoutePaths.forgot:

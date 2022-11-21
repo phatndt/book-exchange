@@ -35,7 +35,7 @@ class CollectionSettingNotifier extends StateNotifier<CollectionSetting> {
   final Ref ref;
 }
 
-final getListBookProvider = FutureProvider.family<List<Book>, GetListBookUseCase>(
+final getListBookProvider = FutureProvider.autoDispose.family<List<Book>, GetListBookUseCase>(
   (ref, getListBookUseCase) async =>
       (await getListBookUseCase.getListBook(BookAppModel.jwtToken)).data,
 );

@@ -1,47 +1,47 @@
 class UserDTO {
   final String id;
-  final String username;
+  final String name;
   final String password;
   final String email;
   final String address;
-  final String verifiedCode;
   final String image;
-  final bool isEnabled;
+  final bool isVerified;
+  final bool isDeleted;
 
   UserDTO({
     required this.id,
-    required this.username,
+    required this.name,
     required this.password,
     required this.email,
     required this.address,
-    required this.verifiedCode,
     required this.image,
-    required this.isEnabled,
+    required this.isVerified,
+    required this.isDeleted,
   });
 
   Map<dynamic, dynamic> toMap() {
     return {
       'id ': id,
-      'username': username,
+      'username': name,
       'password': password,
       'email': email,
       'address': address,
-      'verifiedCode': verifiedCode,
       'image': image,
-      'isEnabled': isEnabled,
+      'isVerified': isVerified,
+      'isDeleted': isDeleted,
     };
   }
 
   factory UserDTO.fromMap(Map<dynamic, dynamic> map) {
     return UserDTO(
       id: map['id'],
-      username: map['username'],
+      name: map['name'],
       password: map['password'],
       email: map['email'],
       address: map['address'],
-      verifiedCode: map['verifiedCode'],
       image: map['imageUrl'],
-      isEnabled: map['enabled'],
+      isVerified: map['verified'],
+      isDeleted: map['deleted'],
     );
   }
 }

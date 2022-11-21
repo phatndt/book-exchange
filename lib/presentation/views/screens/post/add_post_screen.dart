@@ -100,7 +100,7 @@ class AddPostScreen extends ConsumerWidget {
                                   ),
                                   displayDuration: const Duration(seconds: 1),
                                 ),
-                                loading: () => CircularProgressIndicator(),
+                                loading: () => const CircularProgressIndicator(),
                               );
                         },
                         child: const Text("Link your book"),

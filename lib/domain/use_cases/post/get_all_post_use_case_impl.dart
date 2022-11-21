@@ -1,12 +1,9 @@
-import 'dart:math';
-
 import 'package:book_exchange/domain/entities/post.dart';
 import 'package:book_exchange/domain/entities/api_response.dart';
 import 'package:book_exchange/domain/repository/post_repo.dart';
 import 'package:book_exchange/domain/use_cases/post/get_all_post_use_case.dart';
 import 'package:book_exchange/presentation/models/book_app_model.dart';
 
-import '../../entities/combination_post.dart';
 
 class GetAllPostUseCaseImpl extends GetAllPostUseCase {
   final PostRepo _postRepo;

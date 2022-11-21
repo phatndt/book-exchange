@@ -16,9 +16,16 @@ class Endpoints {
 
   static const String register = '/authentication/register';
 
-  static const String username = '/authentication/username';
-  
+  static const String email = '/authentication/email';
+
   static const String getUserByUserId = '/authentication/getUserByUserId';
+
+  static const String sendVerificationEmailWhenRegistering =
+      '/authentication/user/sendEmail';
+  static const String verifyRegistrationUser =
+      "/authentication/verification/getVerificationByUser";
+  static const String setVerificationUser =
+      "/authentication/user/verification/set";
 
   //can define other
   static const String uploadBook = '/book/create';
@@ -33,6 +40,6 @@ class Endpoints {
 
   //post
   static const String addPost = '/post/create';
-  
+
   static const String getAllPost = '/post/read/list';
 }

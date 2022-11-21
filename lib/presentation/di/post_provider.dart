@@ -13,7 +13,6 @@ import 'package:book_exchange/presentation/view_models/post/add_post_view_model.
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/entities/combination_post.dart';
-import '../../domain/entities/post.dart';
 
 final postService = Provider<PostService>(
   (ref) => PostService(),

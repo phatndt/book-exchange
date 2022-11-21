@@ -1,20 +1,12 @@
-import 'dart:developer';
-
 import 'package:book_exchange/core/route_paths.dart';
 import 'package:book_exchange/presentation/di/post_provider.dart';
-import 'package:book_exchange/presentation/models/book_app_model.dart';
 import 'package:book_exchange/presentation/views/widgets/post/post_item.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_dialogs/material_dialogs.dart';
-import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 
 import '../../../../core/colors/colors.dart';
-import '../../../di/book_component.dart';
-import '../../../view_models/collection_viewmodels.dart';
-import '../home/library/book_detail.dart';
-import '../home/library/book_item.dart';
 
 class MainPostScreen extends ConsumerWidget {
   const MainPostScreen({Key? key}) : super(key: key);

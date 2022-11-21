@@ -2,6 +2,7 @@ import 'package:book_exchange/presentation/views/screens/home/library/add_book.d
 import 'package:book_exchange/presentation/views/screens/home/library/book_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:material_dialogs/material_dialogs.dart';
 
 import '../../../../../core/colors/colors.dart';
 import '../../../../di/book_component.dart';
@@ -53,6 +54,14 @@ class CollectionScreen extends ConsumerWidget {
                         ref.watch(getListBookUseCaseProvider)))
                     .when(
                       data: (data) {
+                        if (data.isEmpty) {
+                          return Center(
+                            child: Text(
+                              'You didn\'t add any books yet!',
+                              style: S.textStyles.bigTitle,
+                            ),
+                          );
+                        }
                         return GridView.builder(
                           padding:
                               EdgeInsets.symmetric(horizontal: S.size.length_8),
@@ -95,9 +104,9 @@ class CollectionScreen extends ConsumerWidget {
                         );
                       },
                       error: (error, stack) => Center(
-                        child: Text(
-                          'You didn\'t add any books yet!',
-                          style: S.textStyles.bigTitle,
+                        child: Center(
+                          child: Lottie.network(
+                              'https://assets9.lottiefiles.com/packages/lf20_hXHdlx.json'),
                         ),
                       ),
                       loading: () => const Center(

@@ -27,7 +27,6 @@ class AuthService {
     }
   }
 
-  
   Future<ApiResponseDTO<String>> register(
     String username,
     String password,
@@ -35,7 +34,7 @@ class AuthService {
   ) async {
     try {
       final body = {
-        "username": username,
+        "name": username,
         "password": password,
         "email": email,
       };
@@ -51,15 +50,15 @@ class AuthService {
     }
   }
 
-  Future<ApiResponseDTO<bool>> checkExistUsername(
-    String username,
+  Future<ApiResponseDTO<bool>> checkExistEmail(
+    String email,
   ) async {
     try {
       final body = {
-        "username": username,
+        "email": email,
       };
       final response = await DioService().dio.post(
-            Endpoints.username,
+            Endpoints.email,
             data: body,
           );
       return ApiResponseDTO<bool>(
@@ -94,6 +93,68 @@ class AuthService {
       );
     } on DioError catch (e) {
       throw DioExceptions.fromDioError(e);
+    }
+  }
+
+  Future<ApiResponseDTO<String>> sendEmail(
+    String userId,
+  ) async {
+    try {
+      final body = {
+        "userId": userId,
+      };
+      final response = await DioService()
+          .dio
+          .post(Endpoints.sendVerificationEmailWhenRegistering, data: body);
+      return ApiResponseDTO<String>(
+        data: response.data['data'],
+        statusCode: response.data['statusCode'],
+        message: response.data['message'],
+      );
+    } on DioError catch (e) {
+      throw DioExceptions.fromDioError(e).toString();
+    }
+  }
+
+  Future<ApiResponseDTO<bool>> verifyUser(
+    String userId,
+    String code,
+  ) async {
+    try {
+      final body = {
+        "userId": userId,
+        "code": code,
+      };
+      final response = await DioService()
+          .dio
+          .post(Endpoints.verifyRegistrationUser, data: body);
+      return ApiResponseDTO<bool>(
+        data: response.data['data'],
+        statusCode: response.data['statusCode'],
+        message: response.data['message'],
+      );
+    } on DioError catch (e) {
+      throw DioExceptions.fromDioError(e).toString();
+    }
+  }
+
+  Future<ApiResponseDTO<String>> setVerificationUser(
+    String userId,
+  ) async {
+    try {
+      final body = {
+        "userId": userId,
+      };
+      final response = await DioService()
+          .dio
+          .post(Endpoints.setVerificationUser, data: body);
+      return ApiResponseDTO<String>(
+        data: response.data['data'],
+        statusCode: response.data['statusCode'],
+        message: response.data['message'],
+      );
+    } on DioError catch (e) {
+      throw DioExceptions.fromDioError(e).toString();
     }
   }
 }

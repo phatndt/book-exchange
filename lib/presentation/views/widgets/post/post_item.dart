@@ -1,5 +1,3 @@
-import 'package:book_exchange/presentation/views/widgets/post/post_comment.dart';
-import 'package:book_exchange/presentation/views/widgets/post/post_reaction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

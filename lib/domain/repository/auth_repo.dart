@@ -13,8 +13,8 @@ abstract class AuthRepo {
     String email,
   );
 
-  Future<ApiResponse<bool>> checkExistUsername(
-    String username,
+  Future<ApiResponse<bool>> checkExistEmail(
+    String email,
   );
 
   Future<ApiResponse<String>> resetPassword(
@@ -22,5 +22,17 @@ abstract class AuthRepo {
     String oldPassword,
     String newPassword,
     String token,
+  );
+
+  Future<ApiResponse<String>> sendEmail(
+    String userId,
+  );
+
+  Future<ApiResponse<bool>> verifyRegistrationUser(
+    String userId,
+    String code,
+  );
+  Future<ApiResponse<String>> setVerificationUser(
+    String userId,
   );
 }

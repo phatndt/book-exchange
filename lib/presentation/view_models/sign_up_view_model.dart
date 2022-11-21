@@ -1,10 +1,12 @@
-import 'package:book_exchange/presentation/views/screens/pre_home/login.dart';
+import 'package:book_exchange/core/route_paths.dart';
+import 'package:book_exchange/presentation/models/book_app_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
-import '../../domain/use_cases/check_exist_username_use_case.dart';
-import '../../domain/use_cases/register_use_case.dart';
+import '../../domain/use_cases/auth/check_exist_username_use_case.dart';
+import '../../domain/use_cases/auth/register_use_case.dart';
+import '../../domain/use_cases/auth/send_email_use_case.dart';
 
 class RegisterSetting {
   final TextEditingController emailController;
@@ -57,8 +59,12 @@ class RegisterSetting {
 }
 
 class RegisterSettingNotifier extends StateNotifier<RegisterSetting> {
-  RegisterSettingNotifier(this.ref, this._checkExistUsernameUseCaseImpl, this._registerUseCaseImpl)
-      : super(
+  RegisterSettingNotifier(
+    this.ref,
+    this._checkExistUsernameUseCaseImpl,
+    this._registerUseCaseImpl,
+    this._sendEmailUseCase,
+  ) : super(
           RegisterSetting(
             emailController: TextEditingController(),
             passwordController: TextEditingController(),
@@ -72,6 +78,7 @@ class RegisterSettingNotifier extends StateNotifier<RegisterSetting> {
   final Ref ref;
   final CheckExistUsernameUseCase _checkExistUsernameUseCaseImpl;
   final RegisterUseCase _registerUseCaseImpl;
+  final SendEmailUseCase _sendEmailUseCase;
 
   void setPasswordVisible() {
     final newState = state.copy(isPasswordVisible: !state.isPasswordVisible);
@@ -99,29 +106,19 @@ class RegisterSettingNotifier extends StateNotifier<RegisterSetting> {
     state = newState;
   }
 
-  register(context) async {
+  register(context) {
     if (state.emailController.text.isNotEmpty ||
         state.passwordController.text.isNotEmpty) {
-      await _registerUseCaseImpl
+      _registerUseCaseImpl
           .register(
         state.usernameController.text,
         state.passwordController.text,
         state.emailController.text,
       )
           .then((value) {
-        if (value.message == "Register success") {
-          setLoadingRegister();
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const LoginScreen()),
-          );
-          showTopSnackBar(
-            context,
-            CustomSnackBar.info(
-              message: value.message,
-            ),
-            displayDuration: const Duration(seconds: 2),
-          );
+        if (value.statusCode == 200) {
+          BookAppModel.userRegistrationId = value.data;
+          sendEmail(value.data, context);
         } else {
           setLoadingRegister();
           showTopSnackBar(
@@ -155,14 +152,43 @@ class RegisterSettingNotifier extends StateNotifier<RegisterSetting> {
     }
   }
 
-  checkExistUsername(context) async {
+  sendEmail(String userId, BuildContext context) {
+    _sendEmailUseCase.sendEmail(userId).then((value) {
+      setLoadingRegister();
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        RoutePaths.verifyEmail,
+        (route) => false,
+      );
+      // showTopSnackBar(
+      //   context,
+      //   CustomSnackBar.info(
+      //     message: value.message,
+      //   ),
+      //   displayDuration: const Duration(seconds: 2),
+      // );
+    }).catchError(
+      (onError) {
+        setLoadingRegister();
+        showTopSnackBar(
+          context,
+          CustomSnackBar.info(
+            message: "Error: $onError",
+          ),
+          displayDuration: const Duration(seconds: 2),
+        );
+      },
+    );
+  }
+
+  checkExistEmail(context) async {
     setLoadingRegister();
     if (state.emailController.text.isNotEmpty ||
         state.passwordController.text.isNotEmpty ||
         state.usernameController.text.isNotEmpty ||
         state.confirmPasswordController.text.isNotEmpty) {
       await _checkExistUsernameUseCaseImpl
-          .checkExistUsername(state.usernameController.text)
+          .checkExistEmail(state.emailController.text)
           .then((value) {
         if (value.data) {
           setLoadingRegister();
