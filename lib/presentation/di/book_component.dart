@@ -19,8 +19,8 @@ import '../view_models/edit_book_viewmodels.dart';
 
 final bookServiceProvider = Provider<BookService>((ref) => BookService());
 
-final booksRepoProvider = Provider<BookRepo>(
-    (ref) => BookRepoImpl(ref.watch(bookServiceProvider)));
+final booksRepoProvider =
+    Provider<BookRepo>((ref) => BookRepoImpl(ref.watch(bookServiceProvider)));
 
 final uploadImageToCloudinaryUseCaseProvider =
     Provider<UploadImageToCloudinaryUseCase>((ref) =>

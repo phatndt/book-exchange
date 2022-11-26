@@ -1,4 +1,5 @@
 import 'package:book_exchange/presentation/models/book_app_model.dart';
+import 'package:book_exchange/presentation/views/screens/home/library/add_contribution_book.dart';
 import 'package:book_exchange/presentation/views/screens/home/library/edit_book.dart';
 import 'package:book_exchange/presentation/views/widgets/alert_dialog.dart';
 import 'package:flutter/material.dart';
@@ -112,150 +113,204 @@ class BookDetailScreen extends ConsumerWidget {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: S.size.length_10,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Owner",
-                              style: S.textStyles.collection.mediumTitle,
-                            ),
-                            Text(
-                              BookAppModel.user.username,
-                              style: S.textStyles.collection.smallTitle,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(
-                              height: S.size.length_10Vertical,
-                            ),
-                            Text(
-                              "Author",
-                              style: S.textStyles.collection.mediumTitle,
-                            ),
-                            Text(
-                              bookAuthor,
-                              style: S.textStyles.collection.smallTitle,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            SizedBox(
-                              height: S.size.length_10Vertical,
-                            ),
-                            SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              physics: const BouncingScrollPhysics(),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: S.size.length_4,
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: S.size.length_10,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    CircleAvatar(
+                                      backgroundColor: S.colors.gray_6,
+                                      backgroundImage: const NetworkImage(
+                                          "https://www.pngitem.com/pimgs/m/576-5768680_avatar-png-icon-person-icon-png-free-transparent.png"),
+                                      // BookAppModel.user.image.isNotEmpty
+                                      //     ? NetworkImage(
+                                      //         BookAppModel.user.image,
+                                      //       )
+                                      //     : const NetworkImage(
+                                      //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSegCgK5aWTTuv_K5TPd10DcJxphcBTBct6R170EamgcCOcYs7LGKVy7ybRc-MCwOcHljg&usqp=CAU",
+                                      //       ),
+                                      radius: S.size.length_25Vertical,
                                     ),
-                                    child: ClipOval(
-                                      child: Material(
-                                        color: S.colors.orange, // Button color
-                                        child: InkWell(
-                                          splashColor:
-                                              S.colors.navyBlue, // Splash color
-                                          onTap: () {},
-                                          child: SizedBox(
-                                            width: S.size.length_40,
-                                            height: S.size.length_40Vertical,
-                                            child: const Icon(
-                                              FontAwesomeIcons.cloudArrowUp,
+                                    SizedBox(
+                                      width: S.size.length_8Vertical,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Owner",
+                                          style: S.textStyles.collection
+                                              .mediumTitle,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        Text(
+                                          BookAppModel.user.username,
+                                          style: S
+                                              .textStyles.collection.smallTitle,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: S.size.length_10Vertical,
+                              ),
+                              Text(
+                                "Author",
+                                style: S.textStyles.collection.mediumTitle,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                bookAuthor,
+                                style: S.textStyles.collection.smallTitle,
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: false,
+                              ),
+                              SizedBox(
+                                height: S.size.length_10Vertical,
+                              ),
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                physics: const BouncingScrollPhysics(),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: S.size.length_4,
+                                      ),
+                                      child: ClipOval(
+                                        child: Material(
+                                          color:
+                                              S.colors.orange, // Button color
+                                          child: InkWell(
+                                            splashColor: S.colors
+                                                .navyBlue, // Splash color
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      AddContributionBookScreen(
+                                                    bookAuthor: bookAuthor,
+                                                    bookDescription:
+                                                        bookDescription,
+                                                    bookName: bookName,
+                                                    imageUrl: imageUrl,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            child: SizedBox(
+                                              width: S.size.length_40,
+                                              height: S.size.length_40Vertical,
+                                              child: const Icon(
+                                                FontAwesomeIcons.cloudArrowUp,
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: S.size.length_4,
-                                    ),
-                                    child: ClipOval(
-                                      child: Material(
-                                        color: S.colors.orange, // Button color
-                                        child: InkWell(
-                                          splashColor:
-                                              S.colors.navyBlue, // Splash color
-                                          onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: S.size.length_4,
+                                      ),
+                                      child: ClipOval(
+                                        child: Material(
+                                          color:
+                                              S.colors.orange, // Button color
+                                          child: InkWell(
+                                            splashColor: S.colors
+                                                .navyBlue, // Splash color
+                                            onTap: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
                                                   builder: (context) =>
                                                       EditBookScreen(
-                                                        bookId: bookId,
-                                                        bookAuthor: bookAuthor,
-                                                        bookDescription:
-                                                            bookDescription,
-                                                        bookName: bookName,
-                                                        bookRating: bookRating,
-                                                        imageUrl: imageUrl,
-                                                      )),
-                                            );
-                                          },
-                                          child: SizedBox(
-                                            width: S.size.length_40,
-                                            height: S.size.length_40Vertical,
-                                            child: const Icon(
-                                              FontAwesomeIcons.pencil,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: S.size.length_4,
-                                    ),
-                                    child: ClipOval(
-                                      child: Material(
-                                        color: S.colors.orange, // Button color
-                                        child: InkWell(
-                                          splashColor:
-                                              S.colors.navyBlue, // Splash color
-                                          onTap: () {
-                                            showDialog(
-                                              context: context,
-                                              barrierDismissible: true,
-                                              builder: (builder) =>
-                                                  CustomAlertDialog(
-                                                action: () {
-                                                  ref
-                                                      .watch(
-                                                          editBookSettingNotifierProvider
-                                                              .notifier)
-                                                      .deleteBookByBookId(
-                                                          bookId, context);
-                                                  Navigator.of(context).pop();
-                                                },
-                                                action1Title: 'Yes',
-                                                action2Title: 'No',
-                                                content:
-                                                    'You want to delete this book?',
-                                                title: 'DELETE',
+                                                    bookId: bookId,
+                                                    bookAuthor: bookAuthor,
+                                                    bookDescription:
+                                                        bookDescription,
+                                                    bookName: bookName,
+                                                    bookRating: bookRating,
+                                                    imageUrl: imageUrl,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            child: SizedBox(
+                                              width: S.size.length_40,
+                                              height: S.size.length_40Vertical,
+                                              child: const Icon(
+                                                FontAwesomeIcons.pencil,
                                               ),
-                                            );
-                                          },
-                                          child: SizedBox(
-                                            width: S.size.length_40,
-                                            height: S.size.length_40Vertical,
-                                            child: const Icon(
-                                              FontAwesomeIcons.trash,
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: S.size.length_4,
+                                      ),
+                                      child: ClipOval(
+                                        child: Material(
+                                          color:
+                                              S.colors.orange, // Button color
+                                          child: InkWell(
+                                            splashColor: S.colors
+                                                .navyBlue, // Splash color
+                                            onTap: () {
+                                              showDialog(
+                                                context: context,
+                                                barrierDismissible: true,
+                                                builder: (builder) =>
+                                                    CustomAlertDialog(
+                                                  action: () {
+                                                    ref
+                                                        .watch(
+                                                            editBookSettingNotifierProvider
+                                                                .notifier)
+                                                        .deleteBookByBookId(
+                                                            bookId, context);
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  action1Title: 'Yes',
+                                                  action2Title: 'No',
+                                                  content:
+                                                      'You want to delete this book?',
+                                                  title: 'DELETE',
+                                                ),
+                                              );
+                                            },
+                                            child: SizedBox(
+                                              width: S.size.length_40,
+                                              height: S.size.length_40Vertical,
+                                              child: const Icon(
+                                                FontAwesomeIcons.trash,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -265,20 +320,44 @@ class BookDetailScreen extends ConsumerWidget {
                       horizontal: S.size.length_10,
                       vertical: S.size.length_10,
                     ),
-                    child: Text(
-                      'About this book',
-                      style: S.textStyles.collection.bigTitle,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            width: 0.8,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        'About this book',
+                        style: S.textStyles.collection.bigTitle,
+                      ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: S.size.length_10,
-                      // vertical: S.size.length_20,
-                    ),
-                    child: RichText(
-                      text: TextSpan(
-                        text: bookDescription,
-                        style: S.textStyles.collection.mediumTitle,
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: S.colors.gray_6,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(
+                            S.size.length_8,
+                          ),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: S.size.length_10,
+                          vertical: S.size.length_8Vertical,
+                          // vertical: S.size.length_20,
+                        ),
+                        child: RichText(
+                          text: TextSpan(
+                            text: bookDescription,
+                            style: S.textStyles.bookDetail.description,
+                          ),
+                        ),
                       ),
                     ),
                   ),

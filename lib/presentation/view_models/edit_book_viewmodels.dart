@@ -14,7 +14,9 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../core/extension/function_extension.dart';
 import '../../domain/entities/book.dart';
+import '../di/book_component.dart';
 import '../models/book_app_model.dart';
+import 'collection_viewmodels.dart';
 
 class EditBookSetting {
   final TextEditingController bookName;
@@ -80,7 +82,6 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
   void setLoadingEditBook() {
     final newState = state.copy(isLoadingEditBook: !state.isLoadingEditBook);
     state = newState;
-    log(state.isLoadingEditBook.toString());
   }
 
   void clearImage() {
@@ -220,9 +221,9 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
       (value) {
         Navigator.pushNamed(
           context,
-          RoutePaths.home,
+          RoutePaths.main,
         );
-
+        ref.refresh(getListBookProvider(ref.watch(getListBookUseCaseProvider)));
         showTopSnackBar(
           context,
           CustomSnackBar.error(
@@ -289,8 +290,9 @@ class EditBookSettingNotifier extends StateNotifier<EditBookSetting> {
         .then((value) {
       Navigator.pushNamed(
         context,
-        RoutePaths.home,
+        RoutePaths.main,
       );
+      ref.refresh(getListBookProvider(ref.watch(getListBookUseCaseProvider)));
       showTopSnackBar(
         context,
         const CustomSnackBar.error(

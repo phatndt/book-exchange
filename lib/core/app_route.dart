@@ -63,15 +63,14 @@ class AppRouter {
           builder: (_) => const AddBookScreen(),
           settings: settings,
         );
-      // case RoutePaths.previewBook:
+      // case RoutePaths.contribueBook:
       //   return MaterialPageRoute(
-      //     builder: (_) => const BookPreviewScreen(
-      //       bookAuthor: '',
-      //       bookDescription: '',
-      //       bookName: '',
-      //       bookRating: 0.0,
-      //       imageUrl: '',
-      //     ),
+      //     builder: (_) => const AddContributionBookScreen(
+      //         bookId: 'bookId',
+      //         bookName: 'bookName',
+      //         bookAuthor: 'bookAuthor',
+      //         bookDescription: 'bookDescription',
+      //         imageUrl: 'imageUrl'),
       //     settings: settings,
       //   );
       case RoutePaths.profile:

@@ -4,7 +4,8 @@ class Endpoints {
   // base url
   // static const String baseUrl =
   //     "https://lionfish-app-aur8e.ondigitalocean.app/v1";
-  static const String baseUrl = "http://172.25.224.1:8080/v1";
+  static const String baseUrl =
+      "https://lionfish-app-aur8e.ondigitalocean.app/v1";
 
   // receiveTimeout
   static const int receiveTimeout = 10000;
@@ -42,4 +43,14 @@ class Endpoints {
   static const String addPost = '/post/create';
 
   static const String getAllPost = '/post/read/list';
+
+  //contribution book
+  static const String uploadContributionBook = '/contributionBook/create';
+
+  static const String getVerifiedContributionBook = '/';
+
+  static const String getContributionBookByISBNBarcode =
+      '/contributionBook/isbnBarcode';
+  static const String getContributionBookByNormalBarcode =
+      '/contributionBook/normalBarcode';
 }
