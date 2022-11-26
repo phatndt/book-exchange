@@ -13,6 +13,7 @@ class RoutePaths {
   static const home = '/home';
   static const addBook = home + '/add_book';
   static const previewBook = home + '/preview_book';
+  static const contribueBook = '/contribueBook';
 
   static const share = '/share';
 

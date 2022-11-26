@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'colors/colors.dart';
 
-
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     Key? key,

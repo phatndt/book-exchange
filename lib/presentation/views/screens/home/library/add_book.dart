@@ -202,33 +202,33 @@ class AddBookScreen extends ConsumerWidget {
                   SizedBox(
                     height: S.size.length_10Vertical,
                   ),
-                  Text(
-                    'Barcode',
-                    style: S.textStyles.titleText,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: S.size.length_8Vertical,
-                    ),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      color: S.colors.accent_7,
-                      child: Center(
-                        child: Text(
-                          // ref
-                          //             .watch(addBookSettingNotifierProvider)
-                          //             .bookBarcode ==
-                          //         null
-                          //     ? ref
-                          //         .watch(addBookSettingNotifierProvider)
-                          //         .bookBarcode
-                          //     :
-                          'Book\'s barcode show here',
-                          style: S.textStyles.boldTitle,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Text(
+                  //   'Barcode',
+                  //   style: S.textStyles.titleText,
+                  // ),
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(
+                  //     vertical: S.size.length_8Vertical,
+                  //   ),
+                  //   child: Container(
+                  //     width: MediaQuery.of(context).size.width,
+                  //     color: S.colors.accent_7,
+                  //     child: Center(
+                  //       child: Text(
+                  //         // ref
+                  //         //             .watch(addBookSettingNotifierProvider)
+                  //         //             .bookBarcode ==
+                  //         //         null
+                  //         //     ? ref
+                  //         //         .watch(addBookSettingNotifierProvider)
+                  //         //         .bookBarcode
+                  //         //     :
+                  //         'Book\'s barcode show here',
+                  //         style: S.textStyles.boldTitle,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   SizedBox(
                     height: S.size.length_20Vertical,
                   ),

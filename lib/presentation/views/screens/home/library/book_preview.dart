@@ -98,7 +98,7 @@ class BookPreviewScreen extends ConsumerWidget {
                   ),
                   Text(
                     'Book Name:  ',
-                    style: S.textStyles.collection.smallTitle,
+                    style: S.textStyles.collection.biggerSmallTitle,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
@@ -111,26 +111,44 @@ class BookPreviewScreen extends ConsumerWidget {
                   ),
                   Text(
                     'Author:  ',
-                    style: S.textStyles.collection.smallTitle,
+                    style: S.textStyles.collection.biggerSmallTitle,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Text(
                     bookAuthor,
                     style: S.textStyles.collection.smallTitle,
-                    overflow: TextOverflow.ellipsis,
                   ),
                   SizedBox(
-                    height: S.size.length_8Vertical,
+                    height: S.size.length_20Vertical,
                   ),
 
                   Text(
                     'Description:  ',
                     style: S.textStyles.collection.biggerSmallTitle,
                   ),
-                  RichText(
-                    text: TextSpan(
-                      text: bookDescription,
-                      style: S.textStyles.collection.smallTitle,
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: S.colors.gray_6,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(
+                            S.size.length_8,
+                          ),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: S.size.length_8,
+                          vertical: S.size.length_8Vertical,
+                        ),
+                        child: RichText(
+                          text: TextSpan(
+                            text: bookDescription,
+                            style: S.textStyles.collection.smallTitle,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
 
@@ -156,33 +174,33 @@ class BookPreviewScreen extends ConsumerWidget {
                   SizedBox(
                     height: S.size.length_8Vertical,
                   ),
-                  Text(
-                    'Barcode: ',
-                    style: S.textStyles.collection.biggerSmallTitle,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: S.size.length_8Vertical,
-                    ),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      color: S.colors.accent_7,
-                      child: Center(
-                        child: Text(
-                          // ref
-                          //             .watch(addBookSettingNotifierProvider)
-                          //             .bookBarcode ==
-                          //         null
-                          //     ? ref
-                          //         .watch(addBookSettingNotifierProvider)
-                          //         .bookBarcode
-                          //     :
-                          'Book\'s barcode show here',
-                          style: S.textStyles.boldTitle,
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Text(
+                  //   'Barcode: ',
+                  //   style: S.textStyles.collection.biggerSmallTitle,
+                  // ),
+                  // Padding(
+                  //   padding: EdgeInsets.symmetric(
+                  //     vertical: S.size.length_8Vertical,
+                  //   ),
+                  //   child: Container(
+                  //     width: MediaQuery.of(context).size.width,
+                  //     color: S.colors.accent_7,
+                  //     child: Center(
+                  //       child: Text(
+                  //         // ref
+                  //         //             .watch(addBookSettingNotifierProvider)
+                  //         //             .bookBarcode ==
+                  //         //         null
+                  //         //     ? ref
+                  //         //         .watch(addBookSettingNotifierProvider)
+                  //         //         .bookBarcode
+                  //         //     :
+                  //         'Book\'s barcode show here',
+                  //         style: S.textStyles.boldTitle,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   SizedBox(
                     height: S.size.length_20Vertical,
                   ),

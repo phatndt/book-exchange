@@ -15,7 +15,9 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../core/extension/function_extension.dart';
 import '../../domain/entities/book.dart';
+import '../di/book_component.dart';
 import '../models/book_app_model.dart';
+import 'collection_viewmodels.dart';
 
 class AddBookSetting {
   final TextEditingController bookName;
@@ -208,8 +210,9 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
       (value) {
         Navigator.pushNamed(
           context,
-          RoutePaths.home,
+          RoutePaths.main,
         );
+        ref.refresh(getListBookProvider(ref.watch(getListBookUseCaseProvider)));
         showTopSnackBar(
           context,
           CustomSnackBar.error(

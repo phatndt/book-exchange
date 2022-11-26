@@ -56,6 +56,7 @@ class _Colors {
   final gray_3 = const Color(0xFFBBBCC9); // Lavender Gray
   final gray_4 = const Color(0xFFDFE0E7); // Platinum
   final gray_5 = const Color(0xFFF5F6F8); // Cultured
+  final gray_6 = const Color(0xFFEEEEEE);
 
   //Text color
   final textColor_1 = const Color(0xFF261F41);
@@ -68,6 +69,7 @@ class _Sized {
   final double length_8 = ScreenUtil().scaleWidth * 8;
   final double length_10 = ScreenUtil().scaleWidth * 10;
   final double length_20 = ScreenUtil().scaleWidth * 20;
+  final double length_25 = ScreenUtil().scaleWidth * 25;
   final double length_40 = ScreenUtil().scaleWidth * 40;
   final double length_50 = ScreenUtil().scaleWidth * 50;
   final double length_64 = ScreenUtil().scaleWidth * 64;
@@ -85,6 +87,7 @@ class _Sized {
   final double length_8Vertical = ScreenUtil().scaleHeight * 8;
   final double length_10Vertical = ScreenUtil().scaleHeight * 10;
   final double length_20Vertical = ScreenUtil().scaleHeight * 20;
+  final double length_25Vertical = ScreenUtil().scaleHeight * 25;
   final double length_40Vertical = ScreenUtil().scaleHeight * 40;
   final double length_50Vertical = ScreenUtil().scaleHeight * 50;
   final double length_64Vertical = ScreenUtil().scaleHeight * 64;
@@ -199,6 +202,7 @@ class _TextStyles {
   final login = _Login();
   final collection = _Collection();
   final profile = _Profile();
+  final bookDetail = _BookDetail();
 }
 
 class _Login {
@@ -228,6 +232,15 @@ class _Login {
   );
 }
 
+class _BookDetail {
+  final description = const TextStyle(
+    fontFamily: 'Lato',
+    color: Colors.black,
+    fontSize: 21,
+    fontWeight: FontWeight.w400,
+  );
+}
+
 class _Collection {
   final mediumTitle = TextStyle(
     fontFamily: 'Lato',
@@ -238,7 +251,7 @@ class _Collection {
   final bigTitle = const TextStyle(
     fontFamily: 'Lato',
     color: Colors.black,
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: FontWeight.w600,
   );
   final bigTitleWithOrange = const TextStyle(
@@ -258,6 +271,7 @@ class _Collection {
     fontFamily: 'Lato',
     color: Colors.black,
     fontSize: 20,
+    fontWeight: FontWeight.bold,
   );
 
   final titleAddBook = TextStyle(
