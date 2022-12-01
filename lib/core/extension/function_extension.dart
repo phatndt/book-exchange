@@ -45,12 +45,6 @@ void catchOnError(context, dynamic onError) {
         ),
       ],
     );
-    // showDialog(
-    //   context: context,
-    //   builder: (BuildContext context) {
-
-    //   },
-    // );
   } else {
     showTopSnackBar(
       context,

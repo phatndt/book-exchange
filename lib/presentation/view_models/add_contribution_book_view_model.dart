@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:book_exchange/domain/entities/book_contribution.dart';
 import 'package:book_exchange/domain/use_cases/book_contribution/upload_contribution_book_use_case.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +11,7 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../core/extension/function_extension.dart';
 import '../../core/route_paths.dart';
-import '../di/book_component.dart';
 import '../models/book_app_model.dart';
-import 'collection_viewmodels.dart';
 
 class AddContributionBookSetting {
   final ContributionBook contributionBook;
@@ -72,19 +72,64 @@ class AddContributionBookSettingNotifier
     state = newState;
   }
 
+  void updateNormalBarcode(String code) {
+    final newState =
+        state.copy(normalBarcode: TextEditingController(text: code));
+    state = newState;
+  }
+
+  void updateIsbnBarcode(String code) {
+    final newState = state.copy(isbnBarcode: TextEditingController(text: code));
+    state = newState;
+  }
+
   void clearInput() {
     state.isbnBarcode.text = '';
     state.normalBarcode.text = '';
   }
 
-  Future<String> scanBarcode(String barcodeScanRes) async {
+  void scanIsbnBarcode(BuildContext context) async {
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+      final barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.BARCODE);
-      return (barcodeScanRes);
+      if (barcodeScanRes.startsWith("978") ||
+          barcodeScanRes.startsWith("979")) {
+        updateIsbnBarcode(barcodeScanRes);
+      } else {
+        showTopSnackBar(
+          context,
+          const CustomSnackBar.info(
+            message: "Please scan correct format",
+          ),
+          displayDuration: const Duration(seconds: 2),
+        );
+      }
     } on PlatformException {
-      return barcodeScanRes = 'Failed to get platform version.';
+      log("Failed to get platform version.");
+      // return barcodeScanRes = 'Failed to get platform version.';
+    }
+  }
+
+  void scanNormalBarcode(BuildContext context) async {
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      final barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+      if (barcodeScanRes.startsWith("893")) {
+        updateNormalBarcode(barcodeScanRes);
+      } else {
+        showTopSnackBar(
+          context,
+          const CustomSnackBar.info(
+            message: "Please scan correct format",
+          ),
+          displayDuration: const Duration(seconds: 2),
+        );
+      }
+    } on PlatformException {
+      log("Failed to get platform version.");
+      // return barcodeScanRes = 'Failed to get platform version.';
     }
   }
 
@@ -112,16 +157,14 @@ class AddContributionBookSettingNotifier
           context,
           RoutePaths.main,
         );
-        ref.refresh(getListBookProvider(ref.watch(getListBookUseCaseProvider)));
         showTopSnackBar(
           context,
-          CustomSnackBar.error(
+          CustomSnackBar.success(
             message: value.message,
           ),
           displayDuration: const Duration(seconds: 2),
         );
         clearInput();
-        // setLoadingContributiontBook;
       },
     ).catchError((onError) {
       // setLoadingContributiontBook();

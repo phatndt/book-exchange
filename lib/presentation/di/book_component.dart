@@ -3,6 +3,7 @@ import 'package:book_exchange/domain/use_cases/book/delete_book_use_case_impl.da
 import 'package:book_exchange/domain/use_cases/book/edit_book_use_case_impl.dart';
 import 'package:book_exchange/domain/use_cases/book/get_list_book_by_id_use_case_impl.dart';
 import 'package:book_exchange/domain/use_cases/book/upload_book_use_case_impl.dart';
+import 'package:book_exchange/presentation/di/book_contribution_component.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../data/services/book_service.dart';
 import '../../domain/repository/book_repo.dart';
@@ -39,11 +40,14 @@ final getListBookUseCaseProvider = Provider<GetListBookUseCase>(
     (ref) => GetListBookByIdUseCaseImpl(ref.watch(booksRepoProvider)));
 
 final addBookSettingNotifierProvider =
-    StateNotifierProvider<AddBookSettingNotifier, AddBookSetting>(((ref) =>
-        AddBookSettingNotifier(
-            ref,
-            ref.watch(uploadImageToCloudinaryUseCaseProvider),
-            ref.watch(uploadBookUseCaseProvider))));
+    StateNotifierProvider<AddBookSettingNotifier, AddBookSetting>(
+        ((ref) => AddBookSettingNotifier(
+              ref,
+              ref.watch(uploadImageToCloudinaryUseCaseProvider),
+              ref.watch(uploadBookUseCaseProvider),
+              ref.watch(getContributionBookByISBNBarcodeUseCase),
+              ref.watch(getContributionBookByNormalBarcodeUseCase),
+            )));
 
 final collectionSettingNotifierProvider =
     StateNotifierProvider<CollectionSettingNotifier, CollectionSetting>(

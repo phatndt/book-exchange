@@ -43,7 +43,7 @@ class ContributionBookRepoImpl extends ContributionBookRepo {
   Future<ApiResponse<ContributionBook>> getContributionBookByNormalBarcode(
       String normalBarcode, String token) async {
     return await _contributionBookService
-        .getContributionBookByISBNBarcode(normalBarcode, token)
+        .getContributionBookByNormalBarcode(normalBarcode, token)
         .then(
           (value) => ApiResponseContributionBookMapper().transfer(value),
         );

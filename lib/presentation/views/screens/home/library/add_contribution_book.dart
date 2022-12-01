@@ -95,13 +95,7 @@ class AddContributionBookScreen extends ConsumerWidget {
                           ref
                               .watch(addContributionBookSettingNotifierProvider
                                   .notifier)
-                              .scanBarcode(
-                                ref
-                                    .watch(
-                                        addContributionBookSettingNotifierProvider)
-                                    .normalBarcode
-                                    .text,
-                              );
+                              .scanNormalBarcode(context);
                         },
                       ),
                     ],
@@ -135,13 +129,7 @@ class AddContributionBookScreen extends ConsumerWidget {
                           ref
                               .watch(addContributionBookSettingNotifierProvider
                                   .notifier)
-                              .scanBarcode(
-                                ref
-                                    .watch(
-                                        addContributionBookSettingNotifierProvider)
-                                    .isbnBarcode
-                                    .text,
-                              );
+                              .scanIsbnBarcode(context);
                         },
                       ),
                     ],

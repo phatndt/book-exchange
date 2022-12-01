@@ -13,8 +13,8 @@ class GetContributionBookByNormalBarcodeUseCaseImpl
 
   @override
   Future<ApiResponse<ContributionBook>> getContributionBookByNormalBarcode(
-      String normalBarcode, String token) async {
-    return await _contributionBookRepo.getContributionBookByNormalBarcode(
+      String normalBarcode, String token)  {
+    return _contributionBookRepo.getContributionBookByNormalBarcode(
         normalBarcode, token);
   }
 }

@@ -211,7 +211,7 @@ class BookPreviewScreen extends ConsumerWidget {
                       onPress: () {
                         ref
                             .watch(addBookSettingNotifierProvider.notifier)
-                            .updateImageToCloud(
+                            .uploadBook(
                               context,
                             );
                       },

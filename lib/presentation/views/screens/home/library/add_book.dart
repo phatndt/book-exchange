@@ -45,9 +45,10 @@ class AddBookScreen extends ConsumerWidget {
                     onPressed: () {
                       ref
                           .watch(addBookSettingNotifierProvider.notifier)
-                          .scanBarcodeNormal(ref
-                              .watch(addBookSettingNotifierProvider)
-                              .bookBarcode);
+                          .updateImagePath(File(''));
+                      ref
+                          .watch(addBookSettingNotifierProvider.notifier)
+                          .scanBarcode(context);
                     },
                   ),
                 ),
@@ -83,22 +84,7 @@ class AddBookScreen extends ConsumerWidget {
                           Radius.circular(S.size.length_8),
                         ),
                         image: ref
-                                    .watch(addBookSettingNotifierProvider)
-                                    .bookImage
-                                    .path !=
-                                ''
-                            ? DecorationImage(
-                                image: FileImage(
-                                  File(
-                                    ref
-                                        .watch(addBookSettingNotifierProvider)
-                                        .bookImage
-                                        .path,
-                                  ),
-                                ),
-                                fit: BoxFit.fill,
-                              )
-                            : null,
+                            .watch(addBookSettingNotifierProvider).decorationImage,
                       ),
                       child: TextButton(
                         onPressed: () {
@@ -106,20 +92,7 @@ class AddBookScreen extends ConsumerWidget {
                               .watch(addBookSettingNotifierProvider.notifier)
                               .showImageSourceActionSheet(context);
                         },
-                        child: ref
-                                    .watch(addBookSettingNotifierProvider)
-                                    .bookImage
-                                    .path ==
-                                ''
-                            ? Icon(
-                                FontAwesomeIcons.plus,
-                                size: 40,
-                                color: S.colors.grey,
-                              )
-                            : const Icon(
-                                FontAwesomeIcons.plus,
-                                color: Colors.transparent,
-                              ),
+                        child: ref.watch(addBookSettingNotifierProvider).icon,
                       ),
                     ),
                   ),

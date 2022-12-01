@@ -31,6 +31,7 @@ dependencies:
     sdk: flutter
 
   image_picker: '0.8.5'
+  cached_network_image: '3.2.0'
   cloudinary_sdk: ^4.0.2+10
   flutter_rating_bar: ^4.0.1
   xen_popup_card: ^0.0.1
@@ -41,6 +42,7 @@ dependencies:
   dospace: ^0.13.15
   file_picker: '4.6.1'
   flutter_barcode_scanner: '2.0.0'
+  path_provider: '2.0.4'
   #  # For Google and Firebase
   # firebase_core: ^1.8.0
   # firebase_auth: ^3.1.4
@@ -56,6 +58,7 @@ dependencies:
   # # For Networking
   dio: ^4.0.6
   jwt_decode: ^0.3.1
+  http: '0.13.3'
   # dio_firebase_performance: ^0.3.1-dev.3
   # retrofit: ^2.0.1
   # # # For User-Agent Client Hints
