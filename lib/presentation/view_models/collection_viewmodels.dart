@@ -7,7 +7,7 @@ import '../models/book_app_model.dart';
 class CollectionSetting {
   final bool isPressed;
   List<Book> listBook;
-
+  
   CollectionSetting({
     required this.isPressed,
     required this.listBook,

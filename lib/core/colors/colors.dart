@@ -68,6 +68,7 @@ class _Sized {
   final double length_4 = ScreenUtil().scaleWidth * 4;
   final double length_8 = ScreenUtil().scaleWidth * 8;
   final double length_10 = ScreenUtil().scaleWidth * 10;
+  final double length_16 = ScreenUtil().scaleWidth * 16;
   final double length_20 = ScreenUtil().scaleWidth * 20;
   final double length_25 = ScreenUtil().scaleWidth * 25;
   final double length_40 = ScreenUtil().scaleWidth * 40;
@@ -87,7 +88,7 @@ class _Sized {
   final double length_8Vertical = ScreenUtil().scaleHeight * 8;
   final double length_10Vertical = ScreenUtil().scaleHeight * 10;
   final double length_20Vertical = ScreenUtil().scaleHeight * 20;
-  final double length_25Vertical = ScreenUtil().scaleHeight * 25;
+  final double length_25Vertical = ScreenUtil().scaleHeight * 24;
   final double length_40Vertical = ScreenUtil().scaleHeight * 40;
   final double length_50Vertical = ScreenUtil().scaleHeight * 50;
   final double length_64Vertical = ScreenUtil().scaleHeight * 64;

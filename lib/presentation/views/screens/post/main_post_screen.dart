@@ -72,17 +72,8 @@ class MainPostScreen extends ConsumerWidget {
                               });
                         },
                         error: (error, stack) {
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(child: Container()),
-                              Lottie.network(
-                                  'https://assets9.lottiefiles.com/packages/lf20_hXHdlx.json'),
-                              Center(child: Text(error.toString())),
-                              Expanded(child: Container()),
-                            ],
-                          );
+                          return Center(
+                              child: Lottie.asset('assets/images/error.json'));
                         },
                         loading: () =>
                             const Center(child: CircularProgressIndicator()),

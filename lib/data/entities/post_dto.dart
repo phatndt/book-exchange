@@ -37,7 +37,7 @@ class PostDTO {
       id: map['id'],
       content: map['content'],
       createDate: map['createDate'],
-      nLikes: map['nlikes'],
+      nLikes: map['nviews'],
       nComments: map['ncomments'],
       userId: map['userId'],
       imageUrl: map['imageUrl'],

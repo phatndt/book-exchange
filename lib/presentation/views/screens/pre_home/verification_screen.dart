@@ -84,6 +84,9 @@ class VerificationScreen extends ConsumerWidget {
                       text: 'VERIFY',
                       onPress: () {
                         FocusScope.of(context).unfocus();
+                        ref
+                            .watch(verificationStateNotifierProvider.notifier)
+                            .verifyUser(context, ref.watch(verificationStateNotifierProvider).code);
                       },
                     ),
                   ],

@@ -94,6 +94,20 @@ class ProfileScreen extends ConsumerWidget {
                       color: S.colors.grey,
                     ),
                     ProfileCard(
+                      icon: FontAwesomeIcons.blog,
+                      name: "My post",
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          RoutePaths.myPost,
+                        );
+                      },
+                    ),
+                    Divider(
+                      height: 0.5,
+                      color: S.colors.grey,
+                    ),
+                    ProfileCard(
                       icon: FontAwesomeIcons.accessibleIcon,
                       name: "Log out",
                       onTap: () {
@@ -106,10 +120,6 @@ class ProfileScreen extends ConsumerWidget {
                             .watch(mainAppNotifierProvider.notifier)
                             .resetState();
                       },
-                    ),
-                    Divider(
-                      height: 0.5,
-                      color: S.colors.grey,
                     ),
                   ],
                 ),

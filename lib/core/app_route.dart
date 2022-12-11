@@ -12,6 +12,7 @@ import 'package:book_exchange/presentation/views/screens/pre_home/splash_screen.
 import 'package:book_exchange/presentation/views/screens/pre_home/verification_screen.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/welcome.dart';
 import 'package:book_exchange/presentation/views/screens/profile/change_password_screen.dart';
+import 'package:book_exchange/presentation/views/screens/profile/my_post.dart';
 import 'package:book_exchange/presentation/views/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -96,6 +97,11 @@ class AppRouter {
       case RoutePaths.addPost:
         return MaterialPageRoute(
           builder: (_) => const AddPostScreen(),
+          settings: settings,
+        );
+      case RoutePaths.myPost:
+        return MaterialPageRoute(
+          builder: (_) => const MyPost(),
           settings: settings,
         );
       default:

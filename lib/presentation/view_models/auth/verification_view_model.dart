@@ -11,17 +11,20 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 class VerificationState {
   bool isLoadingVerification = false;
-
+  String code;
   VerificationState({
     this.isLoadingVerification = false,
+    this.code = "",
   });
 
   VerificationState copy({
     bool? isLoadingVerification,
+    String? code,
   }) =>
       VerificationState(
         isLoadingVerification:
             isLoadingVerification ?? this.isLoadingVerification,
+        code: code ?? this.code,
       );
 }
 
@@ -33,6 +36,7 @@ class VerificationNotifier extends StateNotifier<VerificationState> {
   ) : super(
           VerificationState(
             isLoadingVerification: false,
+            code: "",
           ),
         );
 
@@ -46,8 +50,14 @@ class VerificationNotifier extends StateNotifier<VerificationState> {
     state = newState;
   }
 
+  void setCode(String code) {
+    final newState = state.copy(code: code);
+    state = newState;
+  }
+
   verifyUser(BuildContext context, String code) {
     setLoadingVerification();
+    setCode(code);
     _registrationUserUseCase
         .verifyRegistrationUser(BookAppModel.userRegistrationId, code)
         .then(

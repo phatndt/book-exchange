@@ -1,6 +1,9 @@
+import 'package:book_exchange/core/route_paths.dart';
 import 'package:book_exchange/presentation/views/screens/home/library/add_book.dart';
 import 'package:book_exchange/presentation/views/screens/home/library/book_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 
@@ -18,30 +21,54 @@ class CollectionScreen extends ConsumerWidget {
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(builder: (context) => const AddBookScreen()),
+              RoutePaths.addBook,
             );
-            // showDialog(
-            //   context: context,
-            //   builder: (builder) => AddBookWidget(),
-            // );
           },
           child: const Icon(Icons.add),
         ),
         backgroundColor: S.colors.white,
         body: Column(
-          // physics: const NeverScrollableScrollPhysics(),
           children: [
             SizedBox(
               height: S.size.length_20Vertical,
             ),
-            Center(
-              child: Text(
-                'YOUR BOOKS',
-                style: S.textStyles.collection.bigTitleWithOrange,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: S.size.length_20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ToggleButtons(
+                    constraints: BoxConstraints(
+                      minWidth: ScreenUtil().scaleWidth * 120,
+                      minHeight: ScreenUtil().scaleHeight * 40,
+                    ),
+                    children: const [Text("Collection"), Text("Share")],
+                    isSelected: const [true, false],
+                    onPressed: (index) {},
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  ),
+                  Card(
+                    shape: const CircleBorder(),
+                    child: IconButton(
+                      icon: const Icon(
+                        FontAwesomeIcons.searchengin,
+                      ),
+                      highlightColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                      onPressed: () {},
+                    ),
+                  )
+                ],
               ),
             ),
+            // Center(
+            //   child: Text(
+            //     'YOUR BOOKS',
+            //     style: S.textStyles.collection.bigTitleWithOrange,
+            //   ),
+            // ),
             SizedBox(
               height: S.size.length_20Vertical,
             ),
@@ -103,12 +130,10 @@ class CollectionScreen extends ConsumerWidget {
                           },
                         );
                       },
-                      error: (error, stack) => Center(
-                        child: Center(
-                          child: Lottie.network(
-                              'https://assets9.lottiefiles.com/packages/lf20_hXHdlx.json'),
-                        ),
-                      ),
+                      error: (error, stack) {
+                        return Center(
+                            child: Lottie.asset('assets/images/error.json'));
+                      },
                       loading: () => const Center(
                         child: CircularProgressIndicator(),
                       ),
