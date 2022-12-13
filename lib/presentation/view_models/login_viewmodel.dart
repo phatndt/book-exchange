@@ -1,6 +1,6 @@
-
 import 'package:book_exchange/core/extension/function_extension.dart';
 import 'package:book_exchange/core/route_paths.dart';
+import 'package:book_exchange/presentation/di/app_provider.dart';
 import 'package:book_exchange/presentation/di/profile_component.dart';
 import 'package:book_exchange/presentation/models/book_app_model.dart';
 import 'package:flutter/material.dart';
@@ -95,6 +95,7 @@ class LoginSettingNotifier extends StateNotifier<LoginSetting> {
               ref
                   .watch(profileNotifierProvider.notifier)
                   .setAvatarPath(BookAppModel.user.image);
+              ref.watch(mainAppNotifierProvider).user = value.data.user;
             },
             () => {
               showTopSnackBar(

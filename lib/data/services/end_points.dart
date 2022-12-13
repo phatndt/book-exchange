@@ -44,6 +44,8 @@ class Endpoints {
 
   static const String getAllPost = '/post/read/list';
 
+  static const String getMyPost = '/post/read/user';
+
   //contribution book
   static const String uploadContributionBook = '/contributionBook/create';
 

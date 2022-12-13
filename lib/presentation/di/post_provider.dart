@@ -12,7 +12,11 @@ import 'package:book_exchange/presentation/models/book_app_model.dart';
 import 'package:book_exchange/presentation/view_models/post/add_post_view_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../domain/entities/api_response.dart';
 import '../../domain/entities/combination_post.dart';
+import '../../domain/entities/post.dart';
+import '../../domain/use_cases/post/get_my_post_use_case.dart';
+import '../../domain/use_cases/post/get_my_post_use_case_impl.dart';
 
 final postService = Provider<PostService>(
   (ref) => PostService(),
@@ -76,5 +80,19 @@ final getAllPostFutureProvider =
       );
     }
     return combinationPost;
+  }),
+);
+
+final getMyPostUseCase = Provider<GetMyPostUseCase>(
+  (ref) => GetMyPostUseCaseImpl(
+    ref.watch(postRepo),
+  ),
+);
+
+final getMyPostFutureProvider =
+    FutureProvider.family.autoDispose<ApiResponse<List<Post>>, GetMyPostUseCase>(
+  ((ref, getMyPostPostUseCase)  {
+     return getMyPostPostUseCase.getMyPost(BookAppModel.jwtToken);
+
   }),
 );
