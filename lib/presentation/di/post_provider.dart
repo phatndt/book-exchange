@@ -3,6 +3,7 @@ import 'package:book_exchange/data/services/post_service.dart';
 import 'package:book_exchange/domain/repository/post_repo.dart';
 import 'package:book_exchange/domain/use_cases/post/add_post_use_case.dart';
 import 'package:book_exchange/domain/use_cases/post/add_post_use_case_impl.dart';
+import 'package:book_exchange/domain/use_cases/post/delete_post_use_case.dart';
 import 'package:book_exchange/domain/use_cases/post/get_all_post_use_case.dart';
 import 'package:book_exchange/domain/use_cases/post/get_all_post_use_case_impl.dart';
 import 'package:book_exchange/domain/use_cases/post/get_user_by_user_id.dart';
@@ -10,11 +11,14 @@ import 'package:book_exchange/domain/use_cases/post/get_user_by_user_id_impl.dar
 import 'package:book_exchange/presentation/di/book_component.dart';
 import 'package:book_exchange/presentation/models/book_app_model.dart';
 import 'package:book_exchange/presentation/view_models/post/add_post_view_model.dart';
+import 'package:book_exchange/presentation/view_models/post/delete_post_view_model.dart';
+import 'package:book_exchange/presentation/views/screens/profile/edit_post.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/entities/api_response.dart';
 import '../../domain/entities/combination_post.dart';
 import '../../domain/entities/post.dart';
+import '../../domain/use_cases/post/delete_post_use_case_impl.dart';
 import '../../domain/use_cases/post/get_my_post_use_case.dart';
 import '../../domain/use_cases/post/get_my_post_use_case_impl.dart';
 
@@ -89,10 +93,24 @@ final getMyPostUseCase = Provider<GetMyPostUseCase>(
   ),
 );
 
-final getMyPostFutureProvider =
-    FutureProvider.family.autoDispose<ApiResponse<List<Post>>, GetMyPostUseCase>(
-  ((ref, getMyPostPostUseCase)  {
-     return getMyPostPostUseCase.getMyPost(BookAppModel.jwtToken);
-
+final getMyPostFutureProvider = FutureProvider.family
+    .autoDispose<ApiResponse<List<Post>>, GetMyPostUseCase>(
+  ((ref, getMyPostPostUseCase) {
+    return getMyPostPostUseCase.getMyPost(BookAppModel.jwtToken);
   }),
 );
+
+final deletePostUseCase = Provider<DeletePostUseCase>(
+  (ref) => DeletePostUseCaseImpl(
+    ref.watch(postRepo),
+  ),
+);
+
+final deletePostStateNotifierProvider =
+    StateNotifierProvider<DeletePostStateNotifier, int>(
+  (ref) => DeletePostStateNotifier(ref, ref.watch(deletePostUseCase)),
+);
+
+final editPostStateNotifierProvider =
+    StateNotifierProvider<EditPostStateNotifier, EditPostState>(
+        (ref) => EditPostStateNotifier(ref));

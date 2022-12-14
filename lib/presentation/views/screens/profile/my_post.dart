@@ -45,7 +45,7 @@ class MyPost extends ConsumerWidget {
                           scrollDirection: Axis.vertical,
                           physics: const AlwaysScrollableScrollPhysics(),
                           itemBuilder: (buildContext, index) {
-                            return InkWell(
+                            return PostItemWidget(
                               onLongPress: () {
                                 showModalBottomSheet(
                                     context: context,
@@ -64,37 +64,40 @@ class MyPost extends ConsumerWidget {
                                             leading: const Icon(Icons.delete),
                                             title: const Text('Delete'),
                                             onTap: () {
-                                              Navigator.pop(context);
+                                              ref
+                                                  .watch(
+                                                      deletePostStateNotifierProvider
+                                                          .notifier)
+                                                  .delelePost(context,
+                                                      data.data[index].id);
                                             },
                                           ),
                                         ],
                                       );
                                     });
                               },
-                              child: PostItemWidget(
-                                combinationPost: CombinationPost(
-                                    id: data.data[index].id,
-                                    content: data.data[index].content,
-                                    createDate: data.data[index].createDate,
-                                    nLikes: data.data[index].nLikes,
-                                    nComments: data.data[index].nComments,
-                                    user: UserPost(
-                                      imageUrl: ref
-                                          .watch(mainAppNotifierProvider)
-                                          .user
-                                          .image,
-                                      username: ref
-                                          .watch(mainAppNotifierProvider)
-                                          .user
-                                          .username,
-                                      userId: ref
-                                          .watch(mainAppNotifierProvider)
-                                          .user
-                                          .id,
-                                    ),
-                                    imageUrl: data.data[index].imageUrl,
-                                    isDeleted: data.data[index].isDeleted),
-                              ),
+                              combinationPost: CombinationPost(
+                                  id: data.data[index].id,
+                                  content: data.data[index].content,
+                                  createDate: data.data[index].createDate,
+                                  nLikes: data.data[index].nLikes,
+                                  nComments: data.data[index].nComments,
+                                  user: UserPost(
+                                    imageUrl: ref
+                                        .watch(mainAppNotifierProvider)
+                                        .user
+                                        .image,
+                                    username: ref
+                                        .watch(mainAppNotifierProvider)
+                                        .user
+                                        .username,
+                                    userId: ref
+                                        .watch(mainAppNotifierProvider)
+                                        .user
+                                        .id,
+                                  ),
+                                  imageUrl: data.data[index].imageUrl,
+                                  isDeleted: data.data[index].isDeleted),
                             );
                           }),
                     );

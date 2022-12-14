@@ -99,4 +99,26 @@ class PostService {
       throw DioExceptions.fromDioError(e);
     }
   }
+
+   Future<ApiResponseDTO<String>> deletePost(token, String postId) async {
+    try {
+      final body = {
+        "postId": postId,
+      };
+      final response = await DioService().dio.post(
+            Endpoints.deletePost,
+            data: body,
+            options: Options(
+              headers: {"Authorization": "Bearer $token"},
+            ),
+          );
+      return ApiResponseDTO<String>(
+        data: response.data['data'],
+        statusCode: response.data['statusCode'],
+        message: response.data['message'],
+      );
+    } on DioError catch (e) {
+      throw DioExceptions.fromDioError(e);
+    }
+  }
 }
