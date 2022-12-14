@@ -171,21 +171,26 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
   }
 
   void scanBarcode(context) async {
+    setLoadingAddBook();
     try {
       final barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.BARCODE);
       if (barcodeScanRes.startsWith("978") ||
           barcodeScanRes.startsWith("979")) {
+        setLoadingAddBook();
         getContributionBookByIsbnBarcode(barcodeScanRes, context);
       } else {
+        setLoadingAddBook();
         getContributionBookByNormalBarcode(barcodeScanRes, context);
       }
     } on PlatformException {
       // return barcodeScanRes = 'Failed to get platform version.';
+      setLoadingAddBook();
     }
   }
 
   void getContributionBookByIsbnBarcode(String barcode, BuildContext context) {
+    setLoadingAddBook();
     _getContributionBookByISBNBarcodeUseCase
         .getContributionBookByISBNBarcode(barcode, BookAppModel.jwtToken)
         .then((value) {
@@ -199,13 +204,16 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
         value.data.author,
         value.data.description,
       );
+      setLoadingAddBook();
     }).catchError((onError) {
       catchOnError(context, onError);
+      setLoadingAddBook();
     });
   }
 
   void getContributionBookByNormalBarcode(
       String barcode, BuildContext context) {
+    setLoadingAddBook();
     _getContributionBookByNormalBarcodeUseCase
         .getContributionBookByNormalBarcode(barcode, BookAppModel.jwtToken)
         .then((value) {
@@ -219,8 +227,10 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
         value.data.author,
         value.data.description,
       );
+      setLoadingAddBook();
     }).catchError((onError) {
       catchOnError(context, onError);
+      setLoadingAddBook();
     });
   }
 

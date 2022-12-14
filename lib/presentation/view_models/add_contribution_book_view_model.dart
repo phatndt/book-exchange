@@ -89,6 +89,7 @@ class AddContributionBookSettingNotifier
   }
 
   void scanIsbnBarcode(BuildContext context) async {
+    setLoadingContributiontBook();
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       final barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
@@ -104,15 +105,18 @@ class AddContributionBookSettingNotifier
           ),
           displayDuration: const Duration(seconds: 2),
         );
+        setLoadingContributiontBook();
       }
     } on PlatformException {
       log("Failed to get platform version.");
+      setLoadingContributiontBook();
       // return barcodeScanRes = 'Failed to get platform version.';
     }
   }
 
   void scanNormalBarcode(BuildContext context) async {
     // Platform messages may fail, so we use a try/catch PlatformException.
+    setLoadingContributiontBook();
     try {
       final barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.BARCODE);
@@ -126,9 +130,11 @@ class AddContributionBookSettingNotifier
           ),
           displayDuration: const Duration(seconds: 2),
         );
+        setLoadingContributiontBook();
       }
     } on PlatformException {
       log("Failed to get platform version.");
+      setLoadingContributiontBook();
       // return barcodeScanRes = 'Failed to get platform version.';
     }
   }
@@ -149,6 +155,7 @@ class AddContributionBookSettingNotifier
   }
 
   void contributeBook(context, ContributionBook contributionBook) async {
+    setLoadingContributiontBook();
     await _uploadContributionBookUseCase
         .uploadContributionBook(contributionBook, BookAppModel.jwtToken)
         .then(
@@ -165,10 +172,11 @@ class AddContributionBookSettingNotifier
           displayDuration: const Duration(seconds: 2),
         );
         clearInput();
+        setLoadingContributiontBook();
       },
     ).catchError((onError) {
-      // setLoadingContributiontBook();
       catchOnError(context, onError);
+      setLoadingContributiontBook();
     });
   }
 }

@@ -33,7 +33,6 @@ class ContributionBookService {
               validateStatus: (status) => true,
             ),
           );
-      log("day la response ------" + response.data['data'].toString());
       return ApiResponseDTO<ContributionBookDTO>(
         data: ContributionBookDTO(
           id: response.data['data'],
