@@ -10,9 +10,13 @@ class PostItemWidget extends StatelessWidget {
   const PostItemWidget({
     Key? key,
     required this.combinationPost,
+    this.onTap,
+    this.onLongPress,
   }) : super(key: key);
 
   final CombinationPost combinationPost;
+  final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
 
   @override
   Widget build(BuildContext context) {
@@ -23,50 +27,55 @@ class PostItemWidget extends StatelessWidget {
           Radius.circular(S.size.length_10),
         ),
       ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: S.size.length_10Vertical,
-          horizontal: S.size.length_10,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            PostTitleWidget(
-              imagePath: combinationPost.user.imageUrl,
-              username: combinationPost.user.username,
-              createDate: DateFormat('dd/MM/yyyy, hh:mm').format(
-                  DateTime.fromMillisecondsSinceEpoch(
-                      int.parse(combinationPost.createDate))),
-              onPressed: () {},
-            ),
-            SizedBox(
-              height: S.size.length_20Vertical,
-            ),
-            Text(
-              combinationPost.content,
-              style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.w400,
+      child: InkWell(
+        onTap: onTap,
+        onLongPress: onLongPress,
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: S.size.length_10Vertical,
+            horizontal: S.size.length_10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              PostTitleWidget(
+                imagePath: combinationPost.user.imageUrl,
+                username: combinationPost.user.username,
+                createDate: DateFormat('dd/MM/yyyy, hh:mm').format(
+                    DateTime.fromMillisecondsSinceEpoch(
+                        int.parse(combinationPost.createDate))),
+                onPressed: () {},
               ),
-            ),
-            SizedBox(
-              height: S.size.length_20Vertical,
-            ),
-            Container(
-              height: 240,
-              decoration: BoxDecoration(
-                color: Colors.amberAccent,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(S.size.length_10),
-                ),
-                image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: NetworkImage(combinationPost.imageUrl),
+              SizedBox(
+                height: S.size.length_20Vertical,
+              ),
+              Text(
+                combinationPost.content,
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
-            ),
-            const PostSpacing(),
-          ],
+              SizedBox(
+                height: S.size.length_20Vertical,
+              ),
+              Container(
+                height: 240,
+                decoration: BoxDecoration(
+                  color: Colors.amberAccent,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(S.size.length_10),
+                  ),
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: NetworkImage(combinationPost.imageUrl),
+                  ),
+                ),
+              ),
+              const PostSpacing(),
+            ],
+          ),
         ),
       ),
     );

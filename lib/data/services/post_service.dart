@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:book_exchange/data/entities/post_dto.dart';
+import 'package:book_exchange/presentation/models/book_app_model.dart';
 import 'package:dio/dio.dart';
 
 import '../../domain/entities/post.dart';
@@ -64,10 +65,55 @@ class PostService {
             options: Options(
               headers: {"Authorization": "Bearer $token"},
             ),
-          );          
+          );
       var list = response.data['data'] as List;
       return ApiResponseDTO<List<UserPostDTO>>(
         data: list.map((e) => UserPostDTO.fromMap(e)).toList(),
+        statusCode: response.data['statusCode'],
+        message: response.data['message'],
+      );
+    } on DioError catch (e) {
+      throw DioExceptions.fromDioError(e);
+    }
+  }
+
+  Future<ApiResponseDTO<List<PostDTO>>> getMyPost(token) async {
+    try {
+      final body = {
+        "userId": BookAppModel.user.id,
+      };
+      final response = await DioService().dio.post(
+            Endpoints.getMyPost,
+            data: body,
+            options: Options(
+              headers: {"Authorization": "Bearer $token"},
+            ),
+          );
+      var list = response.data['data'] as List;
+      return ApiResponseDTO<List<PostDTO>>(
+        data: list.map((e) => PostDTO.fromMap(e)).toList(),
+        statusCode: response.data['statusCode'],
+        message: response.data['message'],
+      );
+    } on DioError catch (e) {
+      throw DioExceptions.fromDioError(e);
+    }
+  }
+
+   Future<ApiResponseDTO<String>> deletePost(token, String postId) async {
+    try {
+      final body = {
+        "postId": postId,
+      };
+      final response = await DioService().dio.post(
+            Endpoints.deletePost,
+            data: body,
+            options: Options(
+              headers: {"Authorization": "Bearer $token"},
+            ),
+          );
+      return ApiResponseDTO<String>(
+        data: response.data['data'],
         statusCode: response.data['statusCode'],
         message: response.data['message'],
       );
