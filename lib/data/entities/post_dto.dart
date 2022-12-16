@@ -6,6 +6,7 @@ class PostDTO {
   final int nComments;
   final String userId;
   final String imageUrl;
+  final String bookId;
   final bool isDeleted;
 
   PostDTO({
@@ -16,6 +17,7 @@ class PostDTO {
     required this.nComments,
     required this.userId,
     required this.imageUrl,
+  required  this.bookId,
     required this.isDeleted,
   });
 
@@ -28,6 +30,7 @@ class PostDTO {
       'nComments': nComments,
       'userId': userId,
       'imageUrl': imageUrl,
+      'bookId': bookId,
       'isDeleted': isDeleted,
     };
   }
@@ -41,6 +44,7 @@ class PostDTO {
       nComments: map['ncomments'],
       userId: map['userId'],
       imageUrl: map['imageUrl'],
+      bookId: map['bookId'],
       isDeleted: map['deleted'],
     );
   }

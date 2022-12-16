@@ -6,6 +6,7 @@ import 'package:book_exchange/domain/use_cases/book/upload_book_use_case_impl.da
 import 'package:book_exchange/presentation/di/book_contribution_component.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../data/services/book_service.dart';
+import '../../domain/entities/book.dart';
 import '../../domain/repository/book_repo.dart';
 import '../../domain/use_cases/book/delete_book_use_case.dart';
 import '../../domain/use_cases/book/edit_book_use_case.dart';
@@ -13,6 +14,7 @@ import '../../domain/use_cases/book/get_list_book_by_id_use_case.dart';
 import '../../domain/use_cases/book/upload_book_use_case.dart';
 import '../../domain/use_cases/upload_image_use_case.dart';
 import '../../domain/use_cases/upload_image_use_case_impl.dart';
+import '../models/book_app_model.dart';
 import '../view_models/add_book_viewmodels.dart';
 import '../view_models/book_detail_viewmodel.dart';
 import '../view_models/collection_viewmodels.dart';

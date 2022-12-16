@@ -21,6 +21,7 @@ class PostService {
         "nComments": post.nComments,
         "userId": post.userId,
         "imageUrl": post.imageUrl,
+        "bookId": post.bookId,
         "isDeleted": post.isDeleted
       };
       final response = await DioService().dio.post(Endpoints.addPost,
@@ -100,7 +101,7 @@ class PostService {
     }
   }
 
-   Future<ApiResponseDTO<String>> deletePost(token, String postId) async {
+  Future<ApiResponseDTO<String>> deletePost(token, String postId) async {
     try {
       final body = {
         "postId": postId,

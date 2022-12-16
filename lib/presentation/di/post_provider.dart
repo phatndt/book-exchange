@@ -40,8 +40,13 @@ final addPostUseCase = Provider<AddPostUseCase>(
 
 final addPostStateNotifierProvider =
     StateNotifierProvider.autoDispose<AddPostNotifier, AddPostState>(
-  (ref) => AddPostNotifier(ref, ref.watch(addPostUseCase),
-      ref.watch(uploadImageToCloudinaryUseCaseProvider)),
+  (ref) => AddPostNotifier(
+    ref,
+    ref.watch(addPostUseCase),
+    ref.watch(uploadImageToCloudinaryUseCaseProvider),
+    ref.watch(getListBookUseCaseProvider),
+    ref.watch(getMyPostUseCase),
+  ),
 );
 
 //get Post

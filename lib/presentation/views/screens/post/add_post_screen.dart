@@ -1,14 +1,17 @@
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:awesome_select/awesome_select.dart';
 import 'package:book_exchange/core/app_bar.dart';
 import 'package:book_exchange/presentation/di/book_component.dart';
 import 'package:book_exchange/presentation/di/post_provider.dart';
 import 'package:book_exchange/presentation/views/widgets/filled_button.dart';
+import 'package:drop_down_list/drop_down_list.dart';
+import 'package:drop_down_list/model/selected_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:select_dialog/select_dialog.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
@@ -79,31 +82,39 @@ class AddPostScreen extends ConsumerWidget {
                       ),
                       const Expanded(child: SizedBox()),
                       TextButton(
-                        onPressed: () {
+                        onPressed: () async {
                           ref
-                              .watch(getListBookProvider(
-                                  ref.watch(getListBookUseCaseProvider)))
-                              .when(
-                                data: (data) => SelectDialog.showModal<Book>(
-                                  context,
-                                  alwaysShowScrollBar: true,
-                                  label: "Model Example",
-                                  searchBoxDecoration: const InputDecoration(
-                                      hintText: "Example Hint"),
-                                  items: data,
-                                  onChange: (Book selected) {},
-                                ),
-                                error: (error, stack) => showTopSnackBar(
-                                  context,
-                                  const CustomSnackBar.info(
-                                    message: "Fill up the blank space",
-                                  ),
-                                  displayDuration: const Duration(seconds: 1),
-                                ),
-                                loading: () => const CircularProgressIndicator(),
-                              );
+                              .watch(addPostStateNotifierProvider.notifier)
+                              .getListBook(context);
+                          // ref
+                          //     .watch(getListBookProvider(
+                          //         ref.watch(getListBookUseCaseProvider)))
+                          //     .when(
+                          //       data: (data) {
+                          //         List<SelectedListItem> list = data
+                          //             .map((e) => SelectedListItem(
+                          //                   name: e.name + e.author,
+                          //                   value: e.id,
+                          //                 ))
+                          //             .toList();
+                          //       },
+                          //       error: (error, stack) => showTopSnackBar(
+                          //         context,
+                          //         const CustomSnackBar.info(
+                          //           message: "Fill up the blank space",
+                          //         ),
+                          //         displayDuration: const Duration(seconds: 1),
+                          //       ),
+                          //       loading: () =>
+                          //           const CircularProgressIndicator(),
+                          //     );
                         },
-                        child: const Text("Link your book"),
+                        child: Text(ref
+                                .watch(addPostStateNotifierProvider)
+                                .selectedBookId
+                                .isEmpty
+                            ? "Link your book"
+                            : "Linked book"),
                       ),
                     ],
                   ),
@@ -189,3 +200,36 @@ class AddPostScreen extends ConsumerWidget {
     );
   }
 }
+
+List<S2Choice<String>> frameworks = [
+  S2Choice<String>(value: 'ion', title: 'Ionic'),
+  S2Choice<String>(value: 'flu', title: 'Flutter'),
+  S2Choice<String>(value: 'rea', title: 'React Native'),
+];
+
+final List<SelectedListItem> _listOfCities = [
+  SelectedListItem(
+    name: "kTokyo",
+    value: "TYO",
+    isSelected: false,
+  ),
+  SelectedListItem(
+    name: "kNewYork",
+    value: "NY",
+    isSelected: false,
+  ),
+  SelectedListItem(
+    name: "kLondon",
+    value: "LDN",
+    isSelected: false,
+  ),
+  SelectedListItem(name: "kParis"),
+  SelectedListItem(name: "kMadrid"),
+  SelectedListItem(name: "kDubai"),
+  SelectedListItem(name: "kRome"),
+  SelectedListItem(name: "kBarcelona"),
+  SelectedListItem(name: "kCologne"),
+  SelectedListItem(name: "kMonteCarlo"),
+  SelectedListItem(name: "kPuebla"),
+  SelectedListItem(name: "kFlorence"),
+];

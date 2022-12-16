@@ -14,6 +14,7 @@ extension Ext on PostDTO {
       nComments: nComments,
       userId: userId,
       imageUrl: imageUrl,
+      bookId: bookId,
       isDeleted: isDeleted,
     );
   }
