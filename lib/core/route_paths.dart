@@ -20,4 +20,5 @@ class RoutePaths {
   static const post = '/post';
   static const addPost = post + '/add';
   static const myPost = post + '/myPost';
+  static const editPost = post + '/editPost';
 }

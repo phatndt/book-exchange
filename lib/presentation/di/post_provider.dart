@@ -12,7 +12,6 @@ import 'package:book_exchange/presentation/di/book_component.dart';
 import 'package:book_exchange/presentation/models/book_app_model.dart';
 import 'package:book_exchange/presentation/view_models/post/add_post_view_model.dart';
 import 'package:book_exchange/presentation/view_models/post/delete_post_view_model.dart';
-import 'package:book_exchange/presentation/views/screens/profile/edit_post.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/entities/api_response.dart';
@@ -21,6 +20,7 @@ import '../../domain/entities/post.dart';
 import '../../domain/use_cases/post/delete_post_use_case_impl.dart';
 import '../../domain/use_cases/post/get_my_post_use_case.dart';
 import '../../domain/use_cases/post/get_my_post_use_case_impl.dart';
+import '../view_models/post/edit_post_view_model.dart';
 
 final postService = Provider<PostService>(
   (ref) => PostService(),

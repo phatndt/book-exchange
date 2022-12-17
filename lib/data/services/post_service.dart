@@ -122,4 +122,26 @@ class PostService {
       throw DioExceptions.fromDioError(e);
     }
   }
+
+  Future<ApiResponseDTO<PostDTO>> getPostByPostId(token, String postId) async {
+    try {
+      final body = {
+        "postId": postId,
+      };
+      final response = await DioService().dio.post(
+            Endpoints.getPostByPostId,
+            data: body,
+            options: Options(
+              headers: {"Authorization": "Bearer $token"},
+            ),
+          );
+      return ApiResponseDTO<PostDTO>(
+        data: PostDTO.fromMap(response.data['data']),
+        statusCode: response.data['statusCode'],
+        message: response.data['message'],
+      );
+    } on DioError catch (e) {
+      throw DioExceptions.fromDioError(e);
+    }
+  }
 }

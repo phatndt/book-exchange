@@ -1,29 +1,30 @@
 import 'dart:io';
 
-import 'package:book_exchange/core/app_bar.dart';
-import 'package:book_exchange/presentation/di/post_provider.dart';
-import 'package:book_exchange/presentation/views/widgets/filled_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import '../../../../core/app_bar.dart';
 import '../../../../core/colors/colors.dart';
+import '../../../../domain/entities/post.dart';
+import '../../../di/post_provider.dart';
+import '../../widgets/filled_button.dart';
 
-class AddPostScreen extends ConsumerWidget {
-  const AddPostScreen({Key? key}) : super(key: key);
+class EditPostScreen extends ConsumerWidget {
+  const EditPostScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: ModalProgressHUD(
-        inAsyncCall: ref.watch(addPostStateNotifierProvider).isLoadingAddPost,
+        inAsyncCall: ref.watch(editPostStateNotifierProvider).isLoadingAddPost,
         child: Scaffold(
           backgroundColor: S.colors.white,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(S.size.length_50Vertical),
             child: const AppBarImpl(
-              title: 'New post',
+              title: 'Edit post',
             ),
           ),
           body: SingleChildScrollView(
@@ -74,34 +75,12 @@ class AddPostScreen extends ConsumerWidget {
                       const Expanded(child: SizedBox()),
                       TextButton(
                         onPressed: () async {
-                          ref
-                              .watch(addPostStateNotifierProvider.notifier)
-                              .getListBook(context);
                           // ref
-                          //     .watch(getListBookProvider(
-                          //         ref.watch(getListBookUseCaseProvider)))
-                          //     .when(
-                          //       data: (data) {
-                          //         List<SelectedListItem> list = data
-                          //             .map((e) => SelectedListItem(
-                          //                   name: e.name + e.author,
-                          //                   value: e.id,
-                          //                 ))
-                          //             .toList();
-                          //       },
-                          //       error: (error, stack) => showTopSnackBar(
-                          //         context,
-                          //         const CustomSnackBar.info(
-                          //           message: "Fill up the blank space",
-                          //         ),
-                          //         displayDuration: const Duration(seconds: 1),
-                          //       ),
-                          //       loading: () =>
-                          //           const CircularProgressIndicator(),
-                          //     );
+                          //     .watch(addPostStateNotifierProvider.notifier)
+                          //     .getListBook(context);
                         },
                         child: Text(ref
-                                .watch(addPostStateNotifierProvider)
+                                .watch(editPostStateNotifierProvider)
                                 .selectedBookId
                                 .isEmpty
                             ? "Link your book"
@@ -110,7 +89,8 @@ class AddPostScreen extends ConsumerWidget {
                     ],
                   ),
                   TextFormField(
-                    controller: ref.watch(addPostStateNotifierProvider).content,
+                    controller:
+                        ref.watch(editPostStateNotifierProvider).content,
                     maxLength: 1000,
                     decoration: const InputDecoration(border: InputBorder.none),
                     maxLines: null,
@@ -131,7 +111,7 @@ class AddPostScreen extends ConsumerWidget {
                           Radius.circular(S.size.length_8),
                         ),
                         image: ref
-                                    .watch(addPostStateNotifierProvider)
+                                    .watch(editPostStateNotifierProvider)
                                     .image
                                     .path !=
                                 ""
@@ -139,7 +119,7 @@ class AddPostScreen extends ConsumerWidget {
                                 image: FileImage(
                                   File(
                                     ref
-                                        .watch(addPostStateNotifierProvider)
+                                        .watch(editPostStateNotifierProvider)
                                         .image
                                         .path,
                                   ),
@@ -151,11 +131,11 @@ class AddPostScreen extends ConsumerWidget {
                       child: TextButton(
                         onPressed: () {
                           ref
-                              .watch(addPostStateNotifierProvider.notifier)
+                              .watch(editPostStateNotifierProvider.notifier)
                               .showImageSourceActionSheet(context);
                         },
                         child: ref
-                                    .watch(addPostStateNotifierProvider)
+                                    .watch(editPostStateNotifierProvider)
                                     .image
                                     .path ==
                                 ""
@@ -177,9 +157,9 @@ class AddPostScreen extends ConsumerWidget {
                     height: ScreenUtil().screenHeight * 0.08,
                     text: "Post",
                     onPress: () {
-                      ref
-                          .watch(addPostStateNotifierProvider.notifier)
-                          .uploadPost(context);
+                      // ref
+                      //     .watch(editPostStateNotifierProvider.notifier)
+                      //     .uploadPost(context);
                     },
                   ),
                 ],

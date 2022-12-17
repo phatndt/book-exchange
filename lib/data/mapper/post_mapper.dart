@@ -5,7 +5,7 @@ import '../../domain/entities/post.dart';
 import '../../domain/entities/user_post.dart';
 
 extension Ext on PostDTO {
-  Post mapper(Function() action, Function() empty) {
+  Post mapperPost(Function() action, Function() empty) {
     return Post(
       id: id,
       content: content,

@@ -9,4 +9,5 @@ abstract class PostRepo {
       List<String> userId, String token);
   Future<ApiResponse<List<Post>>> getMyPost(String token);
   Future<ApiResponse<String>> deletePost(String token, String postId);
+  Future<ApiResponse<Post>> getPostByPostId(token, String postId);
 }

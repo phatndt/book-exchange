@@ -94,6 +94,16 @@ extension ListPost on ApiResponseDTO<List<PostDTO>> {
   }
 }
 
+extension ApiResponsePost on ApiResponseDTO<PostDTO> {
+  ApiResponse<Post> mapperPost() {
+    return ApiResponse(
+      data: data.mapper(),
+      statusCode: statusCode,
+      message: message,
+    );
+  }
+}
+
 extension ExtUserPost on UserPostDTO {
   UserPost mapperUserPost() {
     return UserPost(

@@ -40,4 +40,11 @@ class PostRepoImpl extends PostRepo {
         .deletePost(token, postId)
         .then((value) => value.mapper());
   }
+
+  @override
+  Future<ApiResponse<Post>> getPostByPostId(token, String postId) {
+    return _postService
+        .getPostByPostId(token, postId)
+        .then((value) => value.mapperPost());
+  }
 }
