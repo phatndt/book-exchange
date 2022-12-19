@@ -84,7 +84,8 @@ class AddBookScreen extends ConsumerWidget {
                           Radius.circular(S.size.length_8),
                         ),
                         image: ref
-                            .watch(addBookSettingNotifierProvider).decorationImage,
+                            .watch(addBookSettingNotifierProvider)
+                            .decorationImage,
                       ),
                       child: TextButton(
                         onPressed: () {
@@ -92,7 +93,11 @@ class AddBookScreen extends ConsumerWidget {
                               .watch(addBookSettingNotifierProvider.notifier)
                               .showImageSourceActionSheet(context);
                         },
-                        child: ref.watch(addBookSettingNotifierProvider).icon,
+                        child: Icon(
+                          FontAwesomeIcons.plus,
+                          size: 40,
+                          color: S.colors.grey,
+                        ),
                       ),
                     ),
                   ),

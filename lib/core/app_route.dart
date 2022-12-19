@@ -11,6 +11,7 @@ import 'package:book_exchange/presentation/views/screens/pre_home/signup.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/splash_screen.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/verification_screen.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/welcome.dart';
+import 'package:book_exchange/presentation/views/screens/profile/change_information.dart';
 import 'package:book_exchange/presentation/views/screens/profile/change_password_screen.dart';
 import 'package:book_exchange/presentation/views/screens/profile/my_post.dart';
 import 'package:book_exchange/presentation/views/screens/profile/profile_screen.dart';
@@ -62,6 +63,11 @@ class AppRouter {
       case RoutePaths.addBook:
         return MaterialPageRoute(
           builder: (_) => const AddBookScreen(),
+          settings: settings,
+        );
+      case RoutePaths.changeInformation:
+        return MaterialPageRoute(
+          builder: (_) => const ChangeInformationScreen(),
           settings: settings,
         );
       // case RoutePaths.contribueBook:

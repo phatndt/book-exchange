@@ -47,6 +47,11 @@ class Endpoints {
   static const String getMyPost = '/post/read/user';
   static const String deletePost = '/post/delete';
 
+  //user
+  static const String changeAvatarPath = '';
+  static const String changeUsername = '';
+  static const String changeAdress = '';
+
   //contribution book
   static const String uploadContributionBook = '/contributionBook/create';
 
