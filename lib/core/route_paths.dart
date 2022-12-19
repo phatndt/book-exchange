@@ -15,6 +15,8 @@ class RoutePaths {
   static const previewBook = home + '/preview_book';
   static const contribueBook = '/contribueBook';
 
+  static const changeInformation = '/change_information';
+
   static const share = '/share';
 
   static const post = '/post';

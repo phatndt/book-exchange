@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import '../entities/api_response_dto.dart';
 import 'dio_exception.dart';
@@ -18,6 +20,71 @@ class ProfileService {
         "newPassword": newPassword
       };
       final response = await DioService().dio.post(Endpoints.changePassword,
+          data: body,
+          options: Options(headers: {"Authorization": "Bearer $token"}));
+      return ApiResponseDTO<String>(
+        data: response.data['data'],
+        statusCode: response.data['statusCode'],
+        message: response.data['message'],
+      );
+    } on DioError catch (e) {
+      throw DioExceptions.fromDioError(e);
+    }
+  }
+
+  Future<ApiResponseDTO<String>> changeAddress(
+    String address,
+    String token,
+  ) async {
+    try {
+      final body = {
+        "address": address,
+      };
+      final response = await DioService().dio.post(Endpoints.changeAdress,
+          data: body,
+          options: Options(headers: {"Authorization": "Bearer $token"}));
+
+      log(body.toString());
+      return ApiResponseDTO<String>(
+        data: response.data['data'],
+        statusCode: response.data['statusCode'],
+        message: response.data['message'],
+      );
+    } on DioError catch (e) {
+      throw DioExceptions.fromDioError(e);
+    }
+  }
+
+  Future<ApiResponseDTO<String>> changeUsername(
+    String username,
+    String token,
+  ) async {
+    try {
+      final body = {
+        "username": username,
+      };
+      final response = await DioService().dio.post(Endpoints.changeUsername,
+          data: body,
+          options: Options(headers: {"Authorization": "Bearer $token"}));
+      return ApiResponseDTO<String>(
+        data: response.data['data'],
+        statusCode: response.data['statusCode'],
+        message: response.data['message'],
+      );
+    } on DioError catch (e) {
+      throw DioExceptions.fromDioError(e);
+    }
+  }
+
+  Future<ApiResponseDTO<String>> changeAvatarPath(
+    String avatarPath,
+    String token,
+  ) async {
+    try {
+      final body = {
+        "image": avatarPath,
+      };
+      final response = await DioService().dio.post(Endpoints.changeAvatarPath,
           data: body,
           options: Options(headers: {"Authorization": "Bearer $token"}));
       return ApiResponseDTO<String>(

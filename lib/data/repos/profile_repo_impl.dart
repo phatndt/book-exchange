@@ -19,4 +19,26 @@ class ProfileRepoImpl extends ProfileRepo {
         .resetPassword(username, oldPassword, newPassword, token)
         .then((value) => ApiStringResponseMapper().transfer(value));
   }
+
+  @override
+  Future<ApiResponse<String>> changeAddress(String address, String token) {
+    return _profileService
+        .changeAddress(address, token)
+        .then((value) => ApiStringResponseMapper().transfer(value));
+  }
+
+  @override
+  Future<ApiResponse<String>> changeAvatarPath(
+      String avatarPath, String token) {
+    return _profileService
+        .changeAvatarPath(avatarPath, token)
+        .then((value) => ApiStringResponseMapper().transfer(value));
+  }
+
+  @override
+  Future<ApiResponse<String>> changeUsername(String username, String token) {
+    return _profileService
+        .changeUsername(username, token)
+        .then((value) => ApiStringResponseMapper().transfer(value));
+  }
 }

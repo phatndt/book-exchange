@@ -67,7 +67,12 @@ class ProfileScreen extends ConsumerWidget {
                     ProfileCard(
                       icon: FontAwesomeIcons.user,
                       name: "Information",
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          RoutePaths.changeInformation,
+                        );
+                      },
                     ),
                     Divider(
                       height: 0.5,
