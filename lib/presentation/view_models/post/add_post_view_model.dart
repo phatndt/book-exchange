@@ -66,6 +66,7 @@ class AddPostNotifier extends StateNotifier<AddPostState> {
   final UploadImageToCloudinaryUseCase _uploadImageToCloudinaryUseCase;
   final GetListBookUseCase _getListBookUseCase;
   final GetMyPostUseCase _getMyPostUseCase;
+
   setIsLoadingAddPost() {
     final newState = state.copy(isLoadingAddPost: !state.isLoadingAddPost);
     state = newState;
@@ -119,7 +120,7 @@ class AddPostNotifier extends StateNotifier<AddPostState> {
   }
 
   bool checkAddPostInput(context) {
-    if (state.content.text.isEmpty || state.image.path.isEmpty) {
+    if (state.content.text.isEmpty || state.image.path.isEmpty || state.selectedBookId.isEmpty) {
       return false;
     } else {
       return true;
@@ -296,4 +297,5 @@ class AddPostNotifier extends StateNotifier<AddPostState> {
       ),
     ).showModal(context);
   }
+
 }

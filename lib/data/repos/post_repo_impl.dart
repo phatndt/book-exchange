@@ -47,4 +47,9 @@ class PostRepoImpl extends PostRepo {
         .getPostByPostId(token, postId)
         .then((value) => value.mapperPost());
   }
+
+  @override
+  Future<ApiResponse<String>> updatePost(Post post, String token) {
+    return _postService.updatePost(post, token).then((value) => value.mapper());
+  }
 }

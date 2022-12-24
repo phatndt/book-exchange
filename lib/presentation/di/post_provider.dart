@@ -8,6 +8,8 @@ import 'package:book_exchange/domain/use_cases/post/get_all_post_use_case.dart';
 import 'package:book_exchange/domain/use_cases/post/get_all_post_use_case_impl.dart';
 import 'package:book_exchange/domain/use_cases/post/get_user_by_user_id.dart';
 import 'package:book_exchange/domain/use_cases/post/get_user_by_user_id_impl.dart';
+import 'package:book_exchange/domain/use_cases/post/update_post_use_case.dart';
+import 'package:book_exchange/domain/use_cases/post/update_post_use_case_impl.dart';
 import 'package:book_exchange/presentation/di/book_component.dart';
 import 'package:book_exchange/presentation/models/book_app_model.dart';
 import 'package:book_exchange/presentation/view_models/post/add_post_view_model.dart';
@@ -116,6 +118,18 @@ final deletePostStateNotifierProvider =
   (ref) => DeletePostStateNotifier(ref, ref.watch(deletePostUseCase)),
 );
 
+final updatePostUseCase = Provider<UpdatePostUseCase>(
+  (ref) => UpdatePostUseCaseImpl(
+    ref.watch(postRepo),
+  ),
+);
+
 final editPostStateNotifierProvider =
-    StateNotifierProvider<EditPostStateNotifier, EditPostState>(
-        (ref) => EditPostStateNotifier(ref));
+    StateNotifierProvider.autoDispose<EditPostStateNotifier, EditPostState>(
+        (ref) => EditPostStateNotifier(
+              ref,
+              ref.watch(updatePostUseCase),
+              ref.watch(uploadImageToCloudinaryUseCaseProvider),
+              ref.watch(getListBookUseCaseProvider),
+              ref.watch(getMyPostUseCase),
+            ));

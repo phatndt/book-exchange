@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:book_exchange/presentation/di/app_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../../../core/app_bar.dart';
@@ -18,13 +20,17 @@ class EditPostScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: ModalProgressHUD(
-        inAsyncCall: ref.watch(editPostStateNotifierProvider).isLoadingAddPost,
+        inAsyncCall: ref.watch(editPostStateNotifierProvider).isLoadingEditPost,
         child: Scaffold(
           backgroundColor: S.colors.white,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(S.size.length_50Vertical),
-            child: const AppBarImpl(
+            child: AppBarImpl(
               title: 'Edit post',
+              onPressed: () {
+                Navigator.pop(context);
+                ref.refresh(editPostStateNotifierProvider);
+              },
             ),
           ),
           body: SingleChildScrollView(
@@ -39,8 +45,8 @@ class EditPostScreen extends ConsumerWidget {
                     children: [
                       CircleAvatar(
                         radius: 28.w,
-                        backgroundImage: const NetworkImage(
-                            "https://cdn.pixabay.com/photo/2012/08/27/14/19/mountains-55067__340.png"),
+                        backgroundImage: NetworkImage(
+                            ref.watch(mainAppNotifierProvider).user.image),
                       ),
                       SizedBox(
                         width: S.size.length_10,
@@ -50,7 +56,7 @@ class EditPostScreen extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "thanhphat219",
+                            ref.watch(mainAppNotifierProvider).user.username,
                             style: TextStyle(
                               fontFamily: 'Lato',
                               color: S.colors.orange,
@@ -62,7 +68,14 @@ class EditPostScreen extends ConsumerWidget {
                             height: 4.h,
                           ),
                           Text(
-                            "21/09/2001",
+                            DateFormat('dd/MM/yyyy').format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                int.parse(ref
+                                    .watch(editPostStateNotifierProvider)
+                                    .post
+                                    .createDate),
+                              ),
+                            ),
                             style: TextStyle(
                               fontFamily: 'Lato',
                               color: S.colors.gray_3,
@@ -75,9 +88,9 @@ class EditPostScreen extends ConsumerWidget {
                       const Expanded(child: SizedBox()),
                       TextButton(
                         onPressed: () async {
-                          // ref
-                          //     .watch(addPostStateNotifierProvider.notifier)
-                          //     .getListBook(context);
+                          ref
+                              .watch(editPostStateNotifierProvider.notifier)
+                              .getListBook(context);
                         },
                         child: Text(ref
                                 .watch(editPostStateNotifierProvider)
@@ -97,6 +110,11 @@ class EditPostScreen extends ConsumerWidget {
                     style: TextStyle(
                       fontSize: 20.sp,
                     ),
+                    onChanged: (value) {
+                      ref
+                          .watch(editPostStateNotifierProvider.notifier)
+                          .isEnableUpdateButton();
+                    },
                   ),
                   SizedBox(
                     height: S.size.length_10Vertical,
@@ -111,10 +129,10 @@ class EditPostScreen extends ConsumerWidget {
                           Radius.circular(S.size.length_8),
                         ),
                         image: ref
-                                    .watch(editPostStateNotifierProvider)
-                                    .image
-                                    .path !=
-                                ""
+                                .watch(editPostStateNotifierProvider)
+                                .image
+                                .path
+                                .isNotEmpty
                             ? DecorationImage(
                                 image: FileImage(
                                   File(
@@ -126,7 +144,12 @@ class EditPostScreen extends ConsumerWidget {
                                 ),
                                 fit: BoxFit.fill,
                               )
-                            : null,
+                            : DecorationImage(
+                                image: NetworkImage(ref
+                                    .watch(editPostStateNotifierProvider)
+                                    .imagePath),
+                                fit: BoxFit.fill,
+                              ),
                       ),
                       child: TextButton(
                         onPressed: () {
@@ -134,11 +157,15 @@ class EditPostScreen extends ConsumerWidget {
                               .watch(editPostStateNotifierProvider.notifier)
                               .showImageSourceActionSheet(context);
                         },
-                        child: ref
+                        child: (ref
                                     .watch(editPostStateNotifierProvider)
                                     .image
-                                    .path ==
-                                ""
+                                    .path
+                                    .isEmpty &&
+                                ref
+                                    .watch(editPostStateNotifierProvider)
+                                    .imagePath
+                                    .isEmpty)
                             ? const Text("Add your image")
                             : const Text(
                                 "Add your image",
@@ -156,11 +183,15 @@ class EditPostScreen extends ConsumerWidget {
                     width: ScreenUtil().screenWidth,
                     height: ScreenUtil().screenHeight * 0.08,
                     text: "Post",
-                    onPress: () {
-                      // ref
-                      //     .watch(editPostStateNotifierProvider.notifier)
-                      //     .uploadPost(context);
-                    },
+                    onPress: ref
+                            .watch(editPostStateNotifierProvider)
+                            .isEnableButton
+                        ? () {
+                            ref
+                                .watch(editPostStateNotifierProvider.notifier)
+                                .receiveEventEditPost(context);
+                          }
+                        : null,
                   ),
                 ],
               ),

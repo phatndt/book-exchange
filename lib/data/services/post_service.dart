@@ -144,4 +144,30 @@ class PostService {
       throw DioExceptions.fromDioError(e);
     }
   }
+
+  Future<ApiResponseDTO<String>> updatePost(Post post, String token) async {
+    try {
+      final body = {
+        "id": post.id,
+        "content": post.content,
+        "createDate": post.createDate,
+        "nLikes": post.nLikes,
+        "nComments": post.nComments,
+        "userId": post.userId,
+        "imageUrl": post.imageUrl,
+        "bookId": post.bookId,
+        "isDeleted": post.isDeleted
+      };
+      final response = await DioService().dio.post(Endpoints.addPost,
+          data: body,
+          options: Options(headers: {"Authorization": "Bearer $token"}));
+      return ApiResponseDTO<String>(
+        data: response.data['data'],
+        statusCode: response.data['statusCode'],
+        message: response.data['message'],
+      );
+    } on DioError catch (e) {
+      throw DioExceptions.fromDioError(e);
+    }
+  }
 }

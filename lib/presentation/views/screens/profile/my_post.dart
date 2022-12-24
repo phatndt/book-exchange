@@ -53,8 +53,9 @@ class MyPost extends ConsumerWidget {
                                         editPostStateNotifierProvider.notifier)
                                     .updateState(
                                       data.data[index].content,
-                                      File(data.data[index].imageUrl),
                                       data.data[index].bookId,
+                                      data.data[index].imageUrl,
+                                      data.data[index],
                                     );
                                 showModalBottomSheet(
                                     context: context,
@@ -66,6 +67,7 @@ class MyPost extends ConsumerWidget {
                                             leading: const Icon(Icons.edit),
                                             title: const Text('Edit'),
                                             onTap: () {
+                                              Navigator.pop(context);
                                               Navigator.pushNamed(
                                                 context,
                                                 RoutePaths.editPost,

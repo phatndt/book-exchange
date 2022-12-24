@@ -13,7 +13,7 @@ class CustomFilledButton extends StatelessWidget {
   final double width;
   final double height;
   final String text;
-  final VoidCallback onPress;
+  final VoidCallback? onPress;
 
   @override
   Widget build(BuildContext context) {
