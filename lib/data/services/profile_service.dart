@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:book_exchange/presentation/models/book_app_model.dart';
 import 'package:dio/dio.dart';
 import '../entities/api_response_dto.dart';
 import 'dio_exception.dart';
@@ -38,6 +39,7 @@ class ProfileService {
   ) async {
     try {
       final body = {
+        "id": BookAppModel.user.id,
         "address": address,
       };
       final response = await DioService().dio.post(Endpoints.changeAdress,
@@ -61,6 +63,7 @@ class ProfileService {
   ) async {
     try {
       final body = {
+        "id": BookAppModel.user.id,
         "username": username,
       };
       final response = await DioService().dio.post(Endpoints.changeUsername,
@@ -82,6 +85,7 @@ class ProfileService {
   ) async {
     try {
       final body = {
+        "id": BookAppModel.user.id,
         "image": avatarPath,
       };
       final response = await DioService().dio.post(Endpoints.changeAvatarPath,
