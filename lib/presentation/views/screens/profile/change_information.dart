@@ -32,11 +32,11 @@ class ChangeInformationScreen extends ConsumerWidget {
                 ref
                     .watch(changeInformationNotifierProvider.notifier)
                     .clearInput();
-                ref
-                    .watch(changeInformationNotifierProvider.notifier)
-                    .updateDecorationImage(DecorationImage(
-                        image: NetworkImage(
-                            ref.watch(profileNotifierProvider).avatarPath)));
+                // ref
+                //     .watch(changeInformationNotifierProvider.notifier)
+                //     .updateDecorationImage(DecorationImage(
+                //         image: NetworkImage(
+                //             ref.watch(profileNotifierProvider).avatarPath)));
                 Navigator.pop(context);
               }),
             ),
