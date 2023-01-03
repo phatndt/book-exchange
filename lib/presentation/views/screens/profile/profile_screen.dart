@@ -121,9 +121,7 @@ class ProfileScreen extends ConsumerWidget {
                           RoutePaths.logIn,
                           (route) => false,
                         );
-                        ref
-                            .watch(mainAppNotifierProvider.notifier)
-                            .resetState();
+                        ref.refresh(mainAppNotifierProvider);
                       },
                     ),
                   ],

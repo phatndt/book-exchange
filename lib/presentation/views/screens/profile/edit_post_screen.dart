@@ -1,29 +1,36 @@
 import 'dart:io';
 
-import 'package:book_exchange/core/app_bar.dart';
-import 'package:book_exchange/presentation/di/post_provider.dart';
-import 'package:book_exchange/presentation/views/widgets/filled_button.dart';
+import 'package:book_exchange/presentation/di/app_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import '../../../../core/app_bar.dart';
 import '../../../../core/colors/colors.dart';
+import '../../../../domain/entities/post.dart';
+import '../../../di/post_provider.dart';
+import '../../widgets/filled_button.dart';
 
-class AddPostScreen extends ConsumerWidget {
-  const AddPostScreen({Key? key}) : super(key: key);
+class EditPostScreen extends ConsumerWidget {
+  const EditPostScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SafeArea(
       child: ModalProgressHUD(
-        inAsyncCall: ref.watch(addPostStateNotifierProvider).isLoadingAddPost,
+        inAsyncCall: ref.watch(editPostStateNotifierProvider).isLoadingEditPost,
         child: Scaffold(
           backgroundColor: S.colors.white,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(S.size.length_50Vertical),
-            child: const AppBarImpl(
-              title: 'New post',
+            child: AppBarImpl(
+              title: 'Edit post',
+              onPressed: () {
+                Navigator.pop(context);
+                ref.refresh(editPostStateNotifierProvider);
+              },
             ),
           ),
           body: SingleChildScrollView(
@@ -38,8 +45,8 @@ class AddPostScreen extends ConsumerWidget {
                     children: [
                       CircleAvatar(
                         radius: 28.w,
-                        backgroundImage: const NetworkImage(
-                            "https://cdn.pixabay.com/photo/2012/08/27/14/19/mountains-55067__340.png"),
+                        backgroundImage: NetworkImage(
+                            ref.watch(mainAppNotifierProvider).user.image),
                       ),
                       SizedBox(
                         width: S.size.length_10,
@@ -49,7 +56,7 @@ class AddPostScreen extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "thanhphat219",
+                            ref.watch(mainAppNotifierProvider).user.username,
                             style: TextStyle(
                               fontFamily: 'Lato',
                               color: S.colors.orange,
@@ -61,7 +68,14 @@ class AddPostScreen extends ConsumerWidget {
                             height: 4.h,
                           ),
                           Text(
-                            "21/09/2001",
+                            DateFormat('dd/MM/yyyy').format(
+                              DateTime.fromMillisecondsSinceEpoch(
+                                int.parse(ref
+                                    .watch(editPostStateNotifierProvider)
+                                    .post
+                                    .createDate),
+                              ),
+                            ),
                             style: TextStyle(
                               fontFamily: 'Lato',
                               color: S.colors.gray_3,
@@ -75,33 +89,11 @@ class AddPostScreen extends ConsumerWidget {
                       TextButton(
                         onPressed: () async {
                           ref
-                              .watch(addPostStateNotifierProvider.notifier)
+                              .watch(editPostStateNotifierProvider.notifier)
                               .getListBook(context);
-                          // ref
-                          //     .watch(getListBookProvider(
-                          //         ref.watch(getListBookUseCaseProvider)))
-                          //     .when(
-                          //       data: (data) {
-                          //         List<SelectedListItem> list = data
-                          //             .map((e) => SelectedListItem(
-                          //                   name: e.name + e.author,
-                          //                   value: e.id,
-                          //                 ))
-                          //             .toList();
-                          //       },
-                          //       error: (error, stack) => showTopSnackBar(
-                          //         context,
-                          //         const CustomSnackBar.info(
-                          //           message: "Fill up the blank space",
-                          //         ),
-                          //         displayDuration: const Duration(seconds: 1),
-                          //       ),
-                          //       loading: () =>
-                          //           const CircularProgressIndicator(),
-                          //     );
                         },
                         child: Text(ref
-                                .watch(addPostStateNotifierProvider)
+                                .watch(editPostStateNotifierProvider)
                                 .selectedBookId
                                 .isEmpty
                             ? "Link your book"
@@ -110,13 +102,19 @@ class AddPostScreen extends ConsumerWidget {
                     ],
                   ),
                   TextFormField(
-                    controller: ref.watch(addPostStateNotifierProvider).content,
+                    controller:
+                        ref.watch(editPostStateNotifierProvider).content,
                     maxLength: 1000,
                     decoration: const InputDecoration(border: InputBorder.none),
                     maxLines: null,
                     style: TextStyle(
                       fontSize: 20.sp,
                     ),
+                    onChanged: (value) {
+                      ref
+                          .watch(editPostStateNotifierProvider.notifier)
+                          .isEnableUpdateButton();
+                    },
                   ),
                   SizedBox(
                     height: S.size.length_10Vertical,
@@ -131,34 +129,43 @@ class AddPostScreen extends ConsumerWidget {
                           Radius.circular(S.size.length_8),
                         ),
                         image: ref
-                                    .watch(addPostStateNotifierProvider)
-                                    .image
-                                    .path !=
-                                ""
+                                .watch(editPostStateNotifierProvider)
+                                .image
+                                .path
+                                .isNotEmpty
                             ? DecorationImage(
                                 image: FileImage(
                                   File(
                                     ref
-                                        .watch(addPostStateNotifierProvider)
+                                        .watch(editPostStateNotifierProvider)
                                         .image
                                         .path,
                                   ),
                                 ),
                                 fit: BoxFit.fill,
                               )
-                            : null,
+                            : DecorationImage(
+                                image: NetworkImage(ref
+                                    .watch(editPostStateNotifierProvider)
+                                    .imagePath),
+                                fit: BoxFit.fill,
+                              ),
                       ),
                       child: TextButton(
                         onPressed: () {
                           ref
-                              .watch(addPostStateNotifierProvider.notifier)
+                              .watch(editPostStateNotifierProvider.notifier)
                               .showImageSourceActionSheet(context);
                         },
-                        child: ref
-                                    .watch(addPostStateNotifierProvider)
+                        child: (ref
+                                    .watch(editPostStateNotifierProvider)
                                     .image
-                                    .path ==
-                                ""
+                                    .path
+                                    .isEmpty &&
+                                ref
+                                    .watch(editPostStateNotifierProvider)
+                                    .imagePath
+                                    .isEmpty)
                             ? const Text("Add your image")
                             : const Text(
                                 "Add your image",
@@ -176,11 +183,15 @@ class AddPostScreen extends ConsumerWidget {
                     width: ScreenUtil().screenWidth,
                     height: ScreenUtil().screenHeight * 0.08,
                     text: "Post",
-                    onPress: () {
-                      ref
-                          .watch(addPostStateNotifierProvider.notifier)
-                          .uploadPost(context);
-                    },
+                    onPress: ref
+                            .watch(editPostStateNotifierProvider)
+                            .isEnableButton
+                        ? () {
+                            ref
+                                .watch(editPostStateNotifierProvider.notifier)
+                                .receiveEventEditPost(context);
+                          }
+                        : null,
                   ),
                 ],
               ),

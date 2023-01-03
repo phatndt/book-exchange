@@ -55,13 +55,15 @@ class PostItemWidget extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w400,
+                  overflow: TextOverflow.ellipsis,
                 ),
+                maxLines: 3,
               ),
               SizedBox(
                 height: S.size.length_20Vertical,
               ),
               Container(
-                height: 240,
+                height: 320.h,
                 decoration: BoxDecoration(
                   color: Colors.amberAccent,
                   borderRadius: BorderRadius.all(
@@ -157,10 +159,10 @@ class PostTitleWidget extends StatelessWidget {
               ],
             ),
           ),
-          GestureDetector(
-            child: const Icon(FontAwesomeIcons.ellipsisVertical),
-            onTap: () {},
-          ),
+          // GestureDetector(
+          //   child: const Icon(FontAwesomeIcons.ellipsisVertical),
+          //   onTap: () {},
+          // ),
         ],
       ),
     );

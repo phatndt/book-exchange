@@ -46,6 +46,7 @@ class Endpoints {
 
   static const String getMyPost = '/post/read/user';
   static const String deletePost = '/post/delete';
+  static const String getPostByPostId = '/post/read/post';
 
   //user
   static const String changeAvatarPath = '';

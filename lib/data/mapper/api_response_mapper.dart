@@ -78,6 +78,7 @@ extension PostMapper on PostDTO {
       nComments: nComments,
       userId: userId,
       imageUrl: imageUrl,
+      bookId: bookId,
       isDeleted: isDeleted,
     );
   }
@@ -87,6 +88,16 @@ extension ListPost on ApiResponseDTO<List<PostDTO>> {
   ApiResponse<List<Post>> mapper() {
     return ApiResponse(
       data: data.map((e) => e.mapper()).toList(),
+      statusCode: statusCode,
+      message: message,
+    );
+  }
+}
+
+extension ApiResponsePost on ApiResponseDTO<PostDTO> {
+  ApiResponse<Post> mapperPost() {
+    return ApiResponse(
+      data: data.mapper(),
       statusCode: statusCode,
       message: message,
     );

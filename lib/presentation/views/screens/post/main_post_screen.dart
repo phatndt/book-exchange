@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:book_exchange/core/route_paths.dart';
 import 'package:book_exchange/presentation/di/post_provider.dart';
 import 'package:book_exchange/presentation/views/widgets/post/post_item.dart';
@@ -72,6 +74,7 @@ class MainPostScreen extends ConsumerWidget {
                               });
                         },
                         error: (error, stack) {
+                          log(error.toString());
                           return Center(
                               child: Lottie.asset('assets/images/error.json'));
                         },
