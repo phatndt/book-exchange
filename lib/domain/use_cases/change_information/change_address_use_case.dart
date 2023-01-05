@@ -4,5 +4,6 @@ abstract class ChangeAdressUseCase {
   Future<ApiResponse<String>> changeAdress(
     String address,
     String token,
+    String id,
   );
 }

@@ -13,11 +13,13 @@ class MainApp {
   int currentIndex;
   Widget navigation;
   User user;
+  BuildContext? context;
   MainApp({
     required this.route,
     required this.currentIndex,
     required this.navigation,
     required this.user,
+    this.context,
   });
 
   MainApp copy({
@@ -25,12 +27,14 @@ class MainApp {
     String? route,
     Widget? navigation,
     User? user,
+    BuildContext? context,
   }) =>
       MainApp(
         route: route ?? this.route,
         currentIndex: currentIndex ?? this.currentIndex,
         navigation: navigation ?? this.navigation,
         user: user ?? this.user,
+        context: context ?? this.context,
       );
 }
 
@@ -62,6 +66,11 @@ class MainAppNotifier extends StateNotifier<MainApp> {
 
   setUser(User user) {
     final newState = state.copy(user: user);
+    state = newState;
+  }
+
+  setBuildContext(BuildContext context) {
+    final newState = state.copy(context: context);
     state = newState;
   }
 

@@ -5,12 +5,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../core/colors/colors.dart';
 
-
 class MainScreen extends ConsumerWidget {
   const MainScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(mainAppNotifierProvider).context = context;
     return SafeArea(
       child: Scaffold(
         body: ref.watch(mainAppNotifierProvider).navigation,

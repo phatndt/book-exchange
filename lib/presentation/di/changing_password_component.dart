@@ -23,19 +23,19 @@ final changingPasswordNotifierProvider =
         ((ref) => ChangingPasswordNotifier(
             ref, ref.watch(changePasswordUserCaseProvider))));
 
-final changeAdressUseCaseProvider = Provider<ChangeAdressUseCaseImpl>(
-    (ref) => ChangeAdressUseCaseImpl(ref.watch(profileRepoProvider)));
+// final changeAdressUseCaseProvider = Provider<ChangeAdressUseCaseImpl>(
+//     (ref) => ChangeAdressUseCaseImpl(ref.watch(profileRepoProvider)));
 
-final changeUsernameUseCaseProvider = Provider<ChangeUsernameUseCaseImpl>(
-    (ref) => ChangeUsernameUseCaseImpl(ref.watch(profileRepoProvider)));
+// final changeUsernameUseCaseProvider = Provider<ChangeUsernameUseCaseImpl>(
+//     (ref) => ChangeUsernameUseCaseImpl(ref.watch(profileRepoProvider)));
 
-final changeAvatarPathUseCaseProvider = Provider<ChangeAvatarPathUseCaseImpl>(
-    (ref) => ChangeAvatarPathUseCaseImpl(ref.watch(profileRepoProvider)));
+// final changeAvatarPathUseCaseProvider = Provider<ChangeAvatarPathUseCaseImpl>(
+//     (ref) => ChangeAvatarPathUseCaseImpl(ref.watch(profileRepoProvider)));
 
-final changeInformationNotifierProvider = StateNotifierProvider<
-        ChangeInformationSettingNotifier, ChangeInformationSetting>(
-    (ref) => ChangeInformationSettingNotifier(
-        ref,
-        ref.watch(changeAdressUseCaseProvider),
-        ref.watch(changeAvatarPathUseCaseProvider),
-        ref.watch(changeUsernameUseCaseProvider)));
+// final changeInformationNotifierProvider = StateNotifierProvider<
+//         ChangeInformationSettingNotifier, ChangeInformationSetting>(
+//     (ref) => ChangeInformationSettingNotifier(
+//         ref,
+//         ref.watch(changeAdressUseCaseProvider),
+//         ref.watch(changeAvatarPathUseCaseProvider),
+//         ref.watch(changeUsernameUseCaseProvider)));

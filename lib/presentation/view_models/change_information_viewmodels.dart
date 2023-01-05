@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:book_exchange/domain/use_cases/change_information/change_address_use_case.dart';
 import 'package:book_exchange/domain/use_cases/change_information/change_avatar_path_use_case.dart';
 import 'package:book_exchange/domain/use_cases/change_information/change_username_use_case.dart';
+import 'package:book_exchange/presentation/di/app_provider.dart';
 import 'package:cloudinary_sdk/cloudinary_sdk.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../core/colors/colors.dart';
 import '../../core/extension/function_extension.dart';
+import '../../domain/use_cases/profile/get_user_use_case.dart';
 import '../models/book_app_model.dart';
 
 class ChangeInformationSetting {
@@ -23,6 +25,7 @@ class ChangeInformationSetting {
   final TextEditingController address;
   XFile avatarPath;
   DecorationImage? decorationImage;
+  String name;
   Icon icon;
   ChangeInformationSetting({
     required this.isLoadingChangeInformation,
@@ -31,6 +34,7 @@ class ChangeInformationSetting {
     required this.avatarPath,
     required this.icon,
     required this.decorationImage,
+    required this.name,
   });
 
   ChangeInformationSetting copy({
@@ -40,6 +44,7 @@ class ChangeInformationSetting {
     Icon? icon,
     DecorationImage? decorationImage,
     TextEditingController? address,
+    String? name,
   }) =>
       ChangeInformationSetting(
         icon: icon ?? this.icon,
@@ -49,14 +54,18 @@ class ChangeInformationSetting {
         avatarPath: avatarPath ?? this.avatarPath,
         isLoadingChangeInformation:
             isLoadingChangeInformation ?? this.isLoadingChangeInformation,
+        name: name ?? this.name,
       );
 }
 
 class ChangeInformationSettingNotifier
     extends StateNotifier<ChangeInformationSetting> {
-  ChangeInformationSettingNotifier(this.ref, this._changeAdressUseCase,
-      this._changeAvatarPathUseCase, this._changeUsernameUseCase)
-      : super(ChangeInformationSetting(
+  ChangeInformationSettingNotifier(
+    this.ref,
+    this._changeAdressUseCase,
+    this._changeUsernameUseCase,
+    this.getUserUseCase,
+  ) : super(ChangeInformationSetting(
           icon: Icon(
             FontAwesomeIcons.plus,
             size: 40,
@@ -64,19 +73,26 @@ class ChangeInformationSettingNotifier
           ),
           decorationImage: null,
           address: TextEditingController(),
-          username: TextEditingController(),
+          username: TextEditingController(
+              text: ref.watch(mainAppNotifierProvider).user.username),
           avatarPath: XFile(''),
           isLoadingChangeInformation: false,
+          name: ref.watch(mainAppNotifierProvider).user.username,
         ));
 
   final Ref ref;
   final ChangeAdressUseCase _changeAdressUseCase;
-  final ChangeAvatarPathUseCase _changeAvatarPathUseCase;
   final ChangeUsernameUseCase _changeUsernameUseCase;
+  final GetUserUseCase getUserUseCase;
 
   void setLoadingChangeInformation() {
     final newState = state.copy(
         isLoadingChangeInformation: !state.isLoadingChangeInformation);
+    state = newState;
+  }
+
+  void setTextUserName(String text) {
+    final newState = state.copy(name: text);
     state = newState;
   }
 
@@ -138,14 +154,14 @@ class ChangeInformationSettingNotifier
     if (state.avatarPath.path == '') {
       setLoadingChangeInformation();
       changeAddress(state.address.text, context);
-      changeUsername(state.username.text, context);
+      //changeUsername(state.username.text, context);
       clearInput();
       setLoadingChangeInformation();
     } else {
       updateImageToCloudinary(context);
       setLoadingChangeInformation();
       changeAddress(state.address.text, context);
-      changeUsername(state.username.text, context);
+      //changeUsername(state.username.text, context);
       changeAvatarPath(state.avatarPath.path, context);
       clearInput();
       setLoadingChangeInformation();
@@ -155,7 +171,11 @@ class ChangeInformationSettingNotifier
   void changeAddress(String address, BuildContext context) {
     setLoadingChangeInformation();
     _changeAdressUseCase
-        .changeAdress(address, BookAppModel.jwtToken)
+        .changeAdress(
+      address,
+      BookAppModel.jwtToken,
+      ref.watch(mainAppNotifierProvider).user.id,
+    )
         .then((value) {
       setLoadingChangeInformation();
     }).catchError((onError) {
@@ -166,9 +186,30 @@ class ChangeInformationSettingNotifier
 
   void changeAvatarPath(String avatarPath, BuildContext context) {
     setLoadingChangeInformation();
-    _changeAvatarPathUseCase
-        .changeAvatarPath(avatarPath, BookAppModel.jwtToken)
+    // _changeAvatarPathUseCase
+    //     .changeAvatarPath(avatarPath, BookAppModel.jwtToken)
+    //     .then((value) {
+    //   setLoadingChangeInformation();
+    // }).catchError((onError) {
+    //   catchOnError(context, onError);
+    //   setLoadingChangeInformation();
+    // });
+  }
+
+  void changeUsername(BuildContext context) {
+    setLoadingChangeInformation();
+    _changeUsernameUseCase
+        .changeUsername(state.name, BookAppModel.jwtToken,
+            ref.watch(mainAppNotifierProvider).user.id)
         .then((value) {
+      showTopSnackBar(
+        context,
+        CustomSnackBar.success(
+          message: value.message,
+        ),
+        displayDuration: const Duration(seconds: 2),
+      );
+      refreshUser(context);
       setLoadingChangeInformation();
     }).catchError((onError) {
       catchOnError(context, onError);
@@ -176,15 +217,20 @@ class ChangeInformationSettingNotifier
     });
   }
 
-  void changeUsername(String username, BuildContext context) {
-    setLoadingChangeInformation();
-    _changeUsernameUseCase
-        .changeUsername(username, BookAppModel.jwtToken)
-        .then((value) {
-      setLoadingChangeInformation();
-    }).catchError((onError) {
+  void refreshUser(BuildContext context) {
+    getUserUseCase
+        .getUser(
+      ref.watch(mainAppNotifierProvider).user.id,
+      BookAppModel.jwtToken,
+    )
+        .then(
+      (value) {
+        log("getUser");
+        ref.watch(mainAppNotifierProvider.notifier).setUser(value.data);
+      },
+    ).catchError((onError) {
+      log(onError);
       catchOnError(context, onError);
-      setLoadingChangeInformation();
     });
   }
 

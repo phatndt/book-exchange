@@ -47,11 +47,12 @@ class Endpoints {
   static const String getMyPost = '/post/read/user';
   static const String deletePost = '/post/delete';
   static const String getPostByPostId = '/post/read/post';
+  static const String getUser = '/authentication/getUser';
 
   //user
-  static const String changeAvatarPath = '';
-  static const String changeUsername = '';
-  static const String changeAdress = '';
+  static const String changeAvatarPath = '/authentication/user/changeAvatarPath';
+  static const String changeUsername = '/authentication/user/changeUsername';
+  static const String changeAdress = '/authentication/user/changeAddress';
 
   //contribution book
   static const String uploadContributionBook = '/contributionBook/create';

@@ -8,7 +8,7 @@ class ChangeAvatarPathUseCaseImpl extends ChangeAvatarPathUseCase {
   ChangeAvatarPathUseCaseImpl(this.profileRepo);
   @override
   Future<ApiResponse<String>> changeAvatarPath(
-      String avatarPath, String token) async {
-    return await profileRepo.changeAvatarPath(avatarPath, token);
+      String avatarPath, String token, String id) {
+    return profileRepo.changeAvatarPath(avatarPath, token, id);
   }
 }

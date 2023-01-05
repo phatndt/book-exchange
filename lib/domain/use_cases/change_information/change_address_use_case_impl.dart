@@ -8,7 +8,7 @@ class ChangeAdressUseCaseImpl extends ChangeAdressUseCase {
 
   ChangeAdressUseCaseImpl(this.profileRepo);
   @override
-  Future<ApiResponse<String>> changeAdress(String address, String token) async {
-    return await profileRepo.changeAddress(address, token);
+  Future<ApiResponse<String>> changeAdress(String address, String token, String id) async {
+    return await profileRepo.changeAddress(address, token, id);
   }
 }

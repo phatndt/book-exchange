@@ -9,7 +9,7 @@ class ChangeUsernameUseCaseImpl extends ChangeUsernameUseCase {
   ChangeUsernameUseCaseImpl(this.profileRepo);
   @override
   Future<ApiResponse<String>> changeUsername(
-      String username, String token) async {
-    return await profileRepo.changeUsername(username, token);
+      String username, String token, String id) async {
+    return await profileRepo.changeUsername(username, token, id);
   }
 }

@@ -93,6 +93,10 @@ dependencies:
   drop_down_list: ^0.0.4
   awesome_select: '5.2.0'
 
+  #map
+  location: '4.4.0'
+  flutter_map: '2.2.0'
+
 dev_dependencies:
   flutter_lints: ^1.0.4
   flutter_test:
