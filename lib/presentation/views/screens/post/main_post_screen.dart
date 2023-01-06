@@ -70,6 +70,18 @@ class MainPostScreen extends ConsumerWidget {
                               itemBuilder: (buildContext, index) {
                                 return PostItemWidget(
                                   combinationPost: data[index],
+                                  onTap: () {
+                                    ref
+                                        .watch(
+                                            postDetailNotifierProvider.notifier)
+                                        .setCombinationPost(
+                                          data[index],
+                                        );
+                                    Navigator.pushNamed(
+                                      context,
+                                      RoutePaths.postDetail,
+                                    );
+                                  },
                                 );
                               });
                         },

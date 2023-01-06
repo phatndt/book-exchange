@@ -63,4 +63,8 @@ class Endpoints {
       '/contributionBook/isbnBarcode';
   static const String getContributionBookByNormalBarcode =
       '/contributionBook/normalBarcode';
+
+  //comment
+  static const String createComment = '/post/comment/create';
+  static const String getCommentByPost = '/post/comment/read/post';
 }

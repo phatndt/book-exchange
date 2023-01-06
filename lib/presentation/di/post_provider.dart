@@ -11,9 +11,12 @@ import 'package:book_exchange/domain/use_cases/post/get_user_by_user_id_impl.dar
 import 'package:book_exchange/domain/use_cases/post/update_post_use_case.dart';
 import 'package:book_exchange/domain/use_cases/post/update_post_use_case_impl.dart';
 import 'package:book_exchange/presentation/di/book_component.dart';
+import 'package:book_exchange/presentation/di/comment_component.dart';
 import 'package:book_exchange/presentation/models/book_app_model.dart';
 import 'package:book_exchange/presentation/view_models/post/add_post_view_model.dart';
 import 'package:book_exchange/presentation/view_models/post/delete_post_view_model.dart';
+import 'package:book_exchange/presentation/view_models/post/post_detail_view_model.dart';
+import 'package:equatable/equatable.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/entities/api_response.dart';
@@ -133,3 +136,11 @@ final editPostStateNotifierProvider =
               ref.watch(getListBookUseCaseProvider),
               ref.watch(getMyPostUseCase),
             ));
+
+final postDetailNotifierProvider =
+    StateNotifierProvider<PostDetailNotifier, PostDetailState>(
+  (ref) => PostDetailNotifier(ref, ref.watch(createCommentUseCase), ref.watch(getCommentByPostUseCase)),
+);
+
+
+

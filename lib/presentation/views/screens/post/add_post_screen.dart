@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:book_exchange/core/app_bar.dart';
+import 'package:book_exchange/presentation/di/app_provider.dart';
 import 'package:book_exchange/presentation/di/post_provider.dart';
 import 'package:book_exchange/presentation/views/widgets/filled_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../../../core/colors/colors.dart';
@@ -38,40 +40,52 @@ class AddPostScreen extends ConsumerWidget {
                     children: [
                       CircleAvatar(
                         radius: 28.w,
-                        backgroundImage: const NetworkImage(
-                            "https://cdn.pixabay.com/photo/2012/08/27/14/19/mountains-55067__340.png"),
+                        backgroundImage: ref
+                                .watch(mainAppNotifierProvider)
+                                .user
+                                .image
+                                .isNotEmpty
+                            ? NetworkImage(
+                                ref.watch(mainAppNotifierProvider).user.image)
+                            : const NetworkImage(
+                                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSegCgK5aWTTuv_K5TPd10DcJxphcBTBct6R170EamgcCOcYs7LGKVy7ybRc-MCwOcHljg&usqp=CAU"),
                       ),
                       SizedBox(
                         width: S.size.length_10,
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "thanhphat219",
-                            style: TextStyle(
-                              fontFamily: 'Lato',
-                              color: S.colors.orange,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w600,
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              ref.watch(mainAppNotifierProvider).user.username,
+                              maxLines: 1,
+                              style: TextStyle(
+                                fontFamily: 'Lato',
+                                color: S.colors.orange,
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w600,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 4.h,
-                          ),
-                          Text(
-                            "21/09/2001",
-                            style: TextStyle(
-                              fontFamily: 'Lato',
-                              color: S.colors.gray_3,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
+                            SizedBox(
+                              height: 4.h,
                             ),
-                          ),
-                        ],
+                            Text(
+                              DateFormat('dd/MM/yyyy, hh:mm').format(
+                                DateTime.now(),
+                              ),
+                              style: TextStyle(
+                                fontFamily: 'Lato',
+                                color: S.colors.gray_3,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      const Expanded(child: SizedBox()),
                       TextButton(
                         onPressed: () async {
                           ref
