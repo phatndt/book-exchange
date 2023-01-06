@@ -27,6 +27,9 @@ class Endpoints {
       "/authentication/verification/getVerificationByUser";
   static const String setVerificationUser =
       "/authentication/user/verification/set";
+  static const String getAllUser =
+      "/authentication/user/getAll";
+      
 
   //can define other
   static const String uploadBook = '/book/create';

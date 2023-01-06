@@ -79,7 +79,7 @@ dependencies:
   #shared_preferences
   shared_preferences: ^2.0.15
   equatable: '2.0.5'
-  
+
   # # For UIs
   # gap: ^2.0.0
   # cupertino_icons: ^1.0.3
@@ -97,6 +97,7 @@ dependencies:
   #map
   location: '4.4.0'
   flutter_map: '2.2.0'
+  latlng: '0.2.0'
 
 dev_dependencies:
   flutter_lints: ^1.0.4

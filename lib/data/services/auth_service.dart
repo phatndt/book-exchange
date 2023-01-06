@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 
 import '../entities/api_response_dto.dart';
 import '../entities/jwt_response_dto.dart';
+import '../entities/user_dto.dart';
 import 'dio_exception.dart';
 import 'dio_service.dart';
 import 'end_points.dart';
