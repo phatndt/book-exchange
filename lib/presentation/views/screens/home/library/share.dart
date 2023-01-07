@@ -1,7 +1,9 @@
 import 'dart:developer';
 
+import 'package:book_exchange/core/route_paths.dart';
 import 'package:book_exchange/presentation/di/app_provider.dart';
 import 'package:book_exchange/presentation/di/map_component.dart';
+import 'package:book_exchange/presentation/view_models/map/chat_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,12 +19,12 @@ class ShareScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final pageController = PageController();
     return Scaffold(
       backgroundColor: Colors.amberAccent,
       body: ref.watch(getAllUserProvider(ref.watch(getAllUserUseCase))).when(
             data: (data) {
               data.data.removeWhere((element) => element.address.isEmpty);
+              log(data.data.length.toString());
               // ref
               //     .watch(mapNotifierProvider.notifier)
               //     .setUserList(data.data);
@@ -120,9 +122,11 @@ class ShareScreen extends ConsumerWidget {
                             ),
                             color: S.colors.white,
                             child: MarkerWidget(
-                              imagePath: item.image,
-                              username: item.username,
-                            ),
+                                imagePath: item.image,
+                                username: item.username,
+                                appUser:
+                                    ref.watch(mainAppNotifierProvider).user.id,
+                                guestUser: item.id),
                           ),
                         );
                       },
@@ -167,17 +171,21 @@ class MapMarker {
   });
 }
 
-class MarkerWidget extends StatelessWidget {
+class MarkerWidget extends ConsumerWidget {
   const MarkerWidget({
     Key? key,
     required this.imagePath,
     required this.username,
+    required this.appUser,
+    required this.guestUser,
   }) : super(key: key);
   final String imagePath;
   final String username;
+  final String appUser;
+  final String guestUser;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -217,8 +225,14 @@ class MarkerWidget extends StatelessWidget {
               width: S.size.length_10,
             ),
             Center(
-                child:
-                    ElevatedButton(onPressed: () {}, child: const Text("Chat")))
+                child: ElevatedButton(
+                    onPressed: () {
+                      ref
+                          .watch(chattingSettingNotifier.notifier)
+                          .createChatting(appUser, guestUser);
+                      Navigator.pushNamed(context, RoutePaths.chatMessage);
+                    },
+                    child: const Text("Chat")))
             // GestureDetector(
             //   child: const Icon(FontAwesomeIcons.ellipsisVertical),
             //   onTap: () {},

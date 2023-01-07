@@ -18,6 +18,8 @@ class RoutePaths {
   static const changeInformation = '/change_information';
 
   static const share = '/share';
+  
+  static const chatMessage = '/chatMessage';
 
   static const post = '/post';
   static const addPost = post + '/add';

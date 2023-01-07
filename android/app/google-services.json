@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "174195241858",
+    "project_id": "da2-uit",
+    "storage_bucket": "da2-uit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:174195241858:android:54c83869b95deac409559b",
+        "android_client_info": {
+          "package_name": "com.example.book_exchange"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "174195241858-3sophebd78dn5f9vn81pf825ccaklhbb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.book_exchange",
+            "certificate_hash": "d88d6bfb2736dc8d59c22ab92e95eb3d107a2655"
+          }
+        },
+        {
+          "client_id": "174195241858-0bgqk0p4f0m5s7pk8l4v3no2jvigtfsj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0cYwNC7Il56z-C6fLPejq52qpp5OWitU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "174195241858-0bgqk0p4f0m5s7pk8l4v3no2jvigtfsj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

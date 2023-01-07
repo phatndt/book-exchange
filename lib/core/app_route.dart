@@ -3,6 +3,7 @@ import 'package:book_exchange/presentation/main_screen.dart';
 import 'package:book_exchange/presentation/views/screens/home/library/add_book.dart';
 import 'package:book_exchange/presentation/views/screens/home/library/collection.dart';
 import 'package:book_exchange/presentation/views/screens/home/library/share.dart';
+import 'package:book_exchange/presentation/views/screens/map/chat_message_screen.dart';
 import 'package:book_exchange/presentation/views/screens/post/add_post_screen.dart';
 import 'package:book_exchange/presentation/views/screens/post/main_post_screen.dart';
 import 'package:book_exchange/presentation/views/screens/post/post_detail.dart';
@@ -120,6 +121,11 @@ class AppRouter {
       case RoutePaths.editPost:
         return MaterialPageRoute(
           builder: (_) => const EditPostScreen(),
+          settings: settings,
+        );
+      case RoutePaths.chatMessage:
+        return MaterialPageRoute(
+          builder: (_) => const ChattingMessageScreen(),
           settings: settings,
         );
       default:

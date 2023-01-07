@@ -33,41 +33,41 @@ class CollectionScreen extends ConsumerWidget {
             SizedBox(
               height: S.size.length_20Vertical,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: S.size.length_20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ToggleButtons(
-                    constraints: BoxConstraints(
-                      minWidth: ScreenUtil().scaleWidth * 120,
-                      minHeight: ScreenUtil().scaleHeight * 40,
-                    ),
-                    children: const [Text("Collection"), Text("Share")],
-                    isSelected: const [true, false],
-                    onPressed: (index) {},
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  ),
-                  Card(
-                    shape: const CircleBorder(),
-                    child: IconButton(
-                      icon: const Icon(
-                        FontAwesomeIcons.searchengin,
-                      ),
-                      highlightColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                      onPressed: () {},
-                    ),
-                  )
-                ],
-              ),
-            ),
-            // Center(
-            //   child: Text(
-            //     'YOUR BOOKS',
-            //     style: S.textStyles.collection.bigTitleWithOrange,
+            // Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: S.size.length_20),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       ToggleButtons(
+            //         constraints: BoxConstraints(
+            //           minWidth: ScreenUtil().scaleWidth * 120,
+            //           minHeight: ScreenUtil().scaleHeight * 40,
+            //         ),
+            //         children: const [Text("Collection"), Text("Share")],
+            //         isSelected: const [true, false],
+            //         onPressed: (index) {},
+            //         borderRadius: const BorderRadius.all(Radius.circular(20)),
+            //       ),
+            //       Card(
+            //         shape: const CircleBorder(),
+            //         child: IconButton(
+            //           icon: const Icon(
+            //             FontAwesomeIcons.searchengin,
+            //           ),
+            //           highlightColor: Colors.transparent,
+            //           splashColor: Colors.transparent,
+            //           onPressed: () {},
+            //         ),
+            //       )
+            //     ],
             //   ),
             // ),
+            Center(
+              child: Text(
+                'YOUR BOOKS',
+                style: S.textStyles.collection.bigTitleWithOrange,
+              ),
+            ),
             SizedBox(
               height: S.size.length_20Vertical,
             ),
