@@ -119,7 +119,7 @@ class LoginScreen extends ConsumerWidget {
                         //   context,
                         //   RoutePaths.forgot,
                         // );
-                        Navigator.pushNamed(context, RoutePaths.verifyEmail);
+                        Navigator.pushNamed(context, RoutePaths.forgot);
                       },
                       child: Center(
                         child: Text(

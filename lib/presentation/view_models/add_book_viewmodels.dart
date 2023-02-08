@@ -293,7 +293,7 @@ class AddBookSettingNotifier extends StateNotifier<AddBookSetting> {
         ref.refresh(getListBookProvider(ref.watch(getListBookUseCaseProvider)));
         showTopSnackBar(
           context,
-          CustomSnackBar.error(
+          CustomSnackBar.success(
             message: value.message,
           ),
           displayDuration: const Duration(seconds: 2),

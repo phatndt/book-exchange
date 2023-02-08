@@ -1,5 +1,6 @@
-import 'dart:developer';
+import 'dart:io';
 
+import 'package:book_exchange/core/route_paths.dart';
 import 'package:book_exchange/domain/entities/combination_post.dart';
 import 'package:book_exchange/domain/entities/user_post.dart';
 import 'package:book_exchange/presentation/di/app_provider.dart';
@@ -47,6 +48,15 @@ class MyPost extends ConsumerWidget {
                           itemBuilder: (buildContext, index) {
                             return PostItemWidget(
                               onLongPress: () {
+                                ref
+                                    .watch(
+                                        editPostStateNotifierProvider.notifier)
+                                    .updateState(
+                                      data.data[index].content,
+                                      data.data[index].bookId,
+                                      data.data[index].imageUrl,
+                                      data.data[index],
+                                    );
                                 showModalBottomSheet(
                                     context: context,
                                     builder: (context) {
@@ -58,6 +68,10 @@ class MyPost extends ConsumerWidget {
                                             title: const Text('Edit'),
                                             onTap: () {
                                               Navigator.pop(context);
+                                              Navigator.pushNamed(
+                                                context,
+                                                RoutePaths.editPost,
+                                              );
                                             },
                                           ),
                                           ListTile(

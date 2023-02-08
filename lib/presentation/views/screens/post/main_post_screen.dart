@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:book_exchange/core/route_paths.dart';
 import 'package:book_exchange/presentation/di/post_provider.dart';
 import 'package:book_exchange/presentation/views/widgets/post/post_item.dart';
@@ -68,10 +70,23 @@ class MainPostScreen extends ConsumerWidget {
                               itemBuilder: (buildContext, index) {
                                 return PostItemWidget(
                                   combinationPost: data[index],
+                                  onTap: () {
+                                    ref
+                                        .watch(
+                                            postDetailNotifierProvider.notifier)
+                                        .setCombinationPost(
+                                          data[index],
+                                        );
+                                    Navigator.pushNamed(
+                                      context,
+                                      RoutePaths.postDetail,
+                                    );
+                                  },
                                 );
                               });
                         },
                         error: (error, stack) {
+                          log(error.toString());
                           return Center(
                               child: Lottie.asset('assets/images/error.json'));
                         },

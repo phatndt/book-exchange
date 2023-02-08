@@ -55,13 +55,15 @@ class PostItemWidget extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w400,
+                  overflow: TextOverflow.ellipsis,
                 ),
+                maxLines: 3,
               ),
               SizedBox(
                 height: S.size.length_20Vertical,
               ),
               Container(
-                height: 240,
+                height: 320.h,
                 decoration: BoxDecoration(
                   color: Colors.amberAccent,
                   borderRadius: BorderRadius.all(
@@ -124,7 +126,10 @@ class PostTitleWidget extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 32.w,
-            backgroundImage: NetworkImage(imagePath),
+            backgroundImage: imagePath.isNotEmpty
+                ? NetworkImage(imagePath)
+                : const NetworkImage(
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSegCgK5aWTTuv_K5TPd10DcJxphcBTBct6R170EamgcCOcYs7LGKVy7ybRc-MCwOcHljg&usqp=CAU"),
           ),
           SizedBox(
             width: S.size.length_10,
@@ -135,11 +140,13 @@ class PostTitleWidget extends StatelessWidget {
               children: [
                 Text(
                   username,
+                  maxLines: 1,
                   style: TextStyle(
                     fontFamily: 'Lato',
                     color: S.colors.orange,
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w600,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 SizedBox(
@@ -147,20 +154,22 @@ class PostTitleWidget extends StatelessWidget {
                 ),
                 Text(
                   createDate,
+                  maxLines: 1,
                   style: TextStyle(
                     fontFamily: 'Lato',
                     color: S.colors.gray_3,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],
             ),
           ),
-          GestureDetector(
-            child: const Icon(FontAwesomeIcons.ellipsisVertical),
-            onTap: () {},
-          ),
+          // GestureDetector(
+          //   child: const Icon(FontAwesomeIcons.ellipsisVertical),
+          //   onTap: () {},
+          // ),
         ],
       ),
     );

@@ -40,12 +40,14 @@ class ProfileScreen extends ConsumerWidget {
                   right: S.size.length_20,
                   left: S.size.length_20,
                   child: ProfileWidget(
-                    imagePath: ref.watch(profileNotifierProvider).avatarPath,
+                    imagePath: ref.watch(mainAppNotifierProvider).user.image,
                     onPressed: () {
-                      log("1");
+                      ref
+                          .watch(profileNotifierProvider.notifier)
+                          .showImageSourceActionSheet(context);
                     },
-                    username: "thanhphat219",
-                    email: "phatndt2109@gmail.com",
+                    username: ref.watch(mainAppNotifierProvider).user.username,
+                    email: ref.watch(mainAppNotifierProvider).user.email,
                   ),
                 ),
               ],
@@ -67,7 +69,12 @@ class ProfileScreen extends ConsumerWidget {
                     ProfileCard(
                       icon: FontAwesomeIcons.user,
                       name: "Information",
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          RoutePaths.changeInformation,
+                        );
+                      },
                     ),
                     Divider(
                       height: 0.5,
@@ -87,7 +94,11 @@ class ProfileScreen extends ConsumerWidget {
                     ProfileCard(
                       icon: FontAwesomeIcons.locationDot,
                       name: "Location",
-                      onTap: () {},
+                      onTap: () {
+                        ref
+                            .watch(profileNotifierProvider.notifier)
+                            .handleAddress(context);
+                      },
                     ),
                     Divider(
                       height: 0.5,
@@ -116,9 +127,7 @@ class ProfileScreen extends ConsumerWidget {
                           RoutePaths.logIn,
                           (route) => false,
                         );
-                        ref
-                            .watch(mainAppNotifierProvider.notifier)
-                            .resetState();
+                        ref.refresh(mainAppNotifierProvider);
                       },
                     ),
                   ],
@@ -226,31 +235,37 @@ class ProfileWidget extends StatelessWidget {
             SizedBox(
               width: S.size.length_20,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "thanhphat219",
-                  style: TextStyle(
-                    fontFamily: 'Lato',
-                    color: S.colors.orange,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    username,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontFamily: 'Lato',
+                      color: S.colors.orange,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: S.size.length_10,
-                ),
-                Text(
-                  "phatndt2109@gmail.com",
-                  style: TextStyle(
-                    fontFamily: 'Lato',
-                    color: S.colors.grey,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+                  SizedBox(
+                    height: S.size.length_10,
                   ),
-                ),
-              ],
+                  Text(
+                    email,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontFamily: 'Lato',
+                      color: S.colors.grey,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
             )
           ],
         ),

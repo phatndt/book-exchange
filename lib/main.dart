@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:book_exchange/core/app_route.dart';
 import 'package:book_exchange/core/route_paths.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,6 +11,7 @@ import 'core/colors/colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
   runApp(const ProviderScope(child: MyApp()));
 }
 

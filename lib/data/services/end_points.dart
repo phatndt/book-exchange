@@ -27,6 +27,9 @@ class Endpoints {
       "/authentication/verification/getVerificationByUser";
   static const String setVerificationUser =
       "/authentication/user/verification/set";
+  static const String getAllUser =
+      "/authentication/user/getAll";
+      
 
   //can define other
   static const String uploadBook = '/book/create';
@@ -46,6 +49,13 @@ class Endpoints {
 
   static const String getMyPost = '/post/read/user';
   static const String deletePost = '/post/delete';
+  static const String getPostByPostId = '/post/read/post';
+  static const String getUser = '/authentication/getUser';
+
+  //user
+  static const String changeAvatarPath = '/authentication/user/changeAvatarPath';
+  static const String changeUsername = '/authentication/user/changeUsername';
+  static const String changeAdress = '/authentication/user/changeAddress';
 
   //contribution book
   static const String uploadContributionBook = '/contributionBook/create';
@@ -56,4 +66,8 @@ class Endpoints {
       '/contributionBook/isbnBarcode';
   static const String getContributionBookByNormalBarcode =
       '/contributionBook/normalBarcode';
+
+  //comment
+  static const String createComment = '/post/comment/create';
+  static const String getCommentByPost = '/post/comment/read/post';
 }

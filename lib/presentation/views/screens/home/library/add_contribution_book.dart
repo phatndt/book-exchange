@@ -112,6 +112,7 @@ class AddContributionBookScreen extends ConsumerWidget {
                       icon: const Icon(FontAwesomeIcons.eraser),
                     ),
                     obscureText: false,
+                    maxLength: 13,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -146,6 +147,7 @@ class AddContributionBookScreen extends ConsumerWidget {
                           .clear,
                       icon: const Icon(FontAwesomeIcons.eraser),
                     ),
+                    maxLength: 13,
                   ),
                   Center(
                     child: CustomFilledButton(

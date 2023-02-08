@@ -3,15 +3,19 @@ import 'package:book_exchange/presentation/main_screen.dart';
 import 'package:book_exchange/presentation/views/screens/home/library/add_book.dart';
 import 'package:book_exchange/presentation/views/screens/home/library/collection.dart';
 import 'package:book_exchange/presentation/views/screens/home/library/share.dart';
+import 'package:book_exchange/presentation/views/screens/map/chat_message_screen.dart';
 import 'package:book_exchange/presentation/views/screens/post/add_post_screen.dart';
 import 'package:book_exchange/presentation/views/screens/post/main_post_screen.dart';
+import 'package:book_exchange/presentation/views/screens/post/post_detail.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/forgot_password.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/login.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/signup.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/splash_screen.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/verification_screen.dart';
 import 'package:book_exchange/presentation/views/screens/pre_home/welcome.dart';
+import 'package:book_exchange/presentation/views/screens/profile/change_information.dart';
 import 'package:book_exchange/presentation/views/screens/profile/change_password_screen.dart';
+import 'package:book_exchange/presentation/views/screens/profile/edit_post_screen.dart';
 import 'package:book_exchange/presentation/views/screens/profile/my_post.dart';
 import 'package:book_exchange/presentation/views/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
@@ -64,6 +68,11 @@ class AppRouter {
           builder: (_) => const AddBookScreen(),
           settings: settings,
         );
+      case RoutePaths.changeInformation:
+        return MaterialPageRoute(
+          builder: (_) => const ChangeInformationScreen(),
+          settings: settings,
+        );
       // case RoutePaths.contribueBook:
       //   return MaterialPageRoute(
       //     builder: (_) => const AddContributionBookScreen(
@@ -94,6 +103,11 @@ class AppRouter {
           builder: (_) => const MainPostScreen(),
           settings: settings,
         );
+      case RoutePaths.postDetail:
+        return MaterialPageRoute(
+          builder: (_) => const PostDetail(),
+          settings: settings,
+        );
       case RoutePaths.addPost:
         return MaterialPageRoute(
           builder: (_) => const AddPostScreen(),
@@ -102,6 +116,16 @@ class AppRouter {
       case RoutePaths.myPost:
         return MaterialPageRoute(
           builder: (_) => const MyPost(),
+          settings: settings,
+        );
+      case RoutePaths.editPost:
+        return MaterialPageRoute(
+          builder: (_) => const EditPostScreen(),
+          settings: settings,
+        );
+      case RoutePaths.chatMessage:
+        return MaterialPageRoute(
+          builder: (_) => const ChattingMessageScreen(),
           settings: settings,
         );
       default:

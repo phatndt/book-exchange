@@ -7,11 +7,13 @@ class AppBarImpl extends StatelessWidget {
     required this.title,
     this.backgroundColor = const Color(0xFFF1654B),
     this.actions,
+    this.onPressed,
   }) : super(key: key);
 
   final String title;
   final Color backgroundColor;
   final List<Widget>? actions;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +21,10 @@ class AppBarImpl extends StatelessWidget {
       backgroundColor: backgroundColor,
       elevation: 1,
       leading: IconButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
+        onPressed: onPressed ??
+            () {
+              Navigator.pop(context);
+            },
         icon: const Icon(FontAwesomeIcons.arrowLeft),
       ),
       actions: actions ??

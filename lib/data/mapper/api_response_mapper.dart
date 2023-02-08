@@ -9,6 +9,7 @@ import 'package:book_exchange/domain/entities/api_response.dart';
 import 'package:book_exchange/domain/entities/jwt_response.dart';
 
 import '../../domain/entities/post.dart';
+import '../../domain/entities/user.dart';
 import '../../domain/entities/user_post.dart';
 import '../entities/user_post_dto.dart';
 
@@ -78,6 +79,7 @@ extension PostMapper on PostDTO {
       nComments: nComments,
       userId: userId,
       imageUrl: imageUrl,
+      bookId: bookId,
       isDeleted: isDeleted,
     );
   }
@@ -87,6 +89,16 @@ extension ListPost on ApiResponseDTO<List<PostDTO>> {
   ApiResponse<List<Post>> mapper() {
     return ApiResponse(
       data: data.map((e) => e.mapper()).toList(),
+      statusCode: statusCode,
+      message: message,
+    );
+  }
+}
+
+extension ApiResponsePost on ApiResponseDTO<PostDTO> {
+  ApiResponse<Post> mapperPost() {
+    return ApiResponse(
+      data: data.mapper(),
       statusCode: statusCode,
       message: message,
     );
@@ -107,6 +119,16 @@ extension MapPostByUser on ApiResponseDTO<List<UserPostDTO>> {
   ApiResponse<List<UserPost>> mapperPostByUser() {
     return ApiResponse(
       data: data.map((e) => e.mapperUserPost()).toList(),
+      statusCode: statusCode,
+      message: message,
+    );
+  }
+}
+
+extension MapToUser on ApiResponseDTO<User> {
+  ApiResponse<User> mapToUser() {
+    return ApiResponse(
+      data: data,
       statusCode: statusCode,
       message: message,
     );
